@@ -12,7 +12,7 @@
                    "kind": "rest",
                    "credentials": {
                        "destination": "openai-aicore-api",
-                       "path": "/v2/inference/deployments/<DEPLOYMENT_ID>"
+                       "path": "/v2/inference/deployments/<DEPLOYMENT_ID>" // enter deployment id here
                    }
                }
            }
@@ -31,7 +31,7 @@
    If all entitlements of your SAP BTP Subaccount are set correctly, you should get the following output at the end of the deployment:
 
    ```console
-   ...
+    ...
     Application "smart-converter-api-srv" staged
     Starting application "smart-converter-api-srv"...
     Application "smart-converter-api-srv" started and available at "your-subaccount-smart-conve70da6a68.cfapps.eu10.hana.ondemand.com"
