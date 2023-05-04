@@ -1,12 +1,6 @@
 # Publish Mobile App
 
-TODO
-
-- explain where it gets published
-- link to publishing
-- app.json
-
-To publish the React Native app on Expo using the Expo CLI, you will need to follow these steps:
+In this section we will publish the React Native app to Expo so that it can be used without running it locally. This also makes it possible to grant access to other users.
 
 ### Prerequisties
 
@@ -21,6 +15,8 @@ The following prerequisites have already been mentioned in the Technical Setup P
   `$ expo login`
 
 ### Configuring the Publishing Parameters
+
+To publish the React Native app on Expo using the Expo CLI, you will need to follow these steps:
 
 1. Set the release channel for your app by adding the following line to the `app.json` file:
 
