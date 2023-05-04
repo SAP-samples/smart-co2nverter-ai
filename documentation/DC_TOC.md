@@ -8,13 +8,13 @@
   - [SAP Business Technology Platform](./01-explore-the-mission/BTP.md)
   - [SAP BTP, Cloud Foundry Runtime](./01-explore-the-mission/cf-runtime.md)
   - [SAP HANA Cloud](./01-explore-the-mission/hana-cloud.md)
+  - [SAP Destination Service](./01-explore-the-mission/destination-service.md)
   - [Get started with Cloud Application Programming](./01-explore-the-mission/cap.md)
   - [Get started with SAP BTP, AI Core & SAP BTP, AI Launchpad](./01-explore-the-mission/ai-core-launchpad.md)
   - [Get started with React Native](./01-explore-the-mission/react-native.md)
   - [ChatGPT and Large Language Models](./01-explore-the-mission/GPT-and-LLMs.md)
   - [Get started with OpenAI Services](./01-explore-the-mission/azure-openai-services.md)
   - [Reference Architecture of an SAP BTP CAP application using GPT Models of OpenAI](https://github.com/SAP/sap-btp-reference-architectures/blob/main/hyperscalers/openai/README.md)
-  - [Other BTP Services: Destination Service, HANA Cloud](./01-explore-the-mission/other-btp-services.md)
 
 - Technical Setup Phase
 
