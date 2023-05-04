@@ -1,4 +1,4 @@
-// step by step
+# Build & Run Mobile App (React Native)
 
 ## prepare: enter metadata
 

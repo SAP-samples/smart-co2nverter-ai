@@ -4,3 +4,5 @@ SAP HANA Cloud provides a single place to access, store, and process all enterp
 
 - [Getting Started with SAP HANA Cloud](https://saphanajourney.com/hana-cloud/learning-article/what-is-sap-hana-cloud/)
 - [SAP Help Portal: Introduction to SAP HANA Cloud](https://help.sap.com/docs/HANA_CLOUD)
+- [How CAP leverages SAP HANA Cloud](https://cap.cloud.sap/docs/guides/databases#get-hana)
+- [Details regarding SAP HANA Cloud on the SAP Discovery Center](https://discovery-center.cloud.sap/serviceCatalog/sap-hana-cloud?region=all)

@@ -30,10 +30,10 @@
 
   - [Kay - Application Architecture](./03-application/01-application-architecture.md)
   - [Data Model and provided Data](./03-application/02-data-model.md)
-  - [Kay - Deploy CAP API to Cloud Foundry](./03-application/03-cap-deployment.md)
+  - [Deploy CAP API to Cloud Foundry](./03-application/03-cap-deployment.md)
   - [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)
   - [Kay - Build & Run Mobile App (React Native)](./03-application/05-run-mobile-app.md)
-  - [Kay - Publish Mobile App](./03-application/06-publish-mobile-app.md)
+  - [Publish Mobile App](./03-application/06-publish-mobile-app.md)
 
 - AI Insights Phase
 
