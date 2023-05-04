@@ -14,13 +14,11 @@
   - [ChatGPT and Large Language Models](./01-explore-the-mission/GPT-and-LLMs.md)
   - [Get started with OpenAI Services](./01-explore-the-mission/azure-openai-services.md)
   - [Reference Architecture of an SAP BTP CAP application using GPT Models of OpenAI](https://github.com/SAP/sap-btp-reference-architectures/blob/main/hyperscalers/openai/README.md)
-  - [Jim - Other BTP Services: Destination Service, HANA Cloud]()
+  - [Other BTP Services: Destination Service, HANA Cloud](./01-explore-the-mission/other-btp-services.md)
 
 - Technical Setup Phase
 
-  - [Jim - Setup a Subaccount on SAP Business Technology Platform]()
-  - [Jim - Setup Cloud Foundry environment]()
-  - [Jim? - Setup SAP HANA Cloud]()
+  - [Setup SAP BTP prerequisites](https://github.com/SAP-samples/successfactors-extension-calculate-employee-seniority/tree/mission/01-SetupSAPBusinessTechnologyPlatform)
   - [Setup Docker Hub account and build & push your Docker Image](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/02-build-push-docker-images.md)
   - [Register general artifacts on SAP BTP, AI Core and inspect in SAP BTP, AI Launchpad](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/03-register-general-artifacts.md)
   - [Deploy the Inference Service on SAP BTP, AI Core as Proxy for Azure OpenAI Services](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/04-setup-deployment-inference-service.md)
