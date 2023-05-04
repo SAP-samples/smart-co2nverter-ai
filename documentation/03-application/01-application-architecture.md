@@ -1,26 +1,16 @@
 ![architecture](./assets/architecture.png)
 
-TODO
+## **Core Application**
 
-## Core Application
-
-- describing the core parts of the smart converter
+The following covers the core parts of the Smart Co2nverter application based on SAP BTP's Cloud Foundry Runtime, including the SAP Cloud Application Programming Model (CAP) backend, SAP HANA Cloud for data storage, a React Native mobile app and the SAP Destination service for resolving connections to external services.
 
 ### SAP BTP, Cloud Foundry Runtime
 
-- runtime where backend (CAP) is deployed on
+SAP BTP, Cloud Foundry Runtime serves for deploying SAP Cloud Application Programming Model (CAP) applications. It offers a scalable and flexible environment for running cloud-native applications, allowing developers to focus on building their applications without worrying about the underlying infrastructure.
 
-### SAP Cloud Application Programming (CAP)
+### SAP Cloud Application Programming Model (CAP)
 
-- remove typo in architecture ("Programm")
-- backend part which connects the dots
-- defines data model (link to next card)
-- calculation of co2 scores
-  - Connect Earth
-- challenges & equivalencies
-  - Connect Earth
-- ai features
-  - via destination service to AI Core/OpenAI Service
+The SAP Cloud Application Programming Model (CAP) serves as the backend of the application and connects various components. It defines the data model and enables features such as calculating CO2 scores based on bank transactions. Additionally, it offers challenges to reduce CO2 footprint and provides equivalencies to compare CO2 footprints. The data related to CO2 scores, challenges, and equivalencies can be delivered via an API provided by Connect Earth, which is connected to the CAP backend through the destination service. AI features are also enabled through the destination service, which connects the CAP backend to AI Core and with that to Azure OpenAI Services.
 
 ### SAP Cloud Identity Service
 
@@ -28,7 +18,7 @@ TODO
 
 ### SAP HANA Cloud
 
-- holds the data...
+SAP HANA Cloud is used to store the data related to transactions, accounts and personal habits, as described in [Data Model and provided Data](./03-application/02-data-model.md).
 
 ### React Native Application
 
@@ -43,7 +33,7 @@ TODO
 - used for development of CAP and deployment
 - easy to use in combination with cloud foundry and btp services
 
-## AI
+## **AI**
 
 - ai parts like suggestions, summarization etc.
 
@@ -59,6 +49,6 @@ TODO
 
 - gpt deployment on azure for enterprise
 
-## Connect Earth
+## **Connect Earth**
 
-- api to get co2 factors, challenges, suggestions and equivalencies
+Connect Earth provides an API called [Connect Insights API (Transaction Emissions)](https://docs.connect.earth/?id=-nbsp-connect-insights-transaction-emissions) which is our recommendation to calculate CO2 footprints including personal habits, providing Challenges and Suggestions to reduce ones footprint and also delivering Equivalencies to throw more light on the personal CO2 footprint.
