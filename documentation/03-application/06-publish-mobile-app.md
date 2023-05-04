@@ -24,22 +24,22 @@ The following prerequisites have already been mentioned in the Technical Setup P
 
 1. Set the release channel for your app by adding the following line to the `app.json` file:
 
-   ```json
+   ```jsonc
    {
-     "expo": {
-       "name": "smart-co2nverter",
-       "slug": "smart-co2nverter",
-       "version": "1.0.0",
-       "releaseChannel": "default",
-       "owner": "<YOUR_EXPO_USERNAME_OR_EXPO_ORG>",
-        "privacy": "hidden", // restricts access to the project page to only the owner and other users that have been granted access: https://docs.expo.dev/versions/latest/config/app/#privacy
-       ...,
-        "extra": {
-            "apiKey": "<YOUR_API_KEY_FOR_CAP>",
-            "baseUrl": "<YOUR_CAP_BASE_URL>",
-            "account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d" //account from the sample data
+        "expo": {
+            "name": "smart-co2nverter",
+            "slug": "smart-co2nverter",
+            "version": "1.0.0",
+            "releaseChannel": "default",
+            "owner": "<YOUR_EXPO_USERNAME_OR_EXPO_ORG>",
+            "privacy": "hidden", // restricts access to the project page to only the owner and other users that have been granted access: https://docs.expo.dev/versions/latest/config/app/#privacy
+            #...,
+            "extra": {
+                "apiKey": "<YOUR_API_KEY_FOR_CAP>",
+                "baseUrl": "<YOUR_CAP_BASE_URL>",
+                "account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d" //account from the sample data
+            }
         }
-     }
    }
    ```
 
@@ -51,7 +51,7 @@ The following prerequisites have already been mentioned in the Technical Setup P
 
    This will upload your app to the Expo server and make it available to users who have the Expo client app installed on their devices. You will get the following output:
 
-   ```
+   ```console
     › Expo SDK: 49.0.0
     › Release channel: default
     › Workflow: Managed
