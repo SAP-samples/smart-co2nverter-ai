@@ -18,7 +18,7 @@ The following prerequisites have already been mentioned in the Technical Setup P
 
 To publish the React Native app on Expo using the Expo CLI, you will need to follow these steps:
 
-1. Enter your <_PARAMETERS_> to the `app.json` file in the `mobile-app/` directory:
+1. Enter your <_PARAMETERS_> to the `app.json` file in the `mobile-app/` directory if you skipped running the React Native app locally:
 
    ```jsonc
    {
