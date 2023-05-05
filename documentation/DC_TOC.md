@@ -30,9 +30,9 @@
 
   - [Application Architecture](./03-application/01-application-architecture.md)
   - [Data Model and provided Data](./03-application/02-data-model.md)
-  - [Prepare CAP Deployment]() // extract from prepare cap deployment
+  - [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)
   - [Deploy CAP API to Cloud Foundry](./03-application/03-cap-deployment.md)
-  - [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md) // extract "attach.../accomplish deployment" from and put after actual deployment
+  - [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)deployment" from and put after actual deployment
   - [Run the Mobile App (React Native)](./03-application/05-run-mobile-app.md)
   - [Publishing the Mobile App](./03-application/06-publish-mobile-app.md)
 

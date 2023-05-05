@@ -1,23 +1,28 @@
 # Deploy CAP API to Cloud Foundry
 
-1. Add the deployment ID of the SAP BTP, AI Core based proxy for Azure OpenAI Services to the related destination in the `package.json` of CAP to the _path_.
+1. Set a custom _API_KEY_ (preferably a string generated on your machine) in your `mta.yaml` which will be used as simple authorization for the React Native app (and as well during testing via an API Platform like Postman setting the _API_KEY_ as header `api-key`).
 
-   ```jsonc
-   {
-       ...
-       "cds": {
-           "requires": {
-               ...
-               "AICoreAzureOpenAIDestination": {
-                   "kind": "rest",
-                   "credentials": {
-                       "destination": "openai-aicore-api",
-                       "path": "/v2/inference/deployments/<DEPLOYMENT_ID>" // enter deployment id here
-                   }
-               }
-           }
-       }
-   }
+   ```yaml
+   ...
+   modules:
+   - name: smart-converter-api-srv
+      type: nodejs
+      path: gen/srv
+      parameters:
+         buildpack: nodejs_buildpack
+      build-parameters:
+         builder: npm-ci
+      provides:
+         - name: srv-api # required by consumers of CAP services (e.g. approuter)
+         properties:
+            srv-url: ${default-url}
+      requires:
+         - name: smart-converter-api-db
+         - name: smart-converter-api-auth
+         - name: smart-converter-aicore-dest
+      properties:
+         API_KEY: <YOUR_API_KEY>
+      ...
    ```
 
 2. Via the [Clound Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) login to your Cloud Foundry space to which you want to deploy the CAP API
