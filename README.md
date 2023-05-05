@@ -1,4 +1,4 @@
-[![REUSE status]()
+[![REUSE status]()]
 
 # Reduce your CO2 footprint using a smart Generative AI application on SAP BTP
 
