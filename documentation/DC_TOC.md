@@ -1,7 +1,7 @@
 ## Table of Contents
 <!-- disco-toc-start -->
 - Explore & Discover
-  - [Jim - Explore the mission](./01-explore-the-mission/explore.md)
+  - [Explore the mission](./01-explore-the-mission/explore.md)
   - [SAP Business Technology Platform](./01-explore-the-mission/BTP.md)
   - [SAP BTP, Cloud Foundry Runtime](./01-explore-the-mission/cf-runtime.md)
   - [SAP HANA Cloud](./01-explore-the-mission/hana-cloud.md)
