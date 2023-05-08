@@ -1,4 +1,4 @@
-[![REUSE status]()]
+[![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/smart-co2nverter-ai)](https://api.reuse.software/info/github.com/SAP-samples/smart-co2nverter-ai)
 
 # Reduce your CO2 footprint using a smart Generative AI application on SAP BTP
 
