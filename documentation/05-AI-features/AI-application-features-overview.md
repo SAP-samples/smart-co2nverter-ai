@@ -314,7 +314,7 @@ XNAME
 
 Now, the placeholders can be uniquely identified and filled with real customer data. All data stays out of AI. The contract number can be handled in same way.
 
-# Categorization of Transactrions
+# Categorization of Transactions
 
 A common approach to structure expenses for users better comprehention is to assign them to disjoint categories which represent typical areas or aspects of our daily life, e.g. food, transportation, health, schooling, insurences.
 
