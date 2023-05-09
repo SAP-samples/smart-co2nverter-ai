@@ -1,11 +1,13 @@
 ## Table of Contents
+
 Basics
 Hands-On
 Important
 Optional
 Prerequisites
 AI
-Mission Completion
+Summary
+
 <!-- disco-toc-start -->
 - Explore & Discover
   - [Explore the mission](./01-explore-the-mission/explore.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
@@ -40,6 +42,6 @@ Mission Completion
   - [Synthetic Data through Generative AI](./04-data-setup/AI-data-setup-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
   - [AI Application Features (OpenAI Services)](./05-AI-features/AI-application-features-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 - Compeletion
-  - [Retrospective](./06-complete/retrospective.md)<!-- dc-card: {"label":  ["Mission Completion"]} dc-card -->
-  - [Outlook](./06-complete/outlook.md)<!-- dc-card: {"label":  ["Mission Completion"]} dc-card -->
+  - [Retrospective](./06-complete/retrospective.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
+  - [Outlook](./06-complete/outlook.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
   <!-- disco-toc-end -->
