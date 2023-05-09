@@ -4,12 +4,12 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "command": "yarn watch",
+      "command": "npm run watch",
       "name": "Debug API",
       "request": "launch",
       "type": "node-terminal",
       "skipFiles": ["<node_internals>/**"],
-      "cwd": "${workspaceFolder}/api"
+      "cwd": "${workspaceFolder}/src/api"
     }
   ]
 }
