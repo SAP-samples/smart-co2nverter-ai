@@ -4,7 +4,7 @@ The SAP Cloud Application Programming Model is a framework of languages, librari
 
 Access the following materials to learn about CAP:
 
-- Start by looking at https://cap.cloud.sap/docs/about/
-- Learn how to get started https://cap.cloud.sap/docs/get-started/
-- Then check out further materials at https://cap.cloud.sap/
-- Read the attached CAP Walkthrough
+- [About CAP](https://cap.cloud.sap/docs/about/)
+- [Learn how to get started](https://cap.cloud.sap/docs/get-started/)
+- [CAP Documentation](https://cap.cloud.sap/)
+- [See CAP Samples](https://cap.cloud.sap/docs/resources/#public-resources)
