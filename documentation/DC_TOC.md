@@ -23,21 +23,24 @@
   - [Expo Go Client & Expo Account](./02-technical-setup/07-expo.md)
   - [Setup Business Application Studio](https://github.com/SAP-samples/successfactors-extension-calculate-employee-seniority/blob/mission/03-ConfigureSAPBusinessApplicationStudio/README.md)
 - Application Deployment
+
   - [Application Architecture](./03-application/01-application-architecture.md)
   - [Data Model and provided Data](./03-application/02-data-model.md)
+  - [Preparatory Steps](./03-application/03-preparatory.md)
   - [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)
-  - [Deploy CAP API to Cloud Foundry](./03-application/04-cap-deployment.md)
+  - [Deploy CAP API to Cloud Foundry](./03-application/05-cap-deployment.md)
   - [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)
-  - [Run the Mobile App (React Native)](./03-application/06-run-mobile-app.md)
-  - [Publishing the Mobile App](./03-application/07-publish-mobile-app.md)
+  - [Run the Mobile App (React Native)](./03-application/07-run-mobile-app.md)
+  - [Publishing the Mobile App](./03-application/08-publish-mobile-app.md)
+
 - AI Insights
 
   - [Synthetic Data through Generative AI](./04-data-setup/AI-data-setup-overview.md)
   - [AI Application Features (OpenAI Services)](./05-AI-features/AI-application-features-overview.md)
 
-- Compelete Phase
+- Compeletion
 
   - [Jim - Retrospective](./06-complete/retrospective.md)
-  - [Jim - Outlook](./06-complete/outlook.md)
+  - [Outlook](./06-complete/outlook.md)
 
   <!-- disco-toc-end -->
