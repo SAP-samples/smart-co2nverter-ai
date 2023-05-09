@@ -6,7 +6,7 @@ In this section, we want to mention some further steps which can need to be gone
 - [Integrate Banking Transactions](#integrate-banking-transactions)
 - [AI Core and OpenAI](./ai-core-openai.md)
 
-# Calculating Emission Factors
+## Calculating Emission Factors
 
 The emission factors are the main basis for calculating the CO2 to the bankong transaction
 
@@ -14,7 +14,7 @@ Connect Earth provides an API called [Connect Insights API (Transaction Emission
 
 Application at hand has sample factors in the data, no connection to ConnectEarch is implemented to make it runnable without partnering.
 
-# Integrate Banking Transactions
+## Integrate Banking Transactions
 
 Your banking system will need to provide the bank transactions or allow access from the Smart Co2nverter application. Here your specific Enterprise Architecture needs to be taken into account. In the following, we are just mentioning some of the relevant questions in this context, their solution will always be customer specific. But of course the solution can be well suppported by BTP and some of their components, e.g. Connectivity, Cloud Integration, DataSphere
 
