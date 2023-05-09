@@ -1,5 +1,4 @@
 ## Table of Contents
-
 Basics
 Hands-On
 Important
@@ -7,9 +6,7 @@ Optional
 Prerequisites
 AI
 Mission Completion
-
 <!-- disco-toc-start -->
-
 - Explore & Discover
   - [Explore the mission](./01-explore-the-mission/explore.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
   - [SAP Business Technology Platform](./01-explore-the-mission/BTP.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
@@ -45,5 +42,4 @@ Mission Completion
 - Compeletion
   - [Retrospective](./06-complete/retrospective.md)<!-- dc-card: {"label":  ["Mission Completion"]} dc-card -->
   - [Outlook](./06-complete/outlook.md)<!-- dc-card: {"label":  ["Mission Completion"]} dc-card -->
-
   <!-- disco-toc-end -->
