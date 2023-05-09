@@ -43,7 +43,7 @@
 
 - Compelete Phase
 
-  - [Jim - Retrospective]()
-  - [Jim - Outlook]()
+  - [Jim - Retrospective](./06-complete/retrospective.md)
+  - [Jim - Outlook](./06-complete/outlook.md)
 
   <!-- disco-toc-end -->
