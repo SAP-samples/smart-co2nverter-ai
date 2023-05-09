@@ -1,9 +1,12 @@
 # Outlook & Further Steps
 
-In this section, we want to mention some further steps which can need to be gone in order to come up with a productive implementation of smart co2nverter. Common for all of those steps is, that SAP organization and SAP BTP with its components can be of great help to execute on them.
+In this section, we want to mention some further steps which need to be performed in order to come up with a productive implementation of smart co2nverter. In common for all of those steps is, that SAP BTP with its components can be of great help to develop, run, and operate them.
 
-- [Emission factors by ConnectEarth](#calculating-emission-factors)
-- [Integrate Banking Transactions](#integrate-banking-transactions)
+- [Outlook \& Further Steps](#outlook--further-steps)
+  - [Emission factors by ConnectEarth](#emission-factors-by-connectearth)
+  - [Integrate Banking Transactions](#integrate-banking-transactions)
+    - [Technical Access Options (not limited to)](#technical-access-options-not-limited-to)
+    - [Architecture Aspects](#architecture-aspects)
 
 ## Emission factors by ConnectEarth
 
