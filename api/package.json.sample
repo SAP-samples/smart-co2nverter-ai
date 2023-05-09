@@ -1,0 +1,78 @@
+{
+    "name": "smart-converter-api",
+    "version": "1.0.0",
+    "description": "A simple CAP project.",
+    "license": "UNLICENSED",
+    "private": true,
+    "dependencies": {
+        "@sap-cloud-sdk/http-client": "^3.1.0",
+        "@sap/cds": ">=6",
+        "@sap/xssec": "^3",
+        "express": "^4",
+        "hdb": "^0.19.0",
+        "moment": "^2.29.4",
+        "passport": "^0",
+        "uuid": "^9.0.0"
+    },
+    "devDependencies": {
+        "@types/express": "^4.17.17",
+        "@types/node": "^18.15.11",
+        "@types/uuid": "^9.0.1",
+        "prettier": "2.8.2",
+        "sqlite3": "^5.1.6"
+    },
+    "scripts": {
+        "start": "cds run",
+        "watch": "cds-ts watch --profile hybrid",
+        "build:cf": "npm run build:cds && npm run build:ts && npm run cleanup:ts",
+        "build:ts": "tsc",
+        "build:cds": "cds build --production",
+        "cleanup:ts": "npx rimraf gen/srv/srv/**/*.ts",
+        "build": "mbt build -p=cf -t=./mta_archives --mtar=carbon.mtar",
+        "deploy": "npm run build && cf deploy mta_archives/carbon.mtar",
+        "cds2types": "cd srv && cds2types --cds ./$npm_config_service.cds --output ./types/entities.ts"
+    },
+    "eslintConfig": {
+        "extends": "eslint:recommended",
+        "env": {
+            "es2020": true,
+            "node": true,
+            "jest": true,
+            "mocha": true
+        },
+        "globals": {
+            "SELECT": true,
+            "INSERT": true,
+            "UPDATE": true,
+            "DELETE": true,
+            "CREATE": true,
+            "DROP": true,
+            "CDL": true,
+            "CQL": true,
+            "CXL": true,
+            "cds": true
+        },
+        "rules": {
+            "no-console": "off",
+            "require-atomic-updates": "off"
+        }
+    },
+    "cds": {
+        "requires": {
+            "db": {
+                "kind": "hana-cloud"
+            },
+            "auth": {
+                "kind": "xsuaa",
+                "restrict_all_services": false
+            },
+            "AICoreAzureOpenAIDestination": {
+                "kind": "rest",
+                "credentials": {
+                    "destination": "openai-aicore-api",
+                    "path": "/v2/inference/deployments/<YOUR_AICORE_DEPLOYMENT_ID>"
+                }
+            }
+        }
+    }
+}

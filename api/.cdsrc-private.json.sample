@@ -1,0 +1,51 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "db": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "",
+          "org": "",
+          "space": "",
+          "instance": "smart-converter-api-db",
+          "key": "",
+          "resolved": false
+        },
+        "kind": "hana",
+        "vcap": {
+          "name": "db"
+        }
+      },
+      "destinations": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "",
+          "org": "",
+          "space": "",
+          "instance": "smart-converter-aicore-dest",
+          "key": "",
+          "resolved": false
+        },
+        "kind": "destinations",
+        "vcap": {
+          "name": "destinations"
+        }
+      },
+      "uaa": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "",
+          "org": "",
+          "space": "",
+          "instance": "smart-converter-api-auth",
+          "key": "",
+          "resolved": false
+        },
+        "kind": "xsuaa",
+        "vcap": {
+          "name": "uaa"
+        }
+      }
+    }
+  }
+}

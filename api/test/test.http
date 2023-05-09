@@ -1,0 +1,30 @@
+### GET AVAILABLE CHALLENGES
+GET http://localhost:4004/converter/Challenges
+content-type: application/json
+api-key: helloworld
+
+### GET ACTIVE CHALLENGES
+GET http://localhost:4004/converter/ChallengesUsers
+content-type: application/json
+api-key: helloworld
+
+### START CHALLENGE
+POST http://localhost:4004/converter/startChallenge
+content-type: application/json
+api-key: helloworld
+
+{"account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d", "challengeId": "572fef3e-b324-45bb-af18-aa2c99877c97"}
+
+### CANCEL CHALLENGE
+POST http://localhost:4004/converter/cancelChallenge
+content-type: application/json
+api-key: helloworld
+
+{ "id": "2ee543e5-c651-4769-aa48-122d94046241" }
+
+### COMPLETE CHALLENGE
+POST http://localhost:4004/converter/completeChallenge
+content-type: application/json
+api-key: helloworld
+
+{ "id": "e52731f6-c3c5-4bfb-a7df-3697b77a7cd2" }

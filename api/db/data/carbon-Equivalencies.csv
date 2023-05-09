@@ -1,0 +1,42 @@
+﻿ID;VEGAN;BUCKET;CO2PERKG;ACTIVITY;DESCRIPTION;IMAGE
+BDB37CE9-17D4-18D8-9D04-2F8243F10D6F;true;XS;0.01;hairdryer;minutes a hairdryer used;equivalency-hairdryer-4046586480.png
+D3D983DE-7214-5DEE-3F2B-433661FA59A9;true;XS;0.02;tea;cups of 250 ml tea drunk;equivalency-tea-244772200.png
+67797E68-8995-8E62-49D3-730429B6164A;true;XS;0.03;watching TV;hours TV watched;equivalency-watching-TV-3241285085.png
+12D9A278-6FCD-5E5A-3CF4-B07FBC180266;true;XS;0.05;tomatoes;portions of 100 g tomatoes eaten;equivalency-tomatoes-1826274789.png
+3448C4A6-09FF-8203-7ADF-6EBCBC2D21BE;true;XS;0.05;vegetables;portions of 100 g cooked vegetables eaten;equivalency-vegetables-1409626769.png
+D4A3CAED-193C-7870-A5BB-18BF6A9245AC;true;XS;0.05;fruits;portions of 100 g fruit eaten;equivalency-fruits-99682261.png
+45D08F38-81BD-1B9F-6F58-A02538B31731;true;XS;0.05;coffee;cups of 250 ml coffee drunk;equivalency-coffee-1707470491.png
+B853F5D7-173A-7F4F-695B-6261A3030339;true;XS;0.05;using computer;hours a desktop computer used;equivalency-using-computer-1936547817.png
+434A4039-09AB-237A-2585-50783D6848FC;true;S;0.07;taking bus;km by bus traveled;equivalency-taking-bus-422414239.png
+911539E1-2D23-6F4C-281C-8BC54EE092FE;true;S;0.07;smoothie;glasses of 250 ml fruit smoothie drunk;equivalency-smoothie-1910476009.png
+D8F1157A-2D18-851F-67C6-AE98D49C0343;true;S;0.08;sparkling water;glasses of 250 ml sparkling water drunk;equivalency-sparkling-water-3956850924.png
+4E8DCCC2-460E-8F16-4DC1-587553E00C71;true;S;0.1;orange juice;glasses of 250 ml orange juice drunk;equivalency-orange-juice-2708105011.png
+7915F161-5711-2D85-04B5-9667A1D35130;true;S;0.1;cooking;minutes a gas stove used;equivalency-cooking-951220066.png
+169CBE16-3C01-74D3-3031-FC31438082B5;true;S;0.11;beer;glasses of 250 ml beer drunk;equivalency-beer-2277616011.png
+EC4B2ECD-49C9-1DE3-4BD8-9DCA8B6E1792;true;S;0.15;legumes;portions of 100 g cooked legumes eaten;equivalency-legumes-2937781441.png
+AEF9AE38-A69C-3B4E-97EC-05B6562B183F;true;S;0.15;oatmeal;portions of 100 g cooked oatmeal eaten;equivalency-oatmeal-3148603445.png
+1BDF1DE5-96EE-A68B-3D16-7B5A4AA90197;false;S;0.15;wine;glasses of 250 ml wine drunk;equivalency-wine-3731658676.png
+5AFAE308-75B1-1B81-092C-A26DAD8C57E9;true;S;0.15;soda;glasses of 250 ml soda drunk;equivalency-soda-1681821482.png
+9C7A800C-9306-15ED-2942-45F43E860D04;true;M;0.2;bread;slices of bread eaten;equivalency-bread-1777423922.png
+CF09F32E-2A8F-82AC-57AD-943F1EBC6F1D;true;M;0.25;almond milk;glasses of 250 ml almond milk drunk;equivalency-almond-milk-1721734316.png
+C3268B7F-A0FF-20A5-823F-1BF2D9042220;true;M;0.25;driving car;km a petrol car driven;equivalency-driving-car-957728031.png
+C92211F4-1816-0662-3560-BF9A52544168;true;M;0.3;pasta;portions of 100 g cooked pasta eaten;equivalency-pasta-1437951252.png
+B2B6AD88-2C27-31FB-971E-0AA5F9F070F3;true;M;0.3;rice;portions of 100 g cooked rice eaten;equivalency-rice-2113768491.png
+F67E6F41-2313-7623-0E9A-EC042BCA5EF3;false;M;0.4;eggs;portions of two cooked eggs eaten;equivalency-eggs-2974400311.png
+3761CFBC-19BB-1E96-84F3-02CC2102828F;false;M;0.5;chicken meat;portions of 100 g chicken eaten;equivalency-chicken-meat-80205454.png
+588E3DEA-0FB0-57AC-53EC-040971106F80;true;M;0.7;nuts;portions of 50 g nuts eaten;equivalency-nuts-1616187345.png
+277BC16A-9B8E-5151-9AC1-EEE0129F3CB1;true;M;0.8;tofu;portions of 100 g tofu eaten;equivalency-tofu-1523646975.png
+463B7A71-47CE-2C60-9CC1-4DC0F12B1F12;false;L;1.0;cheese;portions of 50 g cheese eaten;equivalency-cheese-3327664911.png
+D390ABC9-3F88-96C9-7BE2-34A8D179A4C0;true;L;1.0;LED light bulb;LED light bulbs bought;equivalency-LED-light-bulb-4167987757.png
+02277DBE-873F-2F59-274B-3C540C7249AF;false;L;1.1;fish;portions of 100 g sea fish eaten;equivalency-fish-2405542742.png
+85C25E30-3585-6668-8990-37B0328B0251;false;L;1.2;pork meat;portions of 100 g pork eaten;equivalency-pork-meat-3685728880.png
+0B7B7EE0-08C6-30B2-3C82-FA46F1D73EF3;false;L;2.7;beef meat;portions of 100 g beef eaten;equivalency-beef-meat-321469530.png
+E0601B8D-55A1-4373-7E75-C931B3B076C2;true;L;3.0;reusable bottle;reusable bottles bought;equivalency-reusable-bottle-258431560.png
+99D4DD3F-3724-26F9-6269-1C618620673C;true;L;4.0;t-shirt;cotton t-shirts bought;equivalency-t-shirt-1487824954.png
+8248785A-8F7C-86A2-681D-9079DB454624;true;XL;7.0;electric kettle;electric kettles bought;equivalency-electric-kettle-980264395.png
+4E0E90A1-1545-9660-3C85-AD38C210388C;true;XL;8.0;pair of jeans;pair of jeans bought;equivalency-pair-of-jeans-4195463697.png
+DA619F25-45A2-124B-7C41-FFFB03F66980;true;XL;12.0;pair of sneakers;pair of sneakers bought;equivalency-pair-of-sneakers-923023531.png
+79D79247-5877-4F71-47ED-31AE72D77BBE;true;XL;20.0;backpack;backpacks bought;equivalency-backpack-1213490252.png
+D94ADD97-2927-99A3-A20C-810A8BC9376B;true;XL;70.0;smartphone;smartphones bought;equivalency-smartphone-3933869720.png
+6F023456-8662-5EE4-467E-6EC092A9A671;true;XL;200.0;laptop computer;laptop computers bought;equivalency-laptop-computer-867630199.png
+3ACC40B9-4098-8D33-1E17-102AAE646524;true;XL;225.0;bicycle;bicycles bought;equivalency-bicycle-2885367955.png

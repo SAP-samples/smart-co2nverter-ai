@@ -1,0 +1,38 @@
+{
+    "expo": {
+        "name": "smart-co2nverter",
+        "slug": "smart-co2nverter",
+        "version": "1.0.0",
+        "releaseChannel": "default",
+        "owner": "<YOUR_EXPO_USERNAME_OR_EXPO_ORG>",
+        "orientation": "portrait",
+        "icon": "./src/assets/icon.png",
+        "userInterfaceStyle": "dark",
+        "privacy": "hidden",
+        "splash": {
+            "image": "./src/assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#DEEDFD"
+        },
+        "assetBundlePatterns": [
+            "**/*"
+        ],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./src/assets/adaptive-icon.png",
+                "backgroundColor": "#DEEDFD"
+            }
+        },
+        "web": {
+            "favicon": "./src/assets/favicon.png"
+        },
+        "extra": {
+            "apiKey": "<YOUR_API_KEY_FOR_CAP>",
+            "baseUrl": "<YOUR_CAP_BASE_URL>",
+            "account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d"
+        }
+    }
+}
