@@ -15,7 +15,7 @@
   - [Get started with OpenAI Services](./01-explore-the-mission/azure-openai-services.md)
   - [Reference Architecture of an SAP BTP CAP application using GPT Models of OpenAI](https://github.com/SAP/sap-btp-reference-architectures/blob/main/hyperscalers/openai/README.md)
 - Technical Setup
-  - [Setup SAP BTP prerequisites](https://github.com/SAP-samples/successfactors-extension-calculate-employee-seniority/tree/mission/01-SetupSAPBusinessTechnologyPlatform)
+  - [Setup SAP BTP prerequisites](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/00-prerequisites/01-setup-subaccount-cf-aicore.md)
   - [Setup Docker Hub account and build & push your Docker Image](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/02-build-push-docker-images.md)
   - [Register general artifacts on SAP BTP, AI Core and inspect in SAP BTP, AI Launchpad](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/03-register-general-artifacts.md)
   - [Deploy the Inference Service on SAP BTP, AI Core as Proxy for Azure OpenAI Services](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/04-setup-deployment-inference-service.md)

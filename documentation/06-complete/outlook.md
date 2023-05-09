@@ -5,7 +5,7 @@ In this section, we want to mention some further steps which can need to be gone
 - [Emission factors by ConnectEarth](#calculating-emission-factors)
 - [Integrate Banking Transactions](#integrate-banking-transactions)
 
-## Calculating Emission Factors
+## Emission factors by ConnectEarth
 
 The emission factors are the main basis for calculating the CO2 to the bankong transaction
 
