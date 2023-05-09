@@ -4,7 +4,6 @@ In this section, we want to mention some further steps which can need to be gone
 
 - [Emission factors by ConnectEarth](#calculating-emission-factors)
 - [Integrate Banking Transactions](#integrate-banking-transactions)
-- [AI Core and OpenAI](./ai-core-openai.md)
 
 ## Calculating Emission Factors
 
