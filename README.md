@@ -32,7 +32,6 @@ A mobile app built using the reusable architecture principles of SAP Cloud Appli
 You can find the detailed pre-requisites for running each part of this use case mission in the [Table of Contents](documentation/DC_TOC.md)
 
 <!-- disco-toc-start -->
-
 ### Explore and Discover
 
 - [Explore the mission](./documentation/01-explore-the-mission/explore.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
@@ -77,7 +76,6 @@ You can find the detailed pre-requisites for running each part of this use case 
 
 - [Retrospective](./documentation/06-complete/retrospective.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
 - [Outlook](./documentation/06-complete/outlook.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
-
   <!-- disco-toc-end -->
 
 ## Known Issues
