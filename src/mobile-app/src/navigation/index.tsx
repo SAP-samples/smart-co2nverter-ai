@@ -17,24 +17,33 @@ const AppNavigation = () => {
     const { isLoading } = useContext(AccountContext);
     const { colors } = useTheme();
     const styles = makeStyles(colors);
+
     return (
         <>
-            {isLoading() ? (
+            {isLoading ? (
                 <View style={styles.activityIndicator}>
                     <ActivityIndicator animating={true} size="large" color={colors.primary} />
                 </View>
             ) : (
                 <NavigationContainer>
                     <Tab.Navigator
-                        screenOptions={{
-                            headerShown: false
-                        }}
+                        screenOptions={{ headerShown: false }}
                         tabBar={({ navigation, state, descriptors, insets }) => (
                             <BottomNavigation.Bar
                                 navigationState={state}
                                 safeAreaInsets={{ ...insets, bottom: 8 }}
                                 onTabPress={({ route }) => {
-                                    navigation.navigate(route.name, route.params);
+                                    const currentIndex = navigation.getState().index;
+                                    const nextIndex = state.routeNames.indexOf(route.name);
+                                    let routeName = route.name;
+                                    // override routeName if same tab was pressed and index != 0
+                                    if (
+                                        currentIndex === nextIndex &&
+                                        state.routes[currentIndex].state?.routeNames?.at(0)
+                                    ) {
+                                        routeName = state.routes[currentIndex].state?.routeNames?.at(0) || route.name;
+                                    }
+                                    navigation.navigate(routeName);
                                 }}
                                 renderIcon={({ route, focused, color }) => {
                                     const { options } = descriptors[route.key];

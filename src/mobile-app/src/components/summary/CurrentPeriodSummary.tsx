@@ -25,7 +25,7 @@ const isLast = (current: Moment) => {
 };
 
 const CurrentPeriodSummary = ({ categoryId, style: customStyle = {} }: { categoryId?: string; style?: any }) => {
-    const { getConsideredMonth, setConsideredMonth, monthlySummary, getCategoryById } = useContext(AccountContext);
+    const { getConsideredMonth, setConsideredMonth, monthlySummary } = useContext(AccountContext);
     const { colors } = useTheme();
 
     const consideredMonth = getConsideredMonth();
@@ -34,7 +34,7 @@ const CurrentPeriodSummary = ({ categoryId, style: customStyle = {} }: { categor
         categoryId && categoryId !== "ALL"
             ? monthlySummary.categorizedSummary[categoryId]
             : monthlySummary.transactionSummary;
-    const budget = 1000;
+    const budget = 567; // 6800 kg yearly / 12 months
     return (
         <EmphasizedSurface>
             <VerticalContainer style={customStyle}>
@@ -74,7 +74,30 @@ const CurrentPeriodSummary = ({ categoryId, style: customStyle = {} }: { categor
                         titleColor={colors.onPrimary}
                     />
                 </HorizontalContainer>
-                <HorizontalContainer style={{ marginTop: 24 }}>
+
+                <HorizontalContainer style={{ marginTop: 12 }}>
+                    {CO2Score <= budget ? (
+                        <>
+                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                                {`${(budget - CO2Score).toFixed(0)} kg `}
+                            </Text>
+                            <Text style={{ color: "#fff" }}>
+                                below european budget of {budget} kg ({((1 - CO2Score / budget) * 100).toFixed(0)}%)
+                            </Text>
+                        </>
+                    ) : (
+                        <>
+                            <Text style={{ color: "#fff", fontWeight: "bold" }}>
+                                {`${(CO2Score - budget).toFixed(0)} kg `}
+                            </Text>
+                            <Text style={{ color: "#fff" }}>
+                                over european budget of {budget} kg ({((CO2Score / budget) * 100).toFixed(0)}
+                                %)
+                            </Text>
+                        </>
+                    )}
+                </HorizontalContainer>
+                <HorizontalContainer>
                     <FooterSummary categoryId={categoryId} />
                 </HorizontalContainer>
             </VerticalContainer>

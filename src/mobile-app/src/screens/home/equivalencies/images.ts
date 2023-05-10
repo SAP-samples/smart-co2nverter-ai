@@ -1,6 +1,6 @@
 import { ImageRequireSource } from "react-native";
 
-const prefix = "../../assets/equivalencies/";
+const prefix = "../../../assets/equivalencies/";
 export const images: { [file: string]: ImageRequireSource } = {
     "equivalency-LED-light-bulb-4167987757.png": require(prefix + "equivalency-LED-light-bulb-4167987757.png"),
     "equivalency-almond-milk-1721734316.png": require(prefix + "equivalency-almond-milk-1721734316.png"),

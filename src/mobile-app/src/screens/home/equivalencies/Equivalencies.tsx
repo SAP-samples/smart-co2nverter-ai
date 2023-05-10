@@ -4,10 +4,10 @@ import { Text, useTheme } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { images } from "./images";
-import { AccountContext } from "../../context/AccountContext";
-import { Equivalencies as IEquivalency } from "../../types/entities";
-import { HorizontalContainer } from "../layout/HorizontalContainer";
-import { equivalenciesQuery } from "../../queries";
+import { AccountContext } from "../../../context/AccountContext";
+import { Equivalencies as IEquivalency } from "../../../types/entities";
+import { HorizontalContainer } from "../../../components/layout/HorizontalContainer";
+import { equivalenciesQuery } from "../../../queries";
 
 const { width } = Dimensions.get("window");
 
@@ -43,7 +43,7 @@ const Equivalencies = () => {
     return (
         <View>
             <View style={{ marginHorizontal: 16 }}>
-                <Text variant="titleMedium">{"Your CO\u2082 emissions are comparable to..."}</Text>
+                <Text variant="titleMedium">{"Your CO\u2082 emissions compare to..."}</Text>
             </View>
             <ScrollView
                 horizontal
@@ -64,7 +64,7 @@ const Equivalencies = () => {
                             <View style={styles.hue} />
                             <View style={styles.equivalency}>
                                 <Text variant="displayMedium" style={styles.equivalencyHead}>
-                                    {equivalency.amount.toLocaleString()}
+                                    {equivalency.amount?.toLocaleString() || 0}
                                 </Text>
                                 <Text variant="bodyMedium" style={styles.equivalencyBody}>
                                     {equivalency.description}
@@ -123,12 +123,13 @@ const makeStyles = (roundness: number) =>
         equivalency: { paddingVertical: 30, paddingHorizontal: 32 },
         equivalencyHead: {
             color: "#fff",
-            fontWeight: "500",
+            fontWeight: "600",
             fontSize: 40
         },
         equivalencyBody: {
             color: "#fff",
-            lineHeight: 20
+            lineHeight: 20,
+            fontWeight: "600"
         },
         activeSummaryIndicatorContainer: {
             flexDirection: "row",

@@ -13,7 +13,7 @@ const SuggestionsTab = () => {
                 name="Suggestions"
                 component={Suggestions}
                 options={{
-                    title: "Suggestions Screen",
+                    title: "Suggestions",
                     headerStyle: { backgroundColor: colors.elevation.level2 },
                     headerBackTitleVisible: false,
                     headerTintColor: colors.primary,

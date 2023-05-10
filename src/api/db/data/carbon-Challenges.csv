@@ -1,3 +1,3 @@
-ID;title;description;mcc_ID;daysToMark;avoidableEmissionsPerDay
-572fef3e-b324-45bb-af18-aa2c99877c97;Bike challenge;Cycle instead of driving the car for eight days in the next 30 days;147DEE5E-D3EC-46F8-B6DE-159CB6D459CF;8;2.6
-410b50f6-ccb8-41fa-9baa-2a555f620124;Diet challenge;Skip meat products for 8 days in the next 30 days, if you usually have a high-meat diet;49F4C309-C96F-4107-A1A3-F56AAE73D13D;8;4.3
+ID;TITLE;DESCRIPTION;ICON;CATEGORY;MCC_ID;DAYSTOMARK;AVOIDABLEEMISSIONSPERDAY
+572fef3e-b324-45bb-af18-aa2c99877c97;Bike challenge;Cycle instead of driving the car for eight days in the next 30 days;train-car;Transportation;147DEE5E-D3EC-46F8-B6DE-159CB6D459CF;8;2.6
+410b50f6-ccb8-41fa-9baa-2a555f620124;Diet challenge;Skip meat products for 8 days in the next 30 days, if you usually have a high-meat diet;bowl-mix-outline;Food;49F4C309-C96F-4107-A1A3-F56AAE73D13D;8;4.3

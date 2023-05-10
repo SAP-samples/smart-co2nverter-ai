@@ -1,16 +1,14 @@
-import { useEffect, Dispatch, SetStateAction } from "react";
-import { View, StyleSheet, TouchableOpacity } from "react-native";
-import { Text, IconButton, useTheme } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { View } from "react-native";
+import { IconButton, useTheme } from "react-native-paper";
 import { Calendar as CalendarBase, DateData } from "react-native-calendars";
 
 export interface IMarkedDays {
-    [dateString: string]: { selected?: boolean; marked: boolean };
+    [dateString: string]: { selected: boolean; selectedColor: string };
 }
 
 interface ICalendar {
     markedDays: IMarkedDays;
-    setMarkedDays: any;
+    setMarkedDays: (markedDays: IMarkedDays) => void;
     startDate: string;
     dueDate: string;
     refreshProgress: (markedDaysCount: number) => void;
@@ -21,10 +19,11 @@ const Calendar = ({ markedDays, setMarkedDays, startDate, dueDate, refreshProgre
 
     const toggleMark = (day: DateData): void => {
         const { dateString } = day;
-        const previous = Object.values(markedDays).find((day) => day.selected);
-        if (previous) previous.selected = false;
-        markedDays = { ...markedDays, [dateString]: { selected: true, marked: !markedDays[dateString]?.marked } };
-        const markedDaysCount = Object.values(markedDays).filter(({ marked }) => marked).length;
+        markedDays = {
+            ...markedDays,
+            [dateString]: { selected: !markedDays[dateString]?.selected, selectedColor: colors.primary }
+        };
+        const markedDaysCount = Object.values(markedDays).filter(({ selected }) => selected).length;
         setMarkedDays(markedDays);
         refreshProgress(markedDaysCount);
     };
@@ -45,6 +44,9 @@ const Calendar = ({ markedDays, setMarkedDays, startDate, dueDate, refreshProgre
                     />
                 )}
                 onDayPress={toggleMark}
+                theme={{
+                    todayTextColor: colors.primary
+                }}
             />
         </View>
     );

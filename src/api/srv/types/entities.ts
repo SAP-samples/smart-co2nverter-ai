@@ -20,6 +20,8 @@ export namespace carbon {
         mcc_ID?: string;
         daysToMark: number;
         avoidableEmissionsPerDay: number;
+        icon: string;
+        category: string;
     }
 
     export interface ChallengesUsers {
@@ -83,6 +85,8 @@ export namespace carbon {
         additionalInformation: string;
         options?: Habits[];
         mccs: HabitCategoriesMCC[];
+        icon: string;
+        category: string;
     }
 
     export interface HabitCategoriesMCC {
@@ -115,14 +119,15 @@ export namespace carbon {
         option: string;
         additionalInformation: string;
         factor: number;
+        default: boolean;
     }
 
     export interface AccountHabits {
         ID: string;
         account?: Accounts;
         account_ID?: string;
-        habits?: Habits;
-        habits_ID?: string;
+        habit?: Habits;
+        habit_ID?: string;
         transaction?: Transactions;
         transaction_ID?: string;
     }
@@ -236,8 +241,8 @@ export namespace ConverterService {
         ID: string;
         account?: Accounts;
         account_ID?: string;
-        habits?: Habits;
-        habits_ID?: string;
+        habit?: Habits;
+        habit_ID?: string;
         transaction?: Transactions;
         transaction_ID?: string;
     }
@@ -273,6 +278,7 @@ export namespace ConverterService {
         option: string;
         additionalInformation: string;
         factor: number;
+        default: boolean;
     }
 
     export interface Challenges {
@@ -283,6 +289,8 @@ export namespace ConverterService {
         mcc_ID?: string;
         daysToMark: number;
         avoidableEmissionsPerDay: number;
+        icon: string;
+        category: string;
     }
 
     export interface ChallengesUsers {
@@ -531,6 +539,21 @@ export namespace ConverterService {
         id: string;
     }
 
+    export enum ActionSetHabit {
+        name = "setHabit",
+        paramAccount = "account",
+        paramHabitCategory = "habitCategory",
+        paramHabit = "habit",
+        paramTransaction = "transaction"
+    }
+
+    export interface ActionSetHabitParams {
+        account: string;
+        habitCategory: string;
+        habit: string;
+        transaction: string;
+    }
+
     export enum Entity {
         Transactions = "ConverterService.Transactions",
         AccountHabits = "ConverterService.AccountHabits",
@@ -572,8 +595,6 @@ export namespace ConverterService {
 
 export type User = string;
 
-export enum Entity {
-}
+export enum Entity {}
 
-export enum SanitizedEntity {
-}
+export enum SanitizedEntity {}

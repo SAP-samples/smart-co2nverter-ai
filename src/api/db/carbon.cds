@@ -15,6 +15,8 @@ entity Transactions : cuid {
 entity Challenges : cuid {
     title                    : String;
     description              : LargeString;
+    icon                     : String;
+    category                 : String;
     mcc                      : Association to MCC;
     daysToMark               : Integer;
     avoidableEmissionsPerDay : Double;
@@ -75,7 +77,9 @@ entity HabitCategories : cuid {
     options               : Association to many Habits
                                 on options.habitCategory = $self;
     mccs                  : Composition of many HabitCategoriesMCC
-                                on mccs.habitCategory = $self
+                                on mccs.habitCategory = $self;
+    icon                  : String;
+    category              : String;
 }
 
 entity HabitCategoriesMCC {
@@ -102,10 +106,11 @@ entity Habits : cuid {
     option                : String;
     additionalInformation : String;
     factor                : Double;
+    default               : Boolean
 }
 
 entity AccountHabits : cuid {
     account     : Association to Accounts;
-    habits      : Association to Habits; //TODO: change to habit since its many to one
+    habit       : Association to Habits;
     transaction : Association to Transactions;
 }

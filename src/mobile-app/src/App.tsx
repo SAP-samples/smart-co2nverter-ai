@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { Image } from "react-native";
 import { registerRootComponent } from "expo";
 import { StatusBar } from "expo-status-bar";
@@ -8,9 +8,9 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MD3LightTheme as DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import { AppNavigation } from "./navigation";
-import { AccountProvider, AccountContext } from "./context/AccountContext";
+import { AccountProvider } from "./context/AccountContext";
 import { colors } from "./theme/colors";
-import { images } from "./components/equivalencies/images";
+import { images } from "./screens/home/equivalencies/images";
 
 const App = () => {
     const theme = {
@@ -28,9 +28,9 @@ const App = () => {
         },
         fonts: {
             ...DefaultTheme.fonts,
-            titleSmall: { fontSize: 14, fontWeight: 700 },
-            titleMedium: { fontSize: 20, fontWeight: 700 },
-            titleLarge: { fontSize: 24, fontWeight: 700 }
+            titleSmall: { fontSize: 14, fontWeight: 600 },
+            titleMedium: { fontSize: 20, fontWeight: 600 },
+            titleLarge: { fontSize: 24, fontWeight: 600 }
         }
     };
 
@@ -69,8 +69,8 @@ registerRootComponent(() => {
     );
 });
 
-const cacheImages = (images: Array<string>) => {
-    return images.map((image: string) => {
+const cacheImages = (images: Array<string> | Array<number>) => {
+    return images.map((image: string | number) => {
         if (typeof image === "string") {
             return Image.prefetch(image);
         } else {

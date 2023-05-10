@@ -1,7 +1,6 @@
 import "react-native-get-random-values";
 import { createContext, useEffect, useState } from "react";
 import moment, { Moment } from "moment";
-import { v4 as uuidv4 } from "uuid";
 import {
     Accounts as IAccount,
     Transactions as ITransaction,
@@ -11,6 +10,7 @@ import {
     HabitCategories as IHabitCategory,
     AccountHabits as IAccountHabit
 } from "../types/entities";
+import { Alert } from "react-native";
 import {
     categoriesQuery,
     accountDataQuery,
@@ -28,7 +28,7 @@ interface IAccountContext {
     monthlySummary: IMonthlySummary;
     getConsideredMonth: () => Moment;
     setConsideredMonth: (consideredMonth: Moment) => void;
-    isLoading: () => boolean;
+    isLoading: boolean;
     getCurrentKey: () => string;
     isChangingMonth: boolean;
     getCategories: () => ICategory[];
@@ -39,8 +39,8 @@ interface IAccountContext {
     startChallenge: (id: string) => Promise<Response>;
     cancelChallenge: (id: string) => Promise<Response>;
     fetchActiveChallenges: () => Promise<void>;
-    setHabit: (habitCategoryId: string, habitId: string, transactionId?: string) => Promise<Response>;
-    fetchAccountHabits: () => Promise<void>;
+    setHabit: (habitCategory: string, habit: string, transaction?: string) => Promise<Response>;
+    fetchAccountData: () => Promise<void>;
 }
 
 export interface IMonthlySummary {
@@ -67,25 +67,34 @@ const AccountProvider = ({ children }: any) => {
     const [state, setState] = useState<IAccount>(initialAccountState);
     const [monthlySummary, setMonthlySummary] = useState<IMonthlySummary>({} as IMonthlySummary);
     const [transactionSummaries, setTransactionSummaries] = useState<{ [month: string]: ITransactionSummary }>({});
-    const [loadingAccountData, setLoadingAccountData] = useState<boolean>(true);
-    const [loadingCategories, setLoadingCategories] = useState<boolean>(true);
-    const [loadingChallenges, setLoadingChallenges] = useState<boolean>(true);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [consideredMonth, setConsideredMonth] = useState<Moment>(moment());
     const [categories, setCategories] = useState<{ [categoryId: string]: ICategory }>({});
     const [challenges, setChallenges] = useState<Array<IChallenge>>([]);
     const [habitCategories, setHabitCategories] = useState<Array<IHabitCategory>>([]);
     const [isChangingMonth, setIsChangingMonth] = useState<boolean>(false);
+    const [hasError, setHasError] = useState<boolean>(false);
     const [forecast, setForecast] = useState<number>();
 
+    const fetchData = async () => {
+        setIsLoading(true);
+        await Promise.all([fetchHabitCategories(), fetchCategories(), fetchAccountData(), fetchChallenges()]);
+        setIsLoading(false);
+    };
+
     useEffect(() => {
-        const fetchData = async () => {
-            fetchHabitCategories();
-            await fetchCategories();
-            await fetchAccountData();
-            await fetchChallenges();
-        };
         fetchData().catch(console.error);
     }, []);
+
+    useEffect(() => {
+        if (isLoading) {
+            setHasError(false);
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        fetchData().catch(console.error);
+    }, [hasError]);
 
     useEffect(() => {
         setIsChangingMonth(true);
@@ -109,47 +118,43 @@ const AccountProvider = ({ children }: any) => {
         }
     }, [monthlySummary]);
 
-    useEffect(() => {
-        if (transactionSummaries) {
-            setLoadingAccountData(false);
-        }
-    }, [transactionSummaries]);
-
-    const isLoading = (): boolean => {
-        return loadingAccountData || loadingCategories || loadingChallenges;
-    };
-
     const getConsideredMonth = () => {
         return moment(consideredMonth);
     };
 
     const fetchCategories = async () => {
-        setLoadingCategories(true);
-        const response: any = await fetch(categoriesQuery());
-        if (response.ok) {
-            const data = (await response.json()).value as Array<ICategory>;
-            const mappedCategories = data.reduce(
-                (result: { [categoryId: string]: ICategory }, category: ICategory) => ({
-                    ...result,
-                    [category.ID]: category
-                }),
-                {}
-            );
-            setCategories(mappedCategories);
+        try {
+            const response: any = await fetch(categoriesQuery());
+            if (response.ok) {
+                const data = (await response.json()).value as Array<ICategory>;
+                const mappedCategories = data.reduce(
+                    (result: { [categoryId: string]: ICategory }, category: ICategory) => ({
+                        ...result,
+                        [category.ID]: category
+                    }),
+                    {}
+                );
+                setCategories(mappedCategories);
+            }
+        } catch (e) {
+            console.log(e);
+            setHasError(true);
         }
-        setLoadingCategories(false);
     };
 
     // Fetch all the transactions of the logged in user
     const fetchAccountData = async () => {
-        setLoadingAccountData(true);
-        const response: any = await fetch(accountDataQuery());
-        if (response.ok) {
-            const data = (await response.json()) as IAccount;
-            createTransactionSummaries(data);
-            setState(data);
+        try {
+            const response: any = await fetch(accountDataQuery());
+            if (response.ok) {
+                const data = (await response.json()) as IAccount;
+                createTransactionSummaries(data);
+                setState(data);
+            }
+        } catch (e) {
+            console.log(e);
+            setHasError(true);
         }
-        //setLoadingAccountData(false);
     };
 
     const createTransactionSummaries = (data: IAccount) => {
@@ -178,51 +183,49 @@ const AccountProvider = ({ children }: any) => {
     };
 
     const fetchHabitCategories = async () => {
-        const response: Response = await fetch(habitCategoriesQuery());
-        if (response.ok) {
-            const data = (await response.json()).value as Array<IHabitCategory>;
-            setHabitCategories(data);
+        try {
+            const response: Response = await fetch(habitCategoriesQuery());
+            if (response.ok) {
+                const data = (await response.json()).value as Array<IHabitCategory>;
+                setHabitCategories(data);
+            }
+        } catch (e) {
+            console.error(e);
+            setHasError(true);
         }
     };
 
     const fetchAccountHabits = async () => {
-        const response = await fetch(accountHabitsQuery());
-        if (response.ok) {
-            const data = (await response.json()).habits as Array<IAccountHabit>;
-            setState({ ...state, habits: data });
+        try {
+            const response = await fetch(accountHabitsQuery());
+            if (response.ok) {
+                const data = (await response.json()).habits as Array<IAccountHabit>;
+                setState({ ...state, habits: data });
+            }
+        } catch (e) {
+            console.error(e);
         }
     };
 
-    const setHabit = (habitCategoryId: string, habitId: string, transactionId?: string): Promise<Response> => {
-        let accountHabit;
-        if (transactionId) {
-            accountHabit = state.habits.find(
-                (accountHabit) =>
-                    accountHabit.habits?.habitCategory_ID === habitCategoryId &&
-                    accountHabit.transaction_ID === transactionId
-            );
-        } else {
-            accountHabit = state.habits.find(
-                (accountHabit) =>
-                    accountHabit.habits?.habitCategory_ID === habitCategoryId && accountHabit.transaction_ID === null
-            );
+    const setHabit = (habitCategory: string, habit: string, transaction?: string): Promise<Response> => {
+        if (transaction) {
+            return fetch(setHabitQuery(habitCategory, habit, transaction));
         }
-        const uuid = accountHabit ? accountHabit.ID : uuidv4();
-        if (transactionId) {
-            return fetch(setHabitQuery(uuid, habitId, transactionId));
-        }
-        return fetch(setHabitQuery(uuid, habitId));
+        return fetch(setHabitQuery(habitCategory, habit));
     };
 
     // fetch generally available challenges (not the active ones)
     const fetchChallenges = async () => {
-        setLoadingChallenges(true);
-        const response: Response = await fetch(availableChallengesQuery());
-        if (response.ok) {
-            const data = (await response.json()).value as Array<IChallenge>;
-            setChallenges(data);
+        try {
+            const response: Response = await fetch(availableChallengesQuery());
+            if (response.ok) {
+                const data = (await response.json()).value as Array<IChallenge>;
+                setChallenges(data);
+            }
+        } catch (e) {
+            console.error(e);
+            setHasError(true);
         }
-        setLoadingChallenges(false);
     };
 
     const fetchActiveChallenges = async () => {
@@ -240,6 +243,26 @@ const AccountProvider = ({ children }: any) => {
     const cancelChallenge = (id: string): Promise<Response> => {
         return fetch(cancelChallengeQuery(id));
     };
+
+    useEffect(() => {
+        if (hasError) {
+            Alert.alert(
+                "Error",
+                "There was an error while loading the data",
+                [
+                    {
+                        text: "Retry",
+                        onPress: async () => {
+                            setIsLoading(true);
+                            await fetchData();
+                            setIsLoading(false);
+                        }
+                    }
+                ],
+                { cancelable: false }
+            );
+        }
+    }, [hasError]);
 
     const createMonthlySummary = () => {
         const currentMonthKey = getKeyForMonth(consideredMonth);
@@ -341,7 +364,7 @@ const AccountProvider = ({ children }: any) => {
                 cancelChallenge,
                 fetchActiveChallenges,
                 setHabit,
-                fetchAccountHabits
+                fetchAccountData
             }}
         >
             {children}

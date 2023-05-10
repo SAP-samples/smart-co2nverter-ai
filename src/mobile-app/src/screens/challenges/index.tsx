@@ -4,7 +4,6 @@ import { Button, Text, Snackbar, Caption } from "react-native-paper";
 
 import { AccountContext } from "../../context/AccountContext";
 import { Challenges as AvailableChallenges, ChallengesUsers as ActiveChallenges } from "../../types/entities";
-import { CHALLENGE_ICON_MAPPING, CHALLENGE_CATEGORY_MAPPING } from "../home/challenges/helper";
 import { ScreenContainer } from "../../components/layout/ScreenContainer";
 import { VerticalContainer } from "../../components/layout/VerticalContainer";
 import { HorizontalContainer } from "../../components/layout/HorizontalContainer";
@@ -48,8 +47,9 @@ const Challenges = () => {
                     Avoid CO2 emissions by introducing climate friendly changes in your routine and tracking their
                     impact.
                 </Text>
-                <View style={{ marginTop: 20, flexDirection: "row", justifyContent: "space-around" }}>
+                <View style={{ marginTop: 20, flexDirection: "row", justifyContent: "space-around", flex: 1 }}>
                     <Button
+                        style={{ flex: 1, marginHorizontal: 4 }}
                         mode={selectedFilter === 0 ? "contained" : "contained-tonal"}
                         compact={true}
                         onPress={() => setSelectedFilter(0)}
@@ -57,13 +57,15 @@ const Challenges = () => {
                         Available ({availableCount})
                     </Button>
                     <Button
+                        style={{ flex: 1, marginHorizontal: 4 }}
                         mode={selectedFilter === 1 ? "contained" : "contained-tonal"}
                         compact={true}
                         onPress={() => setSelectedFilter(1)}
                     >
-                        In progress ({inProgressCount})
+                        Running ({inProgressCount})
                     </Button>
                     <Button
+                        style={{ flex: 1, marginHorizontal: 4 }}
                         mode={selectedFilter === 2 ? "contained" : "contained-tonal"}
                         compact={true}
                         onPress={() => setSelectedFilter(2)}
@@ -76,27 +78,20 @@ const Challenges = () => {
                         availableChallenges.map((challenge: AvailableChallenges) => (
                             <ChallengeItem
                                 challenge={challenge}
-                                iconName={CHALLENGE_ICON_MAPPING[challenge.ID]}
-                                parentCategory={CHALLENGE_CATEGORY_MAPPING[challenge.ID]}
                                 key={challenge.ID}
                                 {...{ setMotivation, setShowModal, setGptError }}
                             />
                         ))}
                     {selectedFilter === 1 &&
                         (inProgressCount > 0 ? (
-                            inProgressChallenges.map((challenge: ActiveChallenges) => {
-                                const id = challenge.challenge?.ID as string;
-                                return (
-                                    <ActiveChallengeItem
-                                        activeChallenge={challenge}
-                                        iconName={CHALLENGE_ICON_MAPPING[id]}
-                                        parentCategory={CHALLENGE_CATEGORY_MAPPING[id]}
-                                        setShowFeedback={setShowFeedback}
-                                        setError={setError}
-                                        key={challenge.ID}
-                                    />
-                                );
-                            })
+                            inProgressChallenges.map((challenge: ActiveChallenges) => (
+                                <ActiveChallengeItem
+                                    activeChallenge={challenge}
+                                    setShowFeedback={setShowFeedback}
+                                    setError={setError}
+                                    key={challenge.ID}
+                                />
+                            ))
                         ) : (
                             <VerticalContainer style={{ marginTop: 8 }}>
                                 <HorizontalContainer>
@@ -109,17 +104,9 @@ const Challenges = () => {
                         ))}
                     {selectedFilter === 2 &&
                         (completedCount > 0 ? (
-                            completedChallenges.map((challenge: ActiveChallenges) => {
-                                const id = challenge.challenge?.ID as string;
-                                return (
-                                    <ActiveChallengeItem
-                                        activeChallenge={challenge}
-                                        iconName={CHALLENGE_ICON_MAPPING[id]}
-                                        parentCategory={CHALLENGE_CATEGORY_MAPPING[id]}
-                                        key={challenge.ID}
-                                    />
-                                );
-                            })
+                            completedChallenges.map((challenge: ActiveChallenges) => (
+                                <ActiveChallengeItem activeChallenge={challenge} key={challenge.ID} />
+                            ))
                         ) : (
                             <VerticalContainer style={{ marginTop: 8 }}>
                                 <HorizontalContainer>

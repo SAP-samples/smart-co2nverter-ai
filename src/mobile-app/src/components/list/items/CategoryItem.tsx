@@ -28,7 +28,7 @@ export const CategoryItem = ({
                 <List.Item
                     title={category.description}
                     titleNumberOfLines={2}
-                    titleStyle={{ fontWeight: "700" }}
+                    titleStyle={{ fontWeight: "600" }}
                     description={`${Math.round(summary.spendings).toLocaleString()} €`}
                     left={() => (
                         <HorizontalContainer>
@@ -38,7 +38,6 @@ export const CategoryItem = ({
                         </HorizontalContainer>
                     )}
                     right={() => {
-                        const upOrDown: number = 1;
                         return (
                             <View style={localStyles.itemRight}>
                                 <Text variant="titleSmall">{Math.round(summary.CO2Score).toLocaleString()} kg</Text>

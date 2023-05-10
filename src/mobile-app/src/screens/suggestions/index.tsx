@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { ScrollView, StyleSheet, View } from "react-native";
-import { List, Text, useTheme, Surface, Button, Snackbar, Chip } from "react-native-paper";
+import { List, Text, useTheme, Surface, Button, Snackbar } from "react-native-paper";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { ScreenContainer } from "../../components/layout/ScreenContainer";
@@ -10,6 +10,7 @@ import { HorizontalContainer } from "../../components/layout/HorizontalContainer
 import { askForCompositionQuery, askForGreenContractQuery, generateSuggestionsQuery } from "../../queries";
 import { VerticalContainer } from "../../components/layout/VerticalContainer";
 import { CustomModal } from "../../components/modals/CustomModal";
+import CircleIcon from "../../components/CircleIcon";
 
 interface ISuggestion {
     title: string;
@@ -30,7 +31,7 @@ const Suggestions = () => {
     const [generating, setGenerating] = useState<{ [categoryId: string]: boolean }>(
         initializeGeneratingFlags(getCategories)
     );
-    const [loading, setLoading] = useState<string>("");
+    const [isLoading, setIsLoading] = useState<string>("");
     const [showModal, setShowModal] = useState<boolean>(false);
     const [emailTemplate, setEmailTemplate] = useState<{ title: string; description: string; content: string }>({
         title: "",
@@ -104,7 +105,7 @@ const Suggestions = () => {
     };
 
     const askForX = async (title: string, description: string, query: Request, loading: string) => {
-        setLoading(loading);
+        setIsLoading(loading);
         const response = await fetch(query);
         if (response.ok) {
             const generatedEmail = await response.json();
@@ -115,161 +116,148 @@ const Suggestions = () => {
             setShowModal(false);
             setShowError(true);
         }
-        setLoading("");
+        setIsLoading("");
     };
 
     return (
-        <>
-            <ScreenContainer>
-                <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 8 }}>
-                    <Text variant="titleMedium" style={{ marginTop: 16 }}>
-                        Suggestions to reduce impact
-                    </Text>
-                    <Text variant="bodyMedium" style={{ marginTop: 8 }}>
-                        {"Find suggestions to reduce your CO\u2082 footprint based on your most impactful spendings."}
-                    </Text>
-                    <View style={{ marginTop: 12 }}>
-                        {sortedSummaries.map(([id, summary]: [string, ITransactionSummary]) => {
-                            const category = getCategoryById(id);
-                            return (
-                                <Surface
+        <ScreenContainer>
+            <ScrollView style={{ paddingVertical: 8 }} showsVerticalScrollIndicator={false}>
+                <Text variant="titleMedium" style={{ marginTop: 16 }}>
+                    Suggestions to reduce impact
+                </Text>
+                <Text variant="bodyMedium" style={{ marginTop: 8 }}>
+                    {"Find suggestions to reduce your CO\u2082 footprint based on your most impactful spendings."}
+                </Text>
+                <View style={{ marginTop: 12 }}>
+                    {sortedSummaries.map(([id, summary]: [string, ITransactionSummary]) => {
+                        const category = getCategoryById(id);
+                        return (
+                            <Surface key={id} elevation={1} style={[{ borderRadius: theme.roundness }, styles.surface]}>
+                                <List.Accordion
+                                    titleStyle={{ color: "#000" }}
+                                    style={{ backgroundColor: theme.colors.elevation.level1 }}
                                     key={id}
-                                    elevation={1}
-                                    style={[{ borderRadius: theme.roundness }, styles.surface]}
+                                    title={category.description}
+                                    titleNumberOfLines={2}
+                                    description={`${summary.spendings.toFixed(0)} €`}
+                                    left={(props) => <CircleIcon {...props} icon={category.icon} />}
+                                    right={(props) => {
+                                        return (
+                                            <HorizontalContainer style={{ marginTop: 8 }}>
+                                                <Text variant="titleSmall">{`${summary.CO2Score.toFixed(0)} kg`}</Text>
+                                                <Icon
+                                                    name={props.isExpanded ? "chevron-up" : "chevron-down"}
+                                                    size={24}
+                                                />
+                                            </HorizontalContainer>
+                                        );
+                                    }}
                                 >
-                                    <List.Accordion
-                                        titleStyle={{ color: "#000" }}
-                                        style={{ backgroundColor: theme.colors.elevation.level1 }}
-                                        key={id}
-                                        title={category.description}
-                                        titleNumberOfLines={2}
-                                        description={`${summary.spendings.toFixed(0)} €`}
-                                        left={(props) => <List.Icon {...props} icon={category.icon} color={"#000"} />}
-                                        right={(props) => {
-                                            return (
-                                                <HorizontalContainer style={{ marginTop: 8 }}>
-                                                    <Text variant="titleSmall">{`${summary.CO2Score.toFixed(
-                                                        0
-                                                    )} kg`}</Text>
-                                                    <Icon
-                                                        name={props.isExpanded ? "chevron-up" : "chevron-down"}
-                                                        size={24}
-                                                    />
-                                                </HorizontalContainer>
-                                            );
-                                        }}
-                                    >
-                                        <View style={{ paddingLeft: 0 }}>
-                                            {suggestions && suggestions[category.ID] ? (
-                                                suggestions[category.ID].map((suggestion: ISuggestion) => (
-                                                    <SuggestionItem key={suggestion.title} {...suggestion} />
-                                                ))
-                                            ) : (
-                                                <Text
-                                                    variant="bodySmall"
-                                                    style={{ color: theme.colors.secondary, marginBottom: 8 }}
-                                                >
-                                                    {`If you generate suggestions, GPT-3 will be asked to propose actions for the category ${
-                                                        category.description
-                                                    } based on your ${
-                                                        summary.transactions.length
-                                                    } transactions in this particular category of ${summary.spendings.toFixed(
-                                                        0
-                                                    )}€ spendings and ${summary.CO2Score.toFixed(
-                                                        0
-                                                    )}kg CO\u2082 emissions.`}
-                                                </Text>
-                                            )}
-                                            <Button
-                                                icon="chat-processing-outline"
-                                                mode="text"
-                                                loading={generating[category.ID] || false}
-                                                onPress={() =>
-                                                    !(generating[category.ID] || false) &&
-                                                    generateSuggestions(
-                                                        category,
-                                                        summary.spendings,
-                                                        summary.CO2Score,
-                                                        summary.transactions.length
-                                                    ).catch(console.error)
-                                                }
+                                    <View style={{ paddingLeft: 0 }}>
+                                        {suggestions && suggestions[category.ID] ? (
+                                            suggestions[category.ID].map((suggestion: ISuggestion) => (
+                                                <SuggestionItem key={suggestion.title} {...suggestion} />
+                                            ))
+                                        ) : (
+                                            <Text
+                                                variant="bodySmall"
+                                                style={{ color: theme.colors.secondary, marginBottom: 8 }}
                                             >
-                                                Generate Suggestions
-                                            </Button>
-                                        </View>
-                                    </List.Accordion>
-                                </Surface>
-                            );
-                        })}
-                        <Surface
+                                                {`If you generate suggestions, GPT-3 will be asked to propose actions for the category ${
+                                                    category.description
+                                                } based on your ${
+                                                    summary.transactions.length
+                                                } transactions in this particular category of ${summary.spendings.toFixed(
+                                                    0
+                                                )}€ spendings and ${summary.CO2Score.toFixed(0)}kg CO\u2082 emissions.`}
+                                            </Text>
+                                        )}
+                                        <Button
+                                            icon="chat-processing-outline"
+                                            mode="text"
+                                            loading={generating[category.ID] || false}
+                                            onPress={() =>
+                                                !(generating[category.ID] || false) &&
+                                                generateSuggestions(
+                                                    category,
+                                                    summary.spendings,
+                                                    summary.CO2Score,
+                                                    summary.transactions.length
+                                                ).catch(console.error)
+                                            }
+                                        >
+                                            Generate Suggestions
+                                        </Button>
+                                    </View>
+                                </List.Accordion>
+                            </Surface>
+                        );
+                    })}
+                    <Surface
+                        key={"electricity"}
+                        elevation={1}
+                        style={[{ borderRadius: theme.roundness }, styles.surface]}
+                    >
+                        <List.Accordion
+                            titleStyle={{ color: "#000" }}
+                            style={{ backgroundColor: theme.colors.elevation.level1 }}
                             key={"electricity"}
-                            elevation={1}
-                            style={[{ borderRadius: theme.roundness }, styles.surface]}
-                        >
-                            <List.Accordion
-                                titleStyle={{ color: "#000" }}
-                                style={{ backgroundColor: theme.colors.elevation.level1 }}
-                                key={"electricity"}
-                                title={"Electricity Provider"}
-                                titleNumberOfLines={2}
-                                left={(props) => <List.Icon {...props} icon={"car"} color={"#000"} />}
-                                right={(props) => {
-                                    return (
-                                        <HorizontalContainer style={{ marginTop: 8 }}>
-                                            <Icon name={props.isExpanded ? "chevron-up" : "chevron-down"} size={24} />
-                                        </HorizontalContainer>
-                                    );
-                                }}
-                            >
-                                <View style={{ paddingLeft: 0 }}>
-                                    <Text
-                                        variant="bodySmall"
-                                        style={{ color: theme.colors.secondary, marginBottom: 8 }}
-                                    >
-                                        Do you know the composition of your electricity tariff? Ask your energy supplier
-                                        about it now or get a quote for a green electricity contract if you haven't
-                                        switched yet. The actions below will generate an email which you can send to
-                                        your energy supplier.
-                                    </Text>
-
-                                    <HorizontalContainer>
-                                        <Button
-                                            mode="text"
-                                            onPress={() => askForComposition(state.name)}
-                                            disabled={loading !== ""}
-                                            loading={loading === ActionAskForComposition.name}
-                                        >
-                                            Ask for Composition
-                                        </Button>
-                                        <Button
-                                            mode="text"
-                                            onPress={() => askForGreenContract(state.name)}
-                                            disabled={loading !== ""}
-                                            loading={loading === ActionAskForGreenContract.name}
-                                        >
-                                            Ask for Green Contract
-                                        </Button>
+                            title={"Electricity Provider"}
+                            titleNumberOfLines={2}
+                            left={(props) => <CircleIcon {...props} icon="home-lightning-bolt-outline" />}
+                            right={(props) => {
+                                return (
+                                    <HorizontalContainer style={{ marginTop: 8 }}>
+                                        <Icon name={props.isExpanded ? "chevron-up" : "chevron-down"} size={24} />
                                     </HorizontalContainer>
-                                </View>
-                            </List.Accordion>
-                        </Surface>
-                    </View>
-                </ScrollView>
-                <CustomModal
-                    title={emailTemplate.title}
-                    titleDescription={emailTemplate.description}
-                    visible={showModal}
-                    onDismiss={() => setShowModal(false)}
-                >
-                    <View style={{ backgroundColor: "#fff", marginTop: 16, padding: 16, borderRadius: 16 }}>
-                        <Text>{emailTemplate.content}</Text>
-                    </View>
-                </CustomModal>
-            </ScreenContainer>
+                                );
+                            }}
+                        >
+                            <View style={{ paddingLeft: 0 }}>
+                                <Text variant="bodySmall" style={{ color: theme.colors.secondary, marginBottom: 8 }}>
+                                    Do you know the composition of your electricity tariff? Ask your energy supplier
+                                    about it now or get a quote for a green electricity contract if you haven't switched
+                                    yet. The actions below will generate an email which you can send to your energy
+                                    supplier.
+                                </Text>
+
+                                <HorizontalContainer>
+                                    <Button
+                                        mode="text"
+                                        onPress={() => askForComposition(state.name)}
+                                        disabled={!!isLoading}
+                                        loading={isLoading === ActionAskForComposition.name}
+                                    >
+                                        Ask for Composition
+                                    </Button>
+                                    <Button
+                                        mode="text"
+                                        onPress={() => askForGreenContract(state.name)}
+                                        disabled={!!isLoading}
+                                        loading={isLoading === ActionAskForGreenContract.name}
+                                    >
+                                        Ask for Green Contract
+                                    </Button>
+                                </HorizontalContainer>
+                            </View>
+                        </List.Accordion>
+                    </Surface>
+                </View>
+            </ScrollView>
+            <CustomModal
+                title={emailTemplate.title}
+                titleDescription={emailTemplate.description}
+                visible={showModal}
+                onDismiss={() => setShowModal(false)}
+            >
+                <View style={{ backgroundColor: "#fff", marginTop: 16, padding: 16, borderRadius: 16 }}>
+                    <Text>{emailTemplate.content}</Text>
+                </View>
+            </CustomModal>
             <Snackbar onDismiss={() => setShowError(false)} duration={5000} visible={showError}>
                 Error getting GPT-3 response! Please try again later.
             </Snackbar>
-        </>
+        </ScreenContainer>
     );
 };
 

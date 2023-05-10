@@ -70,4 +70,5 @@ service ConverterService {
 
     action   cancelChallenge(id : UUID);
     action   completeChallenge(id : UUID);
+    action   setHabit(account : String, habitCategory : String, habit : String, transaction : String);
 }

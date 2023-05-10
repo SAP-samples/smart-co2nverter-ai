@@ -34,7 +34,9 @@ export const CustomModal = ({
                 <LinearGradient colors={["#0E7ACF", "#004880", "#00325A"]} style={[localStyles.gradientWrapper]}>
                     <View style={{ marginHorizontal: -12 }}>
                         <View style={[localStyles.headerTitle, titleDescription === "" && { marginBottom: 22 }]}>
-                            <Text style={{ color: "#fff" }}>{title}</Text>
+                            <Text variant="titleMedium" style={{ color: "#fff" }}>
+                                {title}
+                            </Text>
                             {textToSpeech !== "" && (
                                 <TouchableOpacity onPress={() => speak(textToSpeech)}>
                                     <Icon name="microphone" size={24} color={"#fff"} />
@@ -46,7 +48,9 @@ export const CustomModal = ({
                         </View>
                         {titleDescription !== "" && (
                             <View style={localStyles.headerDescription}>
-                                <Text style={{ color: "#fff" }}>{titleDescription}</Text>
+                                <Text variant="bodyMedium" style={{ color: "#fff" }}>
+                                    {titleDescription}
+                                </Text>
                             </View>
                         )}
                     </View>

@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { View, StyleSheet } from "react-native";
-import { Button, Text, useTheme } from "react-native-paper";
+import { Button, Snackbar, Text, useTheme } from "react-native-paper";
 
 import {
     Transactions as ITransaction,
@@ -8,11 +8,11 @@ import {
     HabitCategories as IHabitCategory
 } from "../../types/entities";
 import { AccountContext } from "../../context/AccountContext";
-import { FEEDBACK } from "../../screens/habits/questionnaire/Questionnaire";
 
 import { CustomModal } from "./CustomModal";
 import { HorizontalContainer } from "../layout/HorizontalContainer";
 import HabitItem from "../../screens/habits/questionnaire/HabitItem";
+import { FEEDBACK } from "../../screens/habits/questionnaire/Questionnaire";
 
 interface IHabitModal {
     visible: boolean;
@@ -37,7 +37,9 @@ const HabitModal = ({
 }: IHabitModal) => {
     const { colors, roundness } = useTheme();
     const styles = makeStyles(colors, roundness);
-    const { setHabit, fetchAccountHabits } = useContext(AccountContext);
+    const { setHabit, fetchAccountData } = useContext(AccountContext);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [error, setError] = useState<boolean>(false);
     return (
         <View>
             <CustomModal
@@ -63,7 +65,7 @@ const HabitModal = ({
 
                         <View style={{ marginTop: 32, marginBottom: 18 }}>
                             <HorizontalContainer>
-                                <Text variant="displayMedium" style={{ fontWeight: "700" }}>
+                                <Text variant="displayMedium" style={{ fontWeight: "600" }}>
                                     {transaction.CO2Score}
                                 </Text>
                                 <Text variant="titleLarge" style={{ marginLeft: 4, paddingTop: 10 }}>
@@ -90,14 +92,20 @@ const HabitModal = ({
                             ))}
                         </View>
                         <Button
-                            disabled={!hasChanges}
+                            disabled={!hasChanges || isLoading}
                             mode="text"
+                            loading={isLoading}
                             onPress={async () => {
+                                setIsLoading(true);
                                 const response = await setHabit(habitCategory.ID, checkedHabit, transaction.ID);
                                 if (response.ok) {
-                                    fetchAccountHabits().catch(console.log);
+                                    setHasChanges(false);
+                                    await fetchAccountData().catch(console.log);
                                     onDismiss();
+                                } else {
+                                    setError(true);
                                 }
+                                setIsLoading(false);
                             }}
                             style={{ marginTop: 20 }}
                         >
@@ -106,6 +114,15 @@ const HabitModal = ({
                     </View>
                 )}
             </CustomModal>
+            <Snackbar
+                onDismiss={() => {
+                    setError(false);
+                }}
+                duration={3000}
+                visible={error}
+            >
+                {FEEDBACK["error"]}
+            </Snackbar>
         </View>
     );
 };

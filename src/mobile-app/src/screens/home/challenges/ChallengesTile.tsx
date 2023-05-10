@@ -6,7 +6,7 @@ import { Text, Button, Caption } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 
 import { ChallengesUsers as ActiveChallenge } from "../../../types/entities";
-import { calculateTotalAvoidedEmissions, CHALLENGE_ICON_MAPPING } from "./helper";
+import { calculateTotalAvoidedEmissions } from "./helper";
 
 import ChallengeSummaryItem from "./ChallengeSummaryItem";
 import BigNumberCO2 from "../../../components/BigNumberCO2";
@@ -22,25 +22,20 @@ const ChallengesTile = () => {
     return (
         <Surface elevation={1} style={[styles.surface, { borderRadius: theme.roundness }]}>
             <Text variant="titleMedium">My challenges</Text>
-            <Caption>Active challenges</Caption>
+            <Caption>
+                {`${"Active challenges"}` + (state.challenges.length > 0 ? ` (${state.challenges.length})` : "")}
+            </Caption>
             <View style={{ marginTop: 24 }}>
                 <BigNumberCO2 co2={calculateTotalAvoidedEmissions(state.challenges)} caption="Avoided so far" />
             </View>
             <View style={{ marginTop: 18 }}>
                 {state.challenges.length > 0 ? (
-                    state.challenges.map((activeChallenge: ActiveChallenge) => {
-                        const id = activeChallenge.challenge?.ID as string;
-                        return (
-                            <ChallengeSummaryItem
-                                activeChallenge={activeChallenge}
-                                iconName={CHALLENGE_ICON_MAPPING[id]}
-                                key={activeChallenge.ID}
-                            />
-                        );
+                    state.challenges.slice(0, 4).map((activeChallenge: ActiveChallenge) => {
+                        return <ChallengeSummaryItem activeChallenge={activeChallenge} key={activeChallenge.ID} />;
                     })
                 ) : (
                     <Text variant="bodyMedium" style={{ textAlign: "center", marginTop: 12 }}>
-                        There are currently no challenges in progress.
+                        There are currently no challenges running.
                     </Text>
                 )}
             </View>

@@ -6,7 +6,8 @@ import { AccountContext } from "../../context/AccountContext";
 import {
     Transactions as ITransaction,
     Categories as ICategory,
-    HabitCategories as IHabitCategory
+    HabitCategories as IHabitCategory,
+    Habits as IHabit
 } from "../../types/entities";
 
 import { ScreenContainer } from "../../components/layout/ScreenContainer";
@@ -53,7 +54,7 @@ export const Expenses = ({ route }: { route: any }) => {
             const habit = findAssociatedHabit(transactionInFocus);
             if (habit) {
                 setAssociatedHabit(habit);
-                setCheckedHabit(getInitialHabit(transactionInFocus, habit));
+                setCheckedHabit(getInitialHabit(transactionInFocus, habit)?.ID || "");
             }
         }
     }, [transactionInFocus]);
@@ -88,26 +89,25 @@ export const Expenses = ({ route }: { route: any }) => {
         return <TransactionalItem item={item} enableHabits={enableHabits(item)} editHabit={editHabit} />;
     };
 
-    const getInitialHabit = (transaction: ITransaction, associatedHabit: IHabitCategory): string => {
+    const getInitialHabit = (transaction: ITransaction, associatedHabit: IHabitCategory): IHabit | undefined => {
         const accountHabits = state.habits;
         let accountHabit = null;
         for (const ah of accountHabits) {
-            if (ah.habits?.habitCategory_ID === associatedHabit.ID) accountHabit = ah;
+            if (ah.habit?.habitCategory_ID === associatedHabit.ID) accountHabit = ah;
             if (ah.transaction_ID === transaction.ID) break;
         }
-        return accountHabit?.habits_ID || "";
+        return accountHabit?.habit || associatedHabit.options?.find((o: IHabit) => o.default);
     };
 
     return (
         <ScreenContainer>
             <CategoryIconTabs activeIconTab={activeIconTab} press={setActiveIconTab} styles={{ paddingTop: 16 }} />
-            <View style={{ marginVertical: 8 }}>
+            <View style={{ marginTop: 30 }}>
                 <Text variant="titleMedium">
                     {categories.find((category: any) => category.ID === activeIconTab)?.description} emissions
                 </Text>
             </View>
-            <View style={{ flex: 1 }}>
-                <CurrentPeriodSummary categoryId={activeIconTab} />
+            <View style={{ marginTop: 16, flex: 1 }}>
                 {transactions.length > 0 ? (
                     <FlatList
                         data={transactions}
@@ -115,18 +115,21 @@ export const Expenses = ({ route }: { route: any }) => {
                         keyExtractor={(item: ITransaction) => item.ID}
                         initialNumToRender={30}
                         showsVerticalScrollIndicator={false}
-                        ListHeaderComponentStyle={{ marginVertical: 8 }}
+                        ListHeaderComponent={<CurrentPeriodSummary categoryId={activeIconTab} />}
                         extraData={activeIconTab} // ensure FlatList rerenders when selected category changes
                     />
                 ) : (
-                    <VerticalContainer style={{ marginTop: 8 }}>
-                        <HorizontalContainer>
-                            <Text>No Expenses</Text>
-                        </HorizontalContainer>
-                        <HorizontalContainer>
-                            <Caption>You have no expenses for this category in this period.</Caption>
-                        </HorizontalContainer>
-                    </VerticalContainer>
+                    <View>
+                        <CurrentPeriodSummary categoryId={activeIconTab} />
+                        <VerticalContainer style={{ marginTop: 8 }}>
+                            <HorizontalContainer>
+                                <Text>No Expenses</Text>
+                            </HorizontalContainer>
+                            <HorizontalContainer>
+                                <Caption>You have no expenses for this category in this period.</Caption>
+                            </HorizontalContainer>
+                        </VerticalContainer>
+                    </View>
                 )}
             </View>
             <HabitModal

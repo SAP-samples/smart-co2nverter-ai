@@ -15,8 +15,8 @@ export interface AccountHabits {
     ID: string;
     account?: Accounts;
     account_ID?: string;
-    habits?: Habits;
-    habits_ID?: string;
+    habit?: Habits;
+    habit_ID?: string;
     transaction?: Transactions;
     transaction_ID?: string;
 }
@@ -52,6 +52,7 @@ export interface Habits {
     option: string;
     additionalInformation: string;
     factor: number;
+    default: boolean;
 }
 
 export interface Challenges {
@@ -62,6 +63,8 @@ export interface Challenges {
     mcc_ID?: string;
     daysToMark: number;
     avoidableEmissionsPerDay: number;
+    icon: string;
+    category: string;
 }
 
 export interface ChallengesUsers {
@@ -98,6 +101,8 @@ export interface HabitCategories {
     additionalInformation: string;
     options?: Habits[];
     mccs: HabitCategoriesMCC[];
+    icon: string;
+    category: string;
 }
 
 export enum EquivalenciesBucket {

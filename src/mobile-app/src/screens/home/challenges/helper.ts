@@ -29,21 +29,4 @@ const calculateTotalAvoidedEmissions = (activeChallenges: Array<ActiveChallenge>
     );
 };
 
-const CHALLENGE_ICON_MAPPING: { [id: string]: string } = Object.freeze({
-    "572fef3e-b324-45bb-af18-aa2c99877c97": "bike",
-    "410b50f6-ccb8-41fa-9baa-2a555f620124": "food-apple"
-});
-
-const CHALLENGE_CATEGORY_MAPPING: { [id: string]: string } = Object.freeze({
-    "572fef3e-b324-45bb-af18-aa2c99877c97": "Transportation",
-    "410b50f6-ccb8-41fa-9baa-2a555f620124": "Food"
-});
-
-export {
-    calculateAvoidedEmissions,
-    calculateTotalAvoidedEmissions,
-    calculateProgress,
-    deriveDaysLeft,
-    CHALLENGE_ICON_MAPPING,
-    CHALLENGE_CATEGORY_MAPPING
-};
+export { calculateAvoidedEmissions, calculateTotalAvoidedEmissions, calculateProgress, deriveDaysLeft };

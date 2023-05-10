@@ -65,7 +65,7 @@ const ChallengeDetails = ({ route }: { route: any }) => {
             const associatedChallenge = data.challenge as IChallenge;
             const markedDays = data.markedDates;
             setChallenge(data);
-            setMarkedDays(markedDaysAsObject(markedDays as unknown as Array<string>));
+            setMarkedDays(markedDaysAsObject(markedDays as unknown as Array<string>, colors.primary));
             const emissionsAvoided = calculateAvoidedEmissions(
                 markedDays.length,
                 associatedChallenge.avoidableEmissionsPerDay
@@ -146,7 +146,7 @@ const ChallengeDetails = ({ route }: { route: any }) => {
                         <View style={{ marginTop: 40 }}>
                             <BigNumberCO2 co2={progress.emissionsAvoided} caption="Avoided so far" />
                             <Text variant="labelSmall" style={{ marginTop: 4 }}>
-                                {daysLeft} days left until {dueDate}
+                                {Math.max(daysLeft, 0)} days left until {dueDate}
                             </Text>
                             <ProgressBar
                                 progress={progress.percentage}
@@ -163,27 +163,13 @@ const ChallengeDetails = ({ route }: { route: any }) => {
                             dueDate={challenge.dueDate as unknown as string}
                             refreshProgress={refreshProgress}
                         />
-                        <Button
-                            mode="text"
-                            style={{ marginTop: 24 }}
-                            onPress={async () => {
-                                const response = await saveProgress();
-                                if (response.ok) {
-                                    setShowFeedback(true);
-                                    refreshChallenge(challenge.ID).catch(console.log);
-                                } else {
-                                    setError(true);
-                                    setShowFeedback(true);
-                                }
-                            }}
-                        >
-                            Save progress
-                        </Button>
-                        <View style={styles.buttonsView}>
+                        <View style={styles.buttonsContainer}>
                             <Button
                                 mode="outlined"
+                                compact
                                 style={{
-                                    marginRight: 4
+                                    marginHorizontal: 4,
+                                    flex: 1
                                 }}
                                 onPress={async () => {
                                     const response = await cancelChallenge(challenge.ID);
@@ -196,12 +182,13 @@ const ChallengeDetails = ({ route }: { route: any }) => {
                                     }
                                 }}
                             >
-                                Cancel challenge
+                                Cancel
                             </Button>
                             <Button
-                                disabled={!(progress.percentage >= 1)}
-                                mode="contained"
-                                style={{ marginLeft: 4 }}
+                                disabled={!(progress.percentage >= 1 || daysLeft < 0)}
+                                mode="outlined"
+                                compact
+                                style={{ marginHorizontal: 4, flex: 1 }}
                                 onPress={async () => {
                                     let r1: Response = await saveProgress();
                                     let r2 = await completeChallenge(challenge.ID);
@@ -214,7 +201,24 @@ const ChallengeDetails = ({ route }: { route: any }) => {
                                     }
                                 }}
                             >
-                                Finish challenge
+                                Finish
+                            </Button>
+                            <Button
+                                mode="contained"
+                                compact
+                                style={{ marginHorizontal: 4, flex: 1 }}
+                                onPress={async () => {
+                                    const response = await saveProgress();
+                                    if (response.ok) {
+                                        setShowFeedback(true);
+                                        refreshChallenge(challenge.ID).catch(console.log);
+                                    } else {
+                                        setError(true);
+                                        setShowFeedback(true);
+                                    }
+                                }}
+                            >
+                                Save
                             </Button>
                         </View>
                     </ScrollView>
@@ -243,10 +247,11 @@ const makeStyles = (colors: any) =>
             alignItems: "center",
             justifyContent: "center"
         },
-        buttonsView: {
+        buttonsContainer: {
+            marginVertical: 32,
             flexDirection: "row",
-            justifyContent: "center",
-            marginTop: 40
+            justifyContent: "space-between",
+            flex: 1
         }
     });
 
@@ -255,12 +260,15 @@ const makeStyles = (colors: any) =>
 /* returns list of date strings */
 const markedDaysAsList = (markedDays: IMarkedDays): Array<string> => {
     return Object.entries(markedDays)
-        .filter(([_, { marked }]) => marked)
+        .filter(([_, { selected }]) => selected)
         .map(([dateString, _]: [dateString: string, _: any]) => dateString);
 };
 
-const markedDaysAsObject = (markedDays: Array<string>): IMarkedDays => {
-    return markedDays.reduce((acc, dateString) => ({ ...acc, [dateString]: { marked: true } }), {});
+const markedDaysAsObject = (markedDays: Array<string>, color: string): IMarkedDays => {
+    return markedDays.reduce(
+        (acc, dateString) => ({ ...acc, [dateString]: { selected: true, selectedColor: color } }),
+        {}
+    );
 };
 
 const formatDueDate = (dueDate: string) => {

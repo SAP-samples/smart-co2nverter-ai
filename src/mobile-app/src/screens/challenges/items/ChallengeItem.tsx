@@ -1,36 +1,32 @@
 import { useContext, useState } from "react";
 import { StyleSheet, View } from "react-native";
-import { Text, Button, Surface, useTheme, Snackbar, IconButton } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { Text, Button, Surface, useTheme } from "react-native-paper";
 
 import { Challenges as IChallenge } from "../../../types/entities";
 import { AccountContext } from "../../../context/AccountContext";
 import { useNavigation } from "@react-navigation/native";
 import { askForChallengeBenefitsQuery } from "../../../queries";
+import CircleIcon from "../../../components/CircleIcon";
 
 const ChallengeItem = ({
     challenge,
-    iconName,
-    parentCategory,
     setMotivation,
     setGptError,
     setShowModal
 }: {
     challenge: IChallenge;
-    iconName: string;
-    parentCategory: string;
     setMotivation: (motivation: { title: string; description: string; content: string }) => void;
     setGptError: (gptError: boolean) => void;
     setShowModal: (showModal: boolean) => void;
 }) => {
     const { startChallenge } = useContext(AccountContext);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const emissionsCap: string = (challenge.avoidableEmissionsPerDay * challenge.daysToMark).toFixed(2);
     const theme = useTheme();
     const navigation = useNavigation<any>();
 
     const askForChallengeBenefits = async () => {
-        setLoading(true);
+        setIsLoading(true);
         const query = askForChallengeBenefitsQuery(
             challenge.title,
             challenge.description,
@@ -52,7 +48,7 @@ const ChallengeItem = ({
             setShowModal(false);
             setGptError(true);
         }
-        setLoading(false);
+        setIsLoading(false);
     };
 
     return (
@@ -61,8 +57,8 @@ const ChallengeItem = ({
             style={{ borderRadius: theme.roundness, padding: 16, marginVertical: 8, marginHorizontal: 4 }}
         >
             <View style={styles.header}>
-                <Icon name={iconName} color={theme.colors.onPrimaryContainer} size={32} style={{ marginRight: 10 }} />
-                <Text variant="bodyMedium">{parentCategory}</Text>
+                <CircleIcon icon={challenge.icon} style={{ marginRight: 8 }} />
+                <Text variant="bodyMedium">{challenge.category}</Text>
             </View>
             <Text variant="titleLarge" style={{ marginTop: 16 }}>
                 {challenge.title}
@@ -71,7 +67,7 @@ const ChallengeItem = ({
                 {challenge.description}
             </Text>
             <View style={{ alignItems: "flex-start", marginTop: 8 }}>
-                <Button compact loading={loading} disabled={loading} onPress={askForChallengeBenefits}>
+                <Button compact loading={isLoading} disabled={isLoading} onPress={askForChallengeBenefits}>
                     See the Benefits by GPT
                 </Button>
             </View>

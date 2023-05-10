@@ -1,10 +1,9 @@
 import { View, StyleSheet } from "react-native";
 import { useTheme, List, Text, IconButton } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import moment from "moment";
 
 import { Transactions as ITransaction } from "../../../types/entities";
-import { HorizontalContainer } from "../../layout/HorizontalContainer";
+import CircleIcon from "../../CircleIcon";
 
 export const TransactionalItem = ({
     item,
@@ -24,21 +23,11 @@ export const TransactionalItem = ({
             <List.Item
                 title={item.description}
                 titleNumberOfLines={2}
-                titleStyle={{ fontWeight: "700" }}
+                titleStyle={{ fontWeight: "600" }}
                 description={`${Number(item.amount).toFixed(0)} € \n${moment(item.date, "YYYY-MM-DD").format(
                     "MMMM Do YYYY"
                 )}`}
-                left={() => (
-                    <HorizontalContainer>
-                        <View style={localStyles.iconContainer}>
-                            <Icon
-                                name={item?.mcc?.category?.icon || "exclamation-thick"}
-                                size={30}
-                                style={localStyles.icon}
-                            />
-                        </View>
-                    </HorizontalContainer>
-                )}
+                left={(props) => <CircleIcon {...props} icon={item?.mcc?.category?.icon || "exclamation-thick"} />}
                 right={() => {
                     return (
                         <View style={localStyles.itemRight}>
@@ -67,14 +56,6 @@ export const TransactionalItem = ({
 
 const makeStyles = (colors: any) =>
     StyleSheet.create({
-        icon: {
-            padding: 8,
-            color: colors.onPrimaryContainer
-        },
-        iconContainer: {
-            backgroundColor: colors.primaryContainer,
-            borderRadius: 25
-        },
         itemRight: {
             flexDirection: "row",
             alignItems: "center",

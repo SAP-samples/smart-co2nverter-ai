@@ -13,7 +13,7 @@ const HabitsTab = () => {
                 name="Habits"
                 component={Habits}
                 options={{
-                    title: "Habits Screen",
+                    title: "Habits",
                     headerStyle: { backgroundColor: colors.elevation.level2 },
                     headerBackTitleVisible: false,
                     headerTintColor: colors.primary,

@@ -13,7 +13,7 @@ export const categoriesQuery = (): Request => {
 
 export const accountDataQuery = (): Request => {
     let path = "/converter/Accounts";
-    const expand = ["challenges/challenge", "habits/habits", "transactions/mcc/category"];
+    const expand = ["challenges/challenge", "habits/habit", "transactions/mcc/category"];
     path += buildQuery({ key: account, expand: expand });
     // Account uuid must not be surrounded by single quotes (') to be used as key
     path = path.replace("'", "").replace("'", "");
@@ -34,25 +34,18 @@ export const habitCategoriesQuery = (): Request => {
     return buildRequest(path);
 };
 
-export const setHabitQuery = (accountHabitId: string, habitId: string, transactionId?: string): Request => {
-    let path = "/converter/AccountHabits";
-    path += buildQuery({ key: accountHabitId });
-    path = path.replace("'", "").replace("'", "");
-    const headers: Headers = getDefaultHeader();
-    headers.append("Content-Type", "application/json");
-    const body: any = {
-        account_ID: account,
-        habits_ID: habitId
-    };
-    if (transactionId) {
-        body.transaction_ID = transactionId;
+export const setHabitQuery = (habitCategory: string, habit: string, transaction?: string): Request => {
+    const actionName = "setHabit";
+    const body: any = { account, habitCategory, habit };
+    if (transaction) {
+        body.transaction = transaction;
     }
-    return buildRequest(path, Method.PUT, headers, body);
+    return actionQuery(actionName, body);
 };
 
 export const accountHabitsQuery = () => {
     let path = "/converter/Accounts";
-    const expand = "habits/habits";
+    const expand = "habits/habit";
     path += buildQuery({ key: account, expand: expand });
     path = path.replace("'", "").replace("'", "");
     return buildRequest(path);

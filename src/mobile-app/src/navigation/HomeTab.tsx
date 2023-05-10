@@ -14,7 +14,7 @@ const HomeTab = () => {
                 name="Home"
                 component={Home}
                 options={{
-                    title: "Home Screen",
+                    title: "Home",
                     headerStyle: { backgroundColor: colors.elevation.level2 },
                     headerBackTitleVisible: false
                 }}
@@ -23,7 +23,7 @@ const HomeTab = () => {
                 name="Expenses"
                 component={Expenses}
                 options={{
-                    title: "Expenses Overview",
+                    title: "Expenses",
                     headerStyle: { backgroundColor: colors.elevation.level2 },
                     headerTintColor: colors.primary,
                     headerTitleStyle: { color: "black" }

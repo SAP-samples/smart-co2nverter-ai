@@ -13,7 +13,7 @@ const ChallengesTab = () => {
                 name="Challenges"
                 component={Challenges}
                 options={{
-                    title: "Challenges Screen",
+                    title: "Challenges",
                     headerStyle: { backgroundColor: colors.elevation.level2 },
                     headerBackTitleVisible: false,
                     headerTintColor: colors.primary,
@@ -24,7 +24,7 @@ const ChallengesTab = () => {
                 name="ChallengeDetails"
                 component={ChallengeDetails}
                 options={{
-                    title: "Challenge Details Screen",
+                    title: "Challenge Overview",
                     headerStyle: { backgroundColor: colors.elevation.level2 }
                 }}
             />

@@ -1,4 +1,4 @@
-import { ApplicationService } from "@sap/cds";
+import cds, { ApplicationService } from "@sap/cds";
 import { Request } from "@sap/cds/apis/services";
 import moment from "moment";
 import { v4 as uuidv4 } from "uuid";
@@ -43,6 +43,7 @@ export class ConverterService extends ApplicationService {
         this.on(cs.ActionStartChallenge.name, this.startChallenge);
         this.on(cs.ActionCancelChallenge.name, this.cancelChallenge);
         this.on(cs.ActionCompleteChallenge.name, this.completeChallenge);
+        this.on(cs.ActionSetHabit.name, this.setHabit);
         this.on(cs.ActionAskForComposition.name, this.askForComposition);
         this.on(cs.ActionAskForGreenContract.name, this.askForGreenContract);
         this.on(cs.ActionAskForChallengeBenefits.name, this.askForChallengeBenefits);
@@ -165,7 +166,7 @@ Option | Habit | Percentage of CO2 consumption compared to default habit
 -----+-------+---\n`;
 
         habitSummaries.forEach(({ option, context, factor }) => {
-            prompt += `${option} | ${context} | ${factor * 100}% |\n`;
+            prompt += `${option} | ${context} | ${Math.round(factor * 100)}% |\n`;
         });
 
         prompt += `
@@ -206,16 +207,20 @@ Give the user a summary of the options, recommendation and step by step guide in
                 .where({ account_ID: account, transaction: null })
                 .columns((ah: any) => {
                     ah("*");
-                    ah.habits((h: any) => h("*"));
+                    ah.habit((h: any) => h("*"));
                 });
-            const habits = accountHabits.map((ah: cs.AccountHabits) => ah.habits!.code);
+            const habits = accountHabits.map((ah: cs.AccountHabits) => ah.habit!.code);
             const isVegan: boolean = habits.some((habit: cs.HabitsCode) => habit === cs.HabitsCode.VEGAN);
-            const filter = { ...(isVegan && { vegan: true }) };
-            const rawEquivalencies = await SELECT.from(Equivalencies).where(filter).limit(3).orderBy("RAND()");
+            const bucket: cs.EquivalenciesBucket | null = this.excludeBucket(co2);
+            const filter = { bucket: { "!=": bucket }, ...(isVegan && { vegan: true }) };
+            const rawEquivalencies = await SELECT.from(Equivalencies).where(filter).limit(5).orderBy("RAND()");
 
             const equivalencies = rawEquivalencies.map((e: cs.Equivalencies) => ({
                 ID: e.ID,
-                amount: Math.round(co2 / e.co2PerKg),
+                amount:
+                    Math.round(co2 / e.co2PerKg) > 10
+                        ? Math.round(co2 / e.co2PerKg)
+                        : Math.round((co2 / e.co2PerKg) * 100) / 100,
                 description: e.description,
                 image: e.image
             }));
@@ -226,12 +231,10 @@ Give the user a summary of the options, recommendation and step by step guide in
         }
     };
 
-    private getBucket(value: number) {
-        if (value < 20) return cs.EquivalenciesBucket.XS;
-        if (value < 50) return cs.EquivalenciesBucket.S;
-        if (value < 200) return cs.EquivalenciesBucket.M;
-        if (value < 1000) return cs.EquivalenciesBucket.L;
-        return cs.EquivalenciesBucket.XL;
+    private excludeBucket(value: number) {
+        if (value < 500) return cs.EquivalenciesBucket.XL;
+        if (value > 10) return cs.EquivalenciesBucket.XS;
+        return null;
     }
 
     /*
@@ -274,12 +277,11 @@ Give the user a summary of the options, recommendation and step by step guide in
                             if (transaction.mcc_ID! in mccHabitMapping) {
                                 // filter account based habits for relevant habit categories based on MCC
                                 const relevantAccountHabits: Array<cs.AccountHabits> = accountHabits.filter(
-                                    (habit: cs.AccountHabits) =>
-                                        habit.habits_ID === mccHabitMapping[transaction.mcc_ID!]
+                                    (habit: cs.AccountHabits) => habit.habit_ID === mccHabitMapping[transaction.mcc_ID!]
                                 );
                                 // check the relevant personal habits, set the factor but break if any personal habit was overriden wrt a transaction
                                 for (const habit of relevantAccountHabits) {
-                                    habitFactor = habit.habits!.factor;
+                                    habitFactor = habit.habit!.factor;
                                     if (habit.transaction_ID) {
                                         console.log("transaction based habit found");
                                         break;
@@ -336,5 +338,34 @@ Give the user a summary of the options, recommendation and step by step guide in
     private completeChallenge = async (req: Request): Promise<void> => {
         const { id } = req.data;
         await UPDATE(cs.Entity.ChallengesUsers).where({ ID: id }).with({ isCompleted: true });
+    };
+
+    private setHabit = async (req: Request): Promise<void> => {
+        const { account, habitCategory, habit, transaction } = req.data;
+        // defaults for diet and fuel habit
+        const DEFAULT_HABITS = ["740fcc4f-518d-4bb0-9b69-697a38361926", "59ee24e3-3f1e-48a3-99f3-144d0dc48258"];
+        const isDefault: boolean = DEFAULT_HABITS.includes(habit);
+        const accountHabits = await SELECT`from carbon.AccountHabits {*, habit.habitCategory_ID}`;
+        const relevantAccountHabit = accountHabits.find(
+            (ah: any) =>
+                ah.habitCategory_ID == habitCategory && ah.transaction_ID == transaction && ah.account_ID == account
+        );
+        if (!isDefault) {
+            if (relevantAccountHabit) {
+                await cds
+                    .update(cs.Entity.AccountHabits)
+                    .where({ ID: relevantAccountHabit.ID })
+                    .with({ habit_ID: habit });
+            } else {
+                await cds.create(cs.Entity.AccountHabits, {
+                    account_ID: account,
+                    transaction_ID: transaction,
+                    habit_ID: habit
+                });
+            }
+        } else if (isDefault && relevantAccountHabit) {
+            // delete account habit to indicate that default habit should be used in co2 calculation
+            await cds.delete(cs.Entity.AccountHabits, relevantAccountHabit.ID);
+        }
     };
 }

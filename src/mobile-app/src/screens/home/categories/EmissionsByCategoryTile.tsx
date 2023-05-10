@@ -47,9 +47,7 @@ export const EmissionsByCategoryTile = () => {
                         setShowAll(!showAll);
                     }}
                 >
-                    <Text style={{ color: theme.colors.primary }}>
-                        {showAll ? "See less categories" : "See all categories"}
-                    </Text>
+                    <Text style={{ color: theme.colors.primary }}>{showAll ? "Show less" : "Show more"}</Text>
                 </Button>
             </HorizontalContainer>
         </Surface>

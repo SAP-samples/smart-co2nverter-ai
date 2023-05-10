@@ -11,7 +11,7 @@ import { useContext } from "react";
 import { AccountContext, ITransactionSummary } from "../../context/AccountContext";
 import { CustomModal } from "../modals/CustomModal";
 import { generateCategorizedSummaryQuery, generateHistoricalSummaryQuery } from "../../queries";
-import { ConverterService } from "../../types/entities";
+import * as ConverterService from "../../types/entities";
 
 const { width } = Dimensions.get("window");
 
@@ -43,7 +43,7 @@ const PeriodicSummary = ({ style: customStyle = {} }: { style: any }) => {
             <VerticalContainer style={customStyle}>
                 <HorizontalContainer style={{ marginTop: 2 }}>
                     <Text variant="headlineSmall" style={{ color: colors.onPrimary }}>
-                        {"CO\u2082 emissions by months in kg"}
+                        {"CO\u2082 per month in kg"}
                     </Text>
                 </HorizontalContainer>
                 <HorizontalContainer style={styles.barChartContainer}>
@@ -82,12 +82,12 @@ const AISummary = () => {
         historicalSummary: ""
     });
     const [showSummary, setShowSummary] = useState<boolean>(false);
-    const [loading, setLoading] = useState<boolean>(false);
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const { monthlySummary, getConsideredMonth, getCategoryById } = useContext(AccountContext);
     const { lastMonths } = monthlySummary;
 
     const summarize = async () => {
-        setLoading(true);
+        setIsLoading(true);
 
         // Categorized Summary
         const payloadCategorizedSummary: ConverterService.ICategorizedCO2[] = Object.entries(
@@ -127,12 +127,12 @@ const AISummary = () => {
             setShowSummary(false);
         }
 
-        setLoading(false);
+        setIsLoading(false);
     };
 
     return (
         <VerticalContainer>
-            <Button icon="chat-question" mode="elevated" loading={loading} onPress={summarize}>
+            <Button icon="chat-question" mode="elevated" loading={isLoading} onPress={summarize}>
                 Summarize
             </Button>
             <View style={{ marginTop: 8 }}>
@@ -153,7 +153,7 @@ const AISummary = () => {
                     <Text>{summaries.categorizedSummary}</Text>
                 </View>
                 <View style={{ backgroundColor: "#fff", marginTop: 16, padding: 16, borderRadius: 16 }}>
-                    <Text variant="titleSmall">{`CO\u2082 footpring of the last ${lastMonths.length} months`}</Text>
+                    <Text variant="titleSmall">{`CO\u2082 footprint of the last ${lastMonths.length} months`}</Text>
                     <Text>{summaries.historicalSummary}</Text>
                 </View>
             </CustomModal>

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Text, useTheme, Surface } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import { useNavigation } from "@react-navigation/native";
 
 import { Challenges, ChallengesUsers as ActiveChallenge } from "../../../types/entities";
 import { deriveDaysLeft, calculateProgress, calculateAvoidedEmissions } from "../../home/challenges/helper";
@@ -9,18 +9,14 @@ import { AccountContext } from "../../../context/AccountContext";
 
 import ProgressBar from "../../../components/ProgressBar";
 import BigNumberCO2 from "../../../components/BigNumberCO2";
-import { useNavigation } from "@react-navigation/native";
+import CircleIcon from "../../../components/CircleIcon";
 
 const ActiveChallengeItem = ({
     activeChallenge,
-    iconName,
-    parentCategory,
     setShowFeedback,
     setError
 }: {
     activeChallenge: ActiveChallenge;
-    iconName: string;
-    parentCategory: string;
     setShowFeedback?: any;
     setError?: any;
 }) => {
@@ -45,11 +41,19 @@ const ActiveChallengeItem = ({
             style={{ borderRadius: theme.roundness, padding: 16, marginVertical: 8, marginHorizontal: 4 }}
         >
             <View style={styles.header}>
-                <Icon name={iconName} color={theme.colors.onPrimaryContainer} size={32} style={{ marginRight: 10 }} />
-                <Text variant="bodyMedium">{parentCategory}</Text>
+                <CircleIcon icon={underlyingChallenge.icon} style={{ marginRight: 8 }} />
+                <Text variant="bodyMedium">{underlyingChallenge.category}</Text>
                 <View style={{ flex: 1, flexDirection: "row", justifyContent: "flex-end" }}>
                     <Surface elevation={2} mode="flat" style={styles.challengeStatus}>
-                        <Text variant="bodyMedium">{activeChallenge.isCompleted ? "Finished" : "In progress"}</Text>
+                        <Text variant="bodyMedium">
+                            {activeChallenge.isCompleted
+                                ? progress >= 1
+                                    ? "Success"
+                                    : "Expired"
+                                : progress >= 1
+                                ? "Success"
+                                : "Running"}
+                        </Text>
                     </Surface>
                 </View>
             </View>
@@ -69,15 +73,15 @@ const ActiveChallengeItem = ({
             <View style={{ marginTop: 30 }}>
                 <BigNumberCO2 co2={emissionsAvoided} caption="Avoided so far" />
                 <Text variant="labelSmall" style={{ marginTop: 4 }}>
-                    {daysLeft} days left
+                    {Math.max(daysLeft, 0)} days left
                 </Text>
                 <ProgressBar progress={progress} />
             </View>
             {!activeChallenge.isCompleted && (
-                <View style={{ flexDirection: "row", marginTop: 38 }}>
+                <View style={{ flexDirection: "row", marginTop: 38, flex: 1 }}>
                     <Button
                         mode="outlined"
-                        style={{ marginRight: 4 }}
+                        style={{ marginRight: 4, flex: 1 }}
                         onPress={async () => {
                             const response = await cancelChallenge(activeChallenge.ID);
                             if (response.ok) {
@@ -90,14 +94,14 @@ const ActiveChallengeItem = ({
                             }
                         }}
                     >
-                        Cancel challenge
+                        Cancel
                     </Button>
                     <Button
                         mode="contained"
-                        style={{ marginLeft: 4 }}
+                        style={{ marginLeft: 4, flex: 1 }}
                         onPress={() => navigation.navigate("ChallengeDetails", { challengeId: activeChallenge.ID })}
                     >
-                        Update challenge
+                        Overview
                     </Button>
                 </View>
             )}

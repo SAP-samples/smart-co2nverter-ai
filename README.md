@@ -2,6 +2,11 @@
 
 # Reduce your CO2 footprint using a smart Generative AI application on SAP BTP
 
+<br/>
+<p align="center">
+  <img src="documentation/assets/smart_co2nverter_logo.png" alt="logo" width="350" />
+</p>
+
 ## Description
 
 Leverage a generalized approach to applying Generative AI to business challenges with SAP BTP. In this sample, you will deploy an SAP Cloud Application Programming application that interacts with Azure AI and a React Native mobile app implementing a Smart CO2 Converter App.
@@ -14,7 +19,9 @@ How might we enable banking customers to be more climate conscious while strengt
 
 Help users understand how their consumption habits are driving their CO2 footprint by showing most impactful expenses and best opportunities for emissions reductions.
 
-![architecture](documentation/03-application/assets/architecture.png)
+<p align="center">
+<img src="documentation/03-application/assets/architecture.png" alt="architecture" width="1000" />
+</p>
 
 ## Outcome
 

@@ -1,20 +1,14 @@
 import { StyleSheet, View } from "react-native";
 import { useTheme, Surface, List, IconButton } from "react-native-paper";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 
 import { Challenges, ChallengesUsers as ActiveChallenge } from "../../../types/entities";
 import { deriveDaysLeft, calculateProgress, calculateAvoidedEmissions } from "./helper";
 import ProgressBar from "../../../components/ProgressBar";
+import CircleIcon from "../../../components/CircleIcon";
 
-const ChallengeSummaryItem = ({
-    activeChallenge,
-    iconName
-}: {
-    activeChallenge: ActiveChallenge;
-    iconName: string;
-}) => {
+const ChallengeSummaryItem = ({ activeChallenge }: { activeChallenge: ActiveChallenge }) => {
     const underlyingChallenge: Challenges = activeChallenge?.challenge as Challenges;
-    const daysLeft = deriveDaysLeft(activeChallenge.dueDate as unknown as string);
+    const daysLeft = Math.max(deriveDaysLeft(activeChallenge.dueDate as unknown as string), 0);
     const emissionsAvoided = calculateAvoidedEmissions(
         activeChallenge.markedDates.length,
         underlyingChallenge.avoidableEmissionsPerDay
@@ -27,11 +21,10 @@ const ChallengeSummaryItem = ({
             <List.Item
                 title={underlyingChallenge.title}
                 titleNumberOfLines={2}
-                description={`${emissionsAvoided} kg avoided / ${daysLeft} days left`}
+                titleStyle={{ fontWeight: "600" }}
+                description={`${emissionsAvoided} kg avoided • ${daysLeft} days left`}
                 descriptionNumberOfLines={3}
-                left={(props) => (
-                    <Icon style={props.style} name={iconName} color={theme.colors.onPrimaryContainer} size={32} />
-                )}
+                left={(props) => <CircleIcon {...props} icon={underlyingChallenge.icon} />}
                 right={(props) => (
                     <IconButton
                         style={[props.style, styles.iconButton]}
