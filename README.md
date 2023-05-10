@@ -65,13 +65,13 @@ You can find the detailed pre-requisites for running each part of this use case 
 - [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Deploy CAP API to Cloud Foundry](./documentation/03-application/05-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
-- [Run the Mobile App](./documentation/03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
+- [Run the Mobile App (React Native)](./documentation/03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Publishing the Mobile App](./documentation/03-application/08-publish-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Optional"]} dc-card -->
 
 ### AI Insights 
 
 - [Synthetic Data through Generative AI](./documentation/04-data-setup/AI-data-setup-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
-- [AI Application Features](./documentation/05-AI-features/AI-application-features-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
+- [AI Application Features (OpenAI Services)](./documentation/05-AI-features/AI-application-features-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 
 ### Completion
 
