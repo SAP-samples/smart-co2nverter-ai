@@ -4,7 +4,7 @@
 
 The following covers the core parts of the Smart Co2nverter application based on SAP BTP's Cloud Foundry Runtime, including the SAP Cloud Application Programming Model (CAP) backend, SAP HANA Cloud for data storage, a React Native mobile app and the SAP Destination service for resolving connections to external services.
 
-### SAP BTP, Cloud Foundry Runtime
+### SAP BTP, Cloud Foundry runtime
 
 SAP BTP, Cloud Foundry Runtime serves for deploying SAP Cloud Application Programming Model (CAP) applications. It offers a scalable and flexible environment for running cloud-native applications, allowing developers to focus on building their applications without worrying about the underlying infrastructure.
 
