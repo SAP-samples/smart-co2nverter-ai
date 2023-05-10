@@ -2,7 +2,7 @@
 
 ## Preparation
 
-Enter your <_PARAMETERS_> to the `app.json` file in the `mobile-app/` directory:
+Enter your <_PARAMETERS_> to the `app.json` file in the `src/mobile-app/` directory:
 
 ```jsonc
 {
@@ -25,7 +25,7 @@ Enter your <_PARAMETERS_> to the `app.json` file in the `mobile-app/` directory:
 
 ## Start the React Native app
 
-1. To install the dependencies, change to the `mobile-app/` directory and execute:
+1. To install the dependencies, change to the `src/mobile-app/` directory and execute:
 
    ```console
    $ npm install # using NPM
