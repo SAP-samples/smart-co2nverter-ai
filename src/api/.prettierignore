@@ -1,0 +1,5 @@
+*.js
+**/.git
+**/node_modules
+package-lock.json
+srv/intermediary

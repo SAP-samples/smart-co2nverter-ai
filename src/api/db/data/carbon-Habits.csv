@@ -1,0 +1,12 @@
+ID;HABITCATEGORY_ID;CODE;TAG;OPTION;ADDITIONALINFORMATION;FACTOR;DEFAULT
+13234a7a-bbdb-4228-b70a-51a914381ebd;3466da2d-747e-49bb-ab4d-52cab3769ece;VEGAN;dietary;Vegan;No meat at all;0.35;false
+c12c6760-76bc-4b69-94e2-06d9464bec02;3466da2d-747e-49bb-ab4d-52cab3769ece;VEGETARIAN;dietary;Vegetarian;I eat eggs/dairy, but no meat;0.5;false
+eca5907c-d5a7-46ec-a2f4-5fe25a1c1fe6;3466da2d-747e-49bb-ab4d-52cab3769ece;PESCATARIAN;dietary;Pescetarian;I eat veggies, eggs/dairy and also fish;0.55;false
+578fcb29-3e3c-4da2-8e29-6a8230e774a4;3466da2d-747e-49bb-ab4d-52cab3769ece;LOW_MEAT_EATER;dietary;Low meat eater;I eat meat, but not often;0.75;false
+740fcc4f-518d-4bb0-9b69-697a38361926;3466da2d-747e-49bb-ab4d-52cab3769ece;DIET_AVERAGE;dietary;Diet average;I eat everything, also meat, but not every day;1.0;true
+412a50fe-a6be-4bf0-972d-c915c0fb8c24;3466da2d-747e-49bb-ab4d-52cab3769ece;HIGH_MEAT_EATER;dietary;High meat eater;I eat meat almost every day;1.5;false
+d20c4013-aa3e-4216-a3ee-ea4143febe78;635c5e6e-ba1e-43b0-891b-4259c2137236;DIESEL;petrolStationSpending;Diesel;I drive a diesel fueled car;1.56;false
+4932fb14-e49c-4b26-b00e-8703137c7397;635c5e6e-ba1e-43b0-891b-4259c2137236;PETROL;petrolStationSpending;Petrol;I drive a petrol fueled car;1.33;false
+4ceb4744-53d2-4b4a-a1fc-0972058c61a8;635c5e6e-ba1e-43b0-891b-4259c2137236;FOOD;petrolStationSpending;Food;At petrol stations, I don't by fuel;0.3;false
+ae542bb9-522a-4d3c-a26a-537216166496;635c5e6e-ba1e-43b0-891b-4259c2137236;ELECTRICITY;petrolStationSpending;Electricity;I drive an electric car;0.11;false
+59ee24e3-3f1e-48a3-99f3-144d0dc48258;635c5e6e-ba1e-43b0-891b-4259c2137236;DEFAULT;petrolStationSpending;Default;Average of the fuel options;1.0;true

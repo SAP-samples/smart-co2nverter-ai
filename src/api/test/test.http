@@ -1,0 +1,47 @@
+### GET AVAILABLE CHALLENGES
+GET http://localhost:4004/converter/Challenges
+content-type: application/json
+api-key: helloworld
+
+### GET ACTIVE CHALLENGES
+GET http://localhost:4004/converter/ChallengesUsers
+content-type: application/json
+api-key: helloworld
+
+### START CHALLENGE
+POST http://localhost:4004/converter/startChallenge
+content-type: application/json
+api-key: helloworld
+
+{"account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d", "challengeId": "572fef3e-b324-45bb-af18-aa2c99877c97"}
+
+### CANCEL CHALLENGE
+POST http://localhost:4004/converter/cancelChallenge
+content-type: application/json
+api-key: helloworld
+
+{ "id": null}
+
+### COMPLETE CHALLENGE
+POST http://localhost:4004/converter/completeChallenge
+content-type: application/json
+api-key: helloworld
+
+{ "id": "e52731f6-c3c5-4bfb-a7df-3697b77a7cd2" }
+
+###
+GET http://localhost:4004/converter/getEquivalencies(co2=1250,account=8fbaa8ca-6cf3-4ea4-9764-82e6b841480d)
+content-type: application/json
+api-key: helloworld
+
+###
+POST http://localhost:4004/converter/setHabit
+content-type: application/json
+api-key: helloworld
+
+{
+    "account":  "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d",
+    "habit": "59ee24e3-3f1e-48a3-99f3-144d0dc48258",
+    "habitCategory": "3466da2d-747e-49bb-ab4d-52cab3769ece",
+    "transaction": "44E9C01A-01F2-46F6-BE4D-73B78117E4A2"
+}
