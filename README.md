@@ -32,6 +32,7 @@ A mobile app built using the reusable architecture principles of SAP Cloud Appli
 You can find the detailed pre-requisites for running each part of this use case mission in the [Table of Contents](documentation/DC_TOC.md)
 
 <!-- disco-toc-start -->
+
 ### Explore and Discover
 
 - [Explore the mission](./documentation/01-explore-the-mission/explore.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
@@ -67,7 +68,7 @@ You can find the detailed pre-requisites for running each part of this use case 
 - [Run the Mobile App (React Native)](./documentation/03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Publishing the Mobile App](./documentation/03-application/08-publish-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Optional"]} dc-card -->
 
-### AI Insights 
+### AI Insights
 
 - [Synthetic Data through Generative AI](./documentation/04-data-setup/AI-data-setup-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 - [AI Application Features (OpenAI Services)](./documentation/05-AI-features/AI-application-features-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
@@ -89,6 +90,22 @@ None
 For additional support, [ask a question in SAP Community](https://answers.sap.com/questions/ask.html).
 
 ## Contributing
+
+<style>
+td, th {
+   border: none!important;
+}
+</style>
+
+Thanks to all collaborators to make this app real!
+||||
+| - | - | - |
+| • [Adi Pleyer](AdiPleyer) | • Armando Aguinaga | • [Gerd Buchmüller](https://github.com/D022666) |
+| • Heike van Geel | • Iyad Al Hafez | • [James Rapp](https://github.com/jmsrpp) |
+| • [Julian Schambeck](julian-schambeck) | • Karen Detken | • [Kay Schmitteckert](https://github.com/kay-schmitteckert) |
+| • Simon Nowack | • [Sudheer Tammana](https://github.com/sudheer-tammana) | • Vikas Thimmiaha |
+
+</br>
 
 If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
