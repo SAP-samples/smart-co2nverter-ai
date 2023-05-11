@@ -9,7 +9,6 @@ AI
 Summary
 
 <!-- disco-toc-start -->
-
 - Explore and Discover
   - [Explore the mission](./01-explore-the-mission/explore.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
   - [SAP Business Technology Platform](./01-explore-the-mission/BTP.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
