@@ -10,7 +10,7 @@ SAP BTP, Cloud Foundry Runtime serves for deploying SAP Cloud Application Progra
 
 ### SAP Cloud Application Programming Model (CAP)
 
-The SAP Cloud Application Programming Model (CAP) serves as the backend of the application and connects various components. It defines the data model and enables features such as calculating CO2 scores based on bank transactions. Additionally, it offers challenges to reduce CO2 footprint and provides equivalencies to compare CO2 footprints. The data related to CO2 scores, challenges, and equivalencies can be delivered via an API provided by Connect Earth, which is connected to the CAP backend through the destination service. AI features are also enabled through the destination service, which connects the CAP backend to AI Core and with that to Azure OpenAI Services.
+The SAP Cloud Application Programming Model (CAP) serves as the backend of the application and connects various components. It defines the data model and enables features such as calculating CO2 scores based on bank transactions. Additionally, it offers challenges to reduce CO2 footprint and provides equivalencies to compare CO2 footprints. The data related to CO2 scores, challenges, and equivalencies can be delivered via an API provided by Connect Earth, which is connected to the CAP backend through the destination service. AI features are also enabled through the destination service, which connects the CAP backend to SAP AI Core and with that to Azure OpenAI Services.
 
 ### React Native Application
 
@@ -22,7 +22,7 @@ SAP HANA Cloud is used to store the data related to transactions, accounts and p
 
 ### SAP Destination Service
 
-The Destination service lets you retrieve the backend destination details you need to resolve connections to AI Core (and with that to Azure OpenAI Services) and Connect Earth. It helps to manage and simplify the communication between the backend and external services.
+The Destination service lets you retrieve the backend destination details you need to resolve connections to SAP AI Core (and with that to Azure OpenAI Services) and Connect Earth. It helps to manage and simplify the communication between the backend and external services.
 
 ### SAP Cloud Identity Service
 
@@ -34,15 +34,15 @@ The Business Application Studio is used for the development and deployment of th
 
 ## **AI**
 
-These following provides an overview of the AI services used in the Smart Co2nverter project. SAP BTP, AI Core offers access to Microsoft Azure OpenAI Services and SAP BTP, AI Launchpad provides a monitoring UI. The project uses GPT-3 of Azure OpenAI Services to enable AI based features.
+These following provides an overview of the AI services used in the Smart Co2nverter project. SAP AI Core offers access to Microsoft Azure OpenAI Services and SAP AI Launchpad provides a monitoring UI. The project uses GPT-3 of Azure OpenAI Services to enable AI based features.
 
-### SAP BTP, AI Core
+### SAP AI Core
 
-With an deployment on SAP BTP, AI Core as a proxy for Azure OpenAI Services, we are able to offer API access to Microsoft Azure OpenAI Services to abstract the model API and perform additional prompt engineering, e.g. to add more context in the form of (SAP) documents or to perform input validation.
+With an deployment on SAP AI Core as a proxy for Azure OpenAI Services, we are able to offer API access to Microsoft Azure OpenAI Services to abstract the model API and perform additional prompt engineering, e.g. to add more context in the form of (SAP) documents or to perform input validation.
 
-### SAP BTP, AI Launchpad
+### SAP AI Launchpad
 
-SAP BTP, AI Launchpad provides a user interface for inspecting and monitoring SAP BTP, AI Core deployments. It helps to manage and monitor the AI models deployed in the system, providing insights and analytics on their performance.
+SAP AI Launchpad provides a user interface for inspecting and monitoring SAP AI Core deployments. It helps to manage and monitor the AI models deployed in the system, providing insights and analytics on their performance.
 
 ### Microsoft Azure with OpenAI Service
 

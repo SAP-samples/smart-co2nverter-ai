@@ -41,7 +41,7 @@ You can find the detailed pre-requisites for running each part of this use case 
 - [SAP HANA Cloud](./documentation/01-explore-the-mission/hana-cloud.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
 - [SAP Destination Service](./documentation/01-explore-the-mission/destination-service.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
 - [Get started with Cloud Application Programming](./documentation/01-explore-the-mission/cap.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
-- [Get started with SAP BTP, AI Core & SAP BTP, AI Launchpad](./documentation/01-explore-the-mission/ai-core-launchpad.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
+- [Get started with SAP AI Core & SAP AI Launchpad](./documentation/01-explore-the-mission/ai-core-launchpad.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 - [Get started with React Native](./documentation/01-explore-the-mission/react-native.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
 - [ChatGPT and Large Language Models](./documentation/01-explore-the-mission/GPT-and-LLMs.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 - [Get started with OpenAI Services](./documentation/01-explore-the-mission/azure-openai-services.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
@@ -51,8 +51,8 @@ You can find the detailed pre-requisites for running each part of this use case 
 
 - [Setup SAP BTP prerequisites](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/00-prerequisites/01-setup-subaccount-cf-aicore.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
 - [Setup Docker Hub account and build & push your Docker Image](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/02-build-push-docker-images.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
-- [Register general artifacts on SAP BTP, AI Core and inspect in SAP BTP, AI Launchpad](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/03-register-general-artifacts.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
-- [Deploy the Inference Service on SAP BTP, AI Core as Proxy for Azure OpenAI Services](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/04-setup-deployment-inference-service.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
+- [Register general artifacts on SAP AI Core and inspect in SAP AI Launchpad](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/03-register-general-artifacts.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
+- [Deploy the Inference Service on SAP AI Core as Proxy for Azure OpenAI Services](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/04-setup-deployment-inference-service.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
 - [Test and play with deployed service](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/05-test-deployed-service.md)<!-- dc-card: {"label":  ["Optional", "Hands-On"]} dc-card -->
 - [Expo Go Client & Expo Account](./documentation/02-technical-setup/07-expo.md)<!-- dc-card: {"label":  ["Optional", "Hands-On"]} dc-card -->
 - [Setup Business Application Studio](https://github.com/SAP-samples/successfactors-extension-calculate-employee-seniority/blob/mission/03-ConfigureSAPBusinessApplicationStudio/README.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
@@ -64,7 +64,7 @@ You can find the detailed pre-requisites for running each part of this use case 
 - [Preparatory Steps](./documentation/03-application/03-preparatory.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Deploy CAP API to Cloud Foundry](./documentation/03-application/05-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
-- [Attach SAP BTP, AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
+- [Attach SAP AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
 - [Run the Mobile App (React Native)](./documentation/03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Publishing the Mobile App](./documentation/03-application/08-publish-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Optional"]} dc-card -->
 
