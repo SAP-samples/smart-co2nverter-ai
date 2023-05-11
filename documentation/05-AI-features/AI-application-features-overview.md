@@ -2,7 +2,7 @@
 
 We want to also use the capabilities of a large language model for combining their input and results with the business data and application context at the runtime of the application. In this case it is essential to also be mindful of the data privacy aspect and avoid disclosing critical data to the cloud AI if not necessary.
 
-The following features are integrated into the application and involved and runtime. Therefore, at the time of developing, we can only make use of GPT-3.5 accessed from SAP BTP through AI Core.
+The following features are integrated into the application and involved and runtime. Therefore, at the time of developing, we can only make use of GPT-3.5 accessed from SAP BTP through SAP AI Core.
 
 - [Summary of the Current Situation](#situation-summary) will give the user an overview of the CO2 consumption status.
 - [Recommendations to reduce CO2](#recommendations) help to reduce the CO2 in individual categories
