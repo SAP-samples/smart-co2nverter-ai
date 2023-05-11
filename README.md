@@ -91,21 +91,20 @@ For additional support, [ask a question in SAP Community](https://answers.sap.co
 
 ## Contributing
 
-<style>
-td, th {
-   border: none!important;
-}
-</style>
-
 Thanks to all collaborators to make this app real!
-||||
-| - | - | - |
-| • [Adi Pleyer](AdiPleyer) | • Armando Aguinaga | • [Gerd Buchmüller](https://github.com/D022666) |
-| • Heike van Geel | • Iyad Al Hafez | • [James Rapp](https://github.com/jmsrpp) |
-| • [Julian Schambeck](julian-schambeck) | • Karen Detken | • [Kay Schmitteckert](https://github.com/kay-schmitteckert) |
-| • Simon Nowack | • [Sudheer Tammana](https://github.com/sudheer-tammana) | • Vikas Thimmiaha |
 
-</br>
+- [Adi Pleyer](AdiPleyer)
+- Armando Aguinaga
+- [Gerd Buchmüller](https://github.com/D022666)
+- Heike van Geel
+- Iyad Al Hafez
+- [James Rapp](https://github.com/jmsrpp)
+- [Julian Schambeck](julian-schambeck)
+- Karen Detken
+- [Kay Schmitteckert](https://github.com/kay-schmitteckert)
+- Simon Nowack
+- [Sudheer Tammana](https://github.com/sudheer-tammana)
+- Vikas Thimmiaha
 
 If you wish to contribute code, offer fixes or improvements, please send a pull request. Due to legal reasons, contributors will be asked to accept a DCO when they create the first pull request to this project. This happens in an automated fashion during the submission process. SAP uses [the standard DCO text of the Linux Foundation](https://developercertificate.org/).
 
