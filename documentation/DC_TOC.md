@@ -44,4 +44,4 @@ Summary
 - Completion
   - [Retrospective](./06-complete/retrospective.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
   - [Outlook](./06-complete/outlook.md)<!-- dc-card: {"label":  ["Summary"]} dc-card -->
-  <!-- disco-toc-end -->
+<!-- disco-toc-end -->
