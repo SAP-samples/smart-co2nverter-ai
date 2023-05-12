@@ -15,35 +15,44 @@ The following features are integrated into the application and involved and runt
 
 When entering the application, the user is presented the current month CO2 consumption and when swiping the history of previous months.
 
-As an alternative, We want to provide a spoken summary of the values displayed. This is optional, but could be useful for a user who wants to consume the information while visually focusing on something else, maybe driving a car.
+As an alternative, we would like to offer a (spoken) summary of the displayed values. This is optional, but could be useful for a user who either wants to consume the information as a report or wants to consume the information while visually focusing on something else, e.g. driving.
 
 In order to ask the AI to provide a reasonable summary, we need to construct a prompt which is partly fix and partly filled programatically with current application data before sent to the Generative AI.
 
 ## Summary 1
 
-Here is a snippet of what needs to be done in the applications to construct the prompt. The input is assumed to be an array of pairs [category, co2].
+Here is a snippet of what needs to be done in the applications to construct the prompt. The input is assumed to be an array of pairs {category, co2]}.
 
-```
-current_month_prompt_string = `
-The following is a table of my CO2 consumption of the current month for different categories of spendings:
+```typescript
+// sample payload
+const categorizedSummary = [
+  { category: "Miscellaneous Stores", co2: 95.07 },
+  { category: "Retail Outlet Services", co2: 148.25 },
+  { category: "Professional Services and Membership Organizations", co2: 9.85 },
+  { category: "Transportation Services", co2: 5.8 },
+];
 
-| Category | CO2 consumption in kg |
----+---
+// construct the prompt for summary 1
+let prompt = `The following is a table of my CO2 consumption of the current month for different categories of spendings: 
+Category | CO2 consumption in kg 
+---+--- 
 `;
-
 // filter out zeros
-current_month_input = current_month_input.filter(([category,co2]) => co2 > 0);
+const relevantCategories = categorizedSummary.filter(
+  ({ category: _, co2 }: any) => co2 > 0
+);
 
 // generate table content inside prompt
-current_month_input.forEach(([category, co2]) => {
-    current_month_prompt_string += "| " + category + " | " + co2 + " |\n";
-});
-current_month_prompt_string += `
+relevantCategories.forEach(
+  ({ category, co2 }: { category: string; co2: number }) => {
+    prompt += `${category} | ${co2}\n`;
+  }
+);
 
+prompt += `
 Tell me which category has the highest consumption.
 Also propose three measures how I could decrease the CO2 consumption fo this category.
-No table please, just a plain text which I can listen to in spoken speech and numbers rounded.
-`;
+No table please, just a plain text which I can listen to in spoken speech and numbers rounded.`;
 ```
 
 The resulting prompt which is sent to the AI, might look like this:
@@ -55,7 +64,7 @@ The following is a table of my CO2 consumption of the current month for differen
 ---+---
 | Miscellaneous Stores | 141.78 |
 | Professional Services and Membership Organizations | 10.76 |
-| Retail Outlet Services | 176.29000000000002 |
+| Retail Outlet Services | 176.29 |
 | Transportation Services | 7.58 |
 
 
@@ -78,26 +87,32 @@ The category with the highest CO2 consumption is Retail Outlet Services with 176
 
 ## Summary 2
 
-Again the input in an array of triplets [year, month, co2] sorted in order of time.
+Again the input in an array of triplets {year, month, co2} sorted in order of time.
 
-```
+```typescript
+// sample payload
+const historicalSummary = [
+  { co2: 258.97, month: "05", year: "2023" },
+  { co2: 367.86, month: "04", year: "2023" },
+  { co2: 645.73, month: "03", year: "2023" },
+  { co2: 424.66, month: "02", year: "2023" },
+  { co2: 2273.33, month: "01", year: "2023" },
+  { co2: 876.09, month: "12", year: "2022" },
+  { co2: 480.49, month: "11", year: "2022" },
+  { co2: 271.93, month: "10", year: "2022" },
+];
 // construct the prompt for summary 2 - trend of the past months
+let prompt = `The following is a table with my CO2 consumption in the previous months, last one is the current month:
+Year | Month | CO2 consumption in kg
+-----+-------+---\n`;
 
-history_input = [["2022", "September", "168.86"], ["2022", "October", "433.70"], ["2022", "November", "671.18"], ["2022", "December", "2404.01"],
-["2023", "January", "756.76"], ["2023", "February", "500.61"], ["2023", "March", "473.61"], ["2023", "April", "336.41"]]
+historicalSummary.forEach(
+  ({ year, month, co2 }: { year: string; month: string; co2: number }) => {
+    prompt += `${year} | ${month} | ${co2} |\n`;
+  }
+);
 
-history_prompt_string = `
-The following is a table with my CO2 consumption in the previous months, last one is the current month:
-
-| Year | Month | CO2 consumption in kg |
----+---+---
-`;
-history_input.forEach(([y, m, v]) => {
-    history_prompt_string += "| " + y + " | " + m + " | " + v + " |\n";
-});
-
-history_prompt_string += `
-
+prompt += `
 Give me a summary on how my consumption has evolved over the past months.
 Then give me a trend over the last three months only.
 Finally, rate my progress whether it is improving or worsening.
@@ -107,8 +122,7 @@ Your CO2 consumption...
 
 The trend over the last three months...
 
-Your progress...
-`;
+Your progress...`;
 ```
 
 This would be the prompt resulting from the above processing.
@@ -148,9 +162,9 @@ Your CO2 consumption has increased significantly over the past months. In Septem
 
 ## Conclusion
 
-With a well prepared set of data, we can fill a prompt and ask for a spoken text to describe the current situation of the users CO2 consumptions from different perspectives.
+With a well prepared set of data, we can fill a prompt and ask for a text to describe the current situation of the users CO2 consumption from different perspectives.
 
-Important remains, that no matter what level the AI is, any processing of data which can easily be done before filling into the prompt should IMHO be done in the application. The Generative AI is string on language processing and can be focussing on this.
+Important remains, that no matter what level the AI is, any processing of data which can easily be done before filling into the prompt should be done in the application. The Generative AI is for now string on language processing and should not be focussing on this.
 
 # Recommendations
 
@@ -158,7 +172,7 @@ The GPT-3 model can nicely be used to give recommendation on topics which are ge
 
 ## Embedding into Application
 
-Whenever the user wonders how they can reduce the CO2 footprint for a certain category or type of expenses, we can offer a simple button which triggers the request to GPT-3 and display the recommendations returned.
+Whenever the user wonders how they can reduce the CO2 footprint for a certain category or type of expenses, we can offer an action which triggers the request to GPT-3 and display the recommendations returned.
 
 ## Prompt
 
@@ -173,42 +187,38 @@ List the recommendations in a JSON data structure.
 
 Result comes as wished in a JSON format and can easily be processed for the display in the application:
 
-```
+```json
 {
-"Food": [
+  "Food": [
     {
-    "Number": 1,
-    "Recommendation": "Buy locally grown and seasonal produce to reduce transportation emissions"
+      "Number": 1,
+      "Recommendation": "Buy locally grown and seasonal produce to reduce transportation emissions"
     },
     {
-    "Number": 2,
-    "Recommendation": "Plan your meals to minimize food waste"
+      "Number": 2,
+      "Recommendation": "Plan your meals to minimize food waste"
     },
     {
-    "Number": 3,
-    "Recommendation": "Store food properly to extend its shelf life and reduce waste"
+      "Number": 3,
+      "Recommendation": "Store food properly to extend its shelf life and reduce waste"
     },
     {
-    "Number": 4,
-    "Recommendation": "Grow some of your own fruits, vegetables, and herbs if possible"
+      "Number": 4,
+      "Recommendation": "Grow some of your own fruits, vegetables, and herbs if possible"
     },
     {
-    "Number": 5,
-    "Recommendation": "Support sustainable farming practices by purchasing organic and regenerative produce"
+      "Number": 5,
+      "Recommendation": "Support sustainable farming practices by purchasing organic and regenerative produce"
     },
     {
-    "Number": 6,
-    "Recommendation": "Reduce the use of plastic packaging by buying in bulk and using reusable containers"
+      "Number": 6,
+      "Recommendation": "Reduce the use of plastic packaging by buying in bulk and using reusable containers"
     }
-]
+  ]
 }
 ```
 
 # In-app Navigation
-
-See the [Pre-POC](https://github.tools.sap/PAA-SCE-EMEA/CO2-navigation-chatbot) for a first idea in Python
-
-To be adapted to actual application and also to JavaScript.
 
 ## Embedding into Application
 
@@ -259,13 +269,11 @@ Simply say the action and category if applicable. Show in a JSON data structure:
 
 In a second step, the user input will be added to the prompt then sent to GPT.
 
-The [Pre-POC](https://github.tools.sap/PAA-SCE-EMEA/CO2-navigation-chatbot) shows in Python, how the prompt can be constructed from interna data structures.
-
 ## Result
 
 The result of GPT will be some text including the requested JSON structure. You better be prepared for some text clutter around.
 
-```
+```json
 Answer: {
   "action": "transactions for",
   "category": "Food"
@@ -274,49 +282,65 @@ Answer: {
 
 With this, the user input can be matched back to an action and a category (if applicable) and in a next step translated into appropriate action/navigation within the application.
 
-Again, the [Pre-POC](https://github.tools.sap/PAA-SCE-EMEA/CO2-navigation-chatbot) shows, how the mapping back can be don ina simple way.
-
 # Generate an Email to energy provider
 
-Goals is to generate an email which can be sent to the energy provider
+Goals is to generate an email which can be sent to the energy provider.
 
-## Embedding into Application
+## Prompt asking for Green Contract
 
-TBD
-
-## Prompt
-
-```
-Write an email with the following purpose: ask my energy provider X about my current contract nr. 43234234, how much of the electricity is renewable. Also ask for an alternate more environmental friendly contract for electricity. Keep it short but polite. Address the provider in a neutral form, not by name.
-Write it in Portuguese.
-In the email, use the following placeholders: XNAME for my name, XCONTR for my contract number, XADR for my address, no more.
+```typescript
+const { name, contract, address, provider } = data; // sample data to imagine
+const prompt = `Write an email with the following purpose: ask my energy provider ${provider} about my current contract for an alternate more environmental friendly contract for electricity. Keep it short but polite. Address the provider in a neutral form, not by name.
+        In the email, use the following placeholders: ${name} for my name, ${contract} for my contract number, ${address} for my address, no more.`;
 ```
 
 ## Response
 
 ```
-Assunto: Solicitação de informações sobre contrato de energia
+Subject: Request for More Environmentally Friendly Contract
 
-Prezado(a) fornecedor(a) de energia,
+Dear Energy Provider,
 
-Eu sou XNAME, titular do contrato de energia XCONTR em XADR, e gostaria de solicitar algumas informações sobre meu contrato atual.
+My name is Emilia Ecology and I am a customer of yours. I am writing to inquire about my current contract (<CONTRACT>) and to see if there is an alternate, more environmentally friendly contract available.
 
-Gostaria de saber qual é a proporção de energia renovável fornecida pelo meu contrato atual. Isso é importante para mim, pois desejo apoiar fontes de energia mais limpas e renováveis.
+I live at <ADDRESS>.
 
-Além disso, estou interessado(a) em saber se há algum contrato mais ambientalmente amigável disponível para mim. Se houver, peço que me envie informações sobre ele, como preços, termos e condições.
+Thank you for your time and I look forward to hearing from you.
 
-Agradeço antecipadamente por sua atenção a este assunto. Fico no aguardo de sua resposta.
+Sincerely,
 
-Atenciosamente,
-
-XNAME
+Emilia Ecology
 ```
 
-Now, the placeholders can be uniquely identified and filled with real customer data. All data stays out of AI. The contract number can be handled in same way.
+## Prompt asking for Composition of Energy
+
+```typescript
+const { name, contract, address, provider } = data; // sample data to imagine
+const prompt = `Write an email with the following purpose: ask my energy provider ${provider} about my current contract, how much of the electricity is renewable. Keep it short but polite. Address the provider in a neutral form, not by name.
+In the email, use the following placeholders: ${name} for my name, ${contract} for my contract number, ${address} for my address, no more.`;
+```
+
+## Response
+
+```
+Subject: Inquiry about <CONTRACT>
+
+Dear <PROVIDER>,
+
+My name is Emilia Ecology and I am a customer of yours at <ADDRESS>. I am writing to inquire about my current contract, <CONTRACT>, and to ask how much of the electricity is renewable.
+
+I would appreciate it if you could provide me with this information.
+
+Thank you for your time.
+
+Sincerely,
+
+Emilia Ecology
+```
 
 # Categorization of Transactions
 
-A common approach to structure expenses for users better comprehention is to assign them to disjoint categories which represent typical areas or aspects of our daily life, e.g. food, transportation, health, schooling, insurences.
+A common approach to structure expenses for users better comprehension is to assign them to disjoint categories which represent typical areas or aspects of our daily life, e.g. food, transportation, health, schooling or insurences.
 
 This is not an easy task, because the expense transaction record does not always provide sufficient information to determine the right category, even as a human, and also the unique assignment to a category is not always super obvious.
 
@@ -340,7 +364,7 @@ Also other codes or fields in a transaction record can relate to the payment rec
 
 Typically, a transaction comes with a free text or description field. There is no definition of what this field could contain, but most of the timers, this field is supposed to be exposed to the user and capture the essence of the transaction in a human readable way. There is no structure to be expected, but many times, different transaction descriptions can have a similar pattern and contain repeated terms.
 
-This opens up an opportunity for applying a Large Language Model to do the categorization, or just be used as one step in the process.
+This opens up an opportunity for applying a Large Language Model to do the categorization or just be used as one step in the process.
 
 ```
 The following is a table of banking trasactions containing only the recipient of a transaction and the according description text:
@@ -363,7 +387,7 @@ Add a column to the table named "Category" and fill with one of the following va
 
 ```
 
-In the example above, the numbers are partially deleted or at least manipulated. For the LLM they are mostly not relevant anyways. So, in order to save resources and also avoid sending potentially critical information over the wire, we can simply remove all numbers. In the example below, simply all digits were removed, of course this could be done even more thoroughly and more intelligent...
+In the example above, the numbers are partially deleted or at least manipulated. For the LLM they are mostly not relevant anyways. So, in order to save resources and also avoid sending potentially critical information over the wire, we can simply remove all numbers. In the example below, simply all digits were removed, of course this could be done even more thoroughly and more intelligent.
 
 ```
 The following is a table of banking trasactions containing only the recipient of a transaction and the according description text:
@@ -406,7 +430,7 @@ Add a column to the table named "Category" and fill with one of the following va
 
 # More Recommendations
 
-It seems to be a good strength of Chat-GPT to deliver recommendations on various topics. Obviously, the Internet is full of those, so they definitely made it into the training set.
+It seems to be a good strength of ChatGPT to deliver recommendations on various topics. Obviously, the world wide web is full of those, so they definitely made it into the training set.
 
 Across the application, there are multiple places which can be used to trigger more detailed recommendations or advices to the user. Depending on the topic, the prompts can be fix or enhanced by additional data such as direct user input or user preferences. Also feeding some information out of the transaction data would be thinkable.
 
@@ -512,7 +536,7 @@ Potential result:
 
 ### How to change habits
 
-We can also go a bit bolder and ask form more general ways to reduce or change our commute behaviour.
+We can also go a bit bolder and ask for more general ways to reduce or change our commute behaviour.
 
 Prompt:
 
@@ -538,7 +562,7 @@ When running a challenge in our application, the real challenge is to keep up wi
 
 ### Bring Reusable Bag Challenge
 
-We can ask AI for recommendations on how to sustain and stick with the challenge
+We can ask AI for recommendations on how to sustain and stick with the challenge.
 
 Prompt:
 
