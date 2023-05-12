@@ -390,7 +390,7 @@ For the picture I want a prompt to ask an AI like Dall-E to generate such an ima
 | wine | 0.15 kg | X portions of wine consumed | Depict a realistic image of a glas of red wine on a table. |
 ```
 
-![](./assets/AI-equivalencies-and-prompts-4.png)
+![](./assets/AI-equivalencies-and-prompts-5.png)
 
 As last, we address activities. Here we can explicitely talk about activities instead of products and also the image prompt can specifically ask for a person to be included, assuming that an activity is symbolized better with a person involved.
 
@@ -404,7 +404,7 @@ For the picture I want a prompt to ask an AI like Dall-E to generate such an ima
 | haidryer | 0.01 kg | X minutes using a hairdryer | Depict a realistic image of a person drying her hair with a hairdryer. |
 ```
 
-![](./assets/AI-equivalencies-and-prompts-5.png)
+![](./assets/AI-equivalencies-and-prompts-4.png)
 
 ## Postprocessing
 
