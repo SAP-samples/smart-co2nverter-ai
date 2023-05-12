@@ -9,13 +9,13 @@ We want to make use of Generative AI aka Generative Pre-trained Transformer (GPT
 
 # Categories
 
-One central aspect of our application are categories which are used to group the payments into logically beloning chinks and also can be helpful when calculating the CO2 factors. Of course there can be different reasons, why you might want to use an existing category hierarchy or even define your own. On the other hand, chances are that the upfront defined categories will not ne really usefull if they do not match the banking transactions.
+One central aspect of our application are categories which are used to group the payments into logically belonging chunks and also can be helpful when calculating the CO2 factors. Of course there can be different reasons, why you might want to use an existing category hierarchy or even define your own. On the other hand, chances are that the upfront defined categories will not be really useful if they do not match the banking transactions.
 
-Therefore, we want to show, how LLMs can be used to determine categories based on the actual data. The following is just a quick show of how such an approach might work in general. But even so, it already shows some nice results.
+Therefore, we want to show, how LLMs can be used to determine categories based on the actual data. The following is just a brief show of how such an approach might work in general. But even so, it already shows some nice results.
 
-As a first step, we can simply take a more or less representative set of records and from those we need only the receiver of the bank transaction. If the receiver is not a fiels in yur records, the text might also be a candidate.
+As a first step, we can simply take a more or less representative set of records and from those we need only the receiver of the bank transaction. If the receiver is not a field in your records, the text might also be a candidate.
 
-Then, with a prompt like the following, Chat-GPT can be asked to assign them to categories. The categories could be given, or as in the case below just left open. Chat-GPT returns
+Then, with a prompt like the following, ChatGPT can be asked to assign them to categories. The categories could be given, or as in the case below just left open. ChatGPT returns
 
 ```
 The following is a list of receivers of my payments. Propose a categorization of those into a flat list of categories like "FOOD", "HEALTH", "MEDIA" and more.
@@ -46,7 +46,7 @@ The first result is already promissing (excerpt):
 
 ![](./assets/AI-transaction-categorization-pic1.png)
 
-Let's ask for structurin the categorization into two levels (again just an excerpt):
+Let's ask for structuring the categorization into two levels (again just an excerpt):
 
 ```
 Now take the same list above and propose a two-level hierarchy of categories
@@ -147,11 +147,11 @@ Of course, this does not need to be the last step, more refinements are possible
 
 # Determining Factors for Different Habits
 
-Within a productive implementation of our application, we would calculate the approximate CO2 consumption of the individual expenses using an [external source](../06-further-steps/emission-factors-connectEerth.md). In one expense, especially like one for food, a general average is applied.
+Within a productive implementation of our application, we would calculate the approximate CO2 consumption of the individual expenses using an [external source (e.g., ConnectEarth)](../06-complete/outlook.md#emission-factors-by-connectearth). In one expense, especially like one for food, a general average is applied.
 
-To improve the accuracy of those factores, we allow the user to specify a deviation from the average diet, applicable overall or for just one individual expense. Then we can apply a correction factor for adjusting (mostly reducing) the CO2 amount. E.g. if the user claims to live a vegetarian diet, it is fair to assume that the CO2 impact if reduced on average.
+To improve the accuracy of those factors, we allow the user to specify a deviation from the average diet, applicable overall or for just one individual expense. Then we can apply a correction factor for adjusting (mostly reducing) the CO2 amount. E.g., if the user claims to live a vegetarian diet, it is fair to assume that the CO2 impact is reduced on average.
 
-The factors are available in public literature, so we decided to ask Chat-GPT to determine them and prepare a table which we can apply to adjust the CO2 calculation.
+The factors are available in public literature, so we decided to ask ChatGPT to determine them and prepare a table which we can apply to adjust the CO2 calculation.
 
 ## Dietary Habits - Prompt Sequence
 
@@ -253,7 +253,7 @@ Note that the average CO2 equivalent is calculated by taking the average of the 
 
 # Generating Equivalencies
 
-This AI task is used for preparing the application data. We use Chat-GPT to generate examples of CO2 consumption which can be used to give the user a feeling about the amounts of CO2 and how they can be related to everydays activities or products.
+This AI task is used for preparing the application data. We use ChatGPT to generate examples of CO2 consumption which can be used to give the user a feeling about the amounts of CO2 and how they can be related to everydays activities or products.
 
 ## Prompt
 
@@ -284,7 +284,7 @@ Remember to replace the "YYY" placeholder with the actual number of activities o
 
 ## Refinements
 
-Few more interactions with Chat-GPT helped to extend the equivalencies table and add specific lines.
+Few more interactions with ChatGPT helped to extend the equivalencies table and add specific lines.
 
 ```
 Very nice, please generate 20 more examples.
@@ -322,19 +322,19 @@ We want to have pictures in our application to depict or symbolize the [previous
 
 The basic idea is to use Generative AI again to generate those pictures, this time of course an AI like [DALL-E](https://openai.com/product/dall-e-2) or [Stable Difussion](https://stability.ai/stable-diffusion) which take a text prompt and generate an according picture.
 
-In our case, we want the prompt to be generated as well by Chat-GPT, because we are lazy. So let the one AI feed the other...
+In our case, we want the prompt to be generated as well by ChatGPT, because we are lazy. So let the one AI feed the other...
 
 ## Approach
 
 In a first step, we wanted to take the texts of the previously generated equivalencies and generate the prompts out of these. This turned out to be not great because the resulting prompts already were strange and not yealding the desired pictures. The reason is that the texts were too much poluted with information which is not helpfull in focussing on the main subject. Example: "Eating beef (1kg)" contains the word eating and then what should the prompt for the picture focus on, beef or the act of eating? In our case, we want to see the beef rather than the eating process.
 
-So, the next step was to merge the two tasks into a single one and generate the equivalencise together with the prompt. This way, we can first ask for the product or food or activity as an isolated term and from this the generation of the description and also the picture prompts gives better results, because it not unnecessarily cconfused.
+So, the next step was to merge the two tasks into a single one and generate the equivalencise together with the prompt. This way, we can first ask for the product or food or activity as an isolated term and from this the generation of the description and also the picture prompts gives better results, because it not unnecessarily confused.
 
-Still, one tiny problem remains in the wording which is caused by the fact that we have different categories of equivalencies which we want to address. Products are basically different from food and also different from activities. Therefore, it usefull to split the generation of all equivalencies into several blocks, separating products from food from activities and others. This makes it possible to adjust the promts specificly, on the level of ChatGPT as well as the prompts generated for the pictures. For example, no persons to be included into the products picture, while we want persons to be shown with activities, als specific requests for food diferring by diet, and specifying portion size can be done in a targeted way, and not confusing other categories.
+Still, one tiny problem remains in the wording which is caused by the fact that we have different categories of equivalencies which we want to address. Products are basically different from food and also different from activities. Therefore, it is useful to split the generation of all equivalencies into several blocks, separating products from food from activities and others. This makes it possible to adjust the promts specificly, on the level of ChatGPT as well as the prompts generated for the pictures. For example, no persons to be included into the products picture, while we want persons to be shown with activities, als specific requests for food diferring by diet, and specifying portion size can be done in a targeted way, and not confusing other categories.
 
 ## Solution
 
-We are using Chat-GPT (GPT-4) in the interactive version with the following prompts and results. As you can see, they are split by the categories and contain category specific adjustments.
+We are using ChatGPT (GPT-4) in the interactive version with the following prompts and results. As you can see, they are split by the categories and contain category specific adjustments.
 
 We start with general products asking for a picture prompt without persons included.
 
@@ -412,9 +412,9 @@ After all five tables are generated, we just need to bring the results into our 
 
 ## Generating Images
 
-As a last step, we need to pass the prompts to the imaging AI. In the first attempt, we used [Stable Difussion](https://stability.ai/stable-diffusion) to generate the pictures. This has been done manually, you anyways need to select the image typically one out of four and this way you can immediately decide to regenerate or even manually adjust the prompt if it should not fit at all. In our case, most of the prompts delivered a reasonable result in the first short already.
+As a last step, we need to pass the prompts to the imaging AI. In the first attempt, we used [Stable Difussion](https://stability.ai/stable-diffusion) to generate the pictures. This has been done manually, you anyways need to select the image typically one out of four and this way you can immediately decide to regenerate or even manually adjust the prompt if it should not fit at all. In our case, most of the prompts delivered a reasonable result in the first shot already.
 
-The following are a few examples, each with the according prompt whcih was generated by Chat-GPT above.
+The following are a few examples, each with the according prompt generated by ChatGPT above.
 
 ```
 Depict a realistic image of a cheese portion or a cheese platter.
@@ -448,10 +448,10 @@ Create an image of a person sitting and working on a laptop or desktop computer.
 
 ## Portion size of food
 
-Just as a remark, in the context of foood, we asked Chat-GPT what a portion size means:
+Just as a remark, in the context of food, we asked ChatGPT what a portion size means:
 
 ```
 A typical portion size for meat consumption varies depending on the type of meat and individual preferences. However, a general guideline is to consume around 85 to 100 grams (3 to 3.5 ounces) of cooked meat per serving. This is roughly equivalent to the size of a deck of playing cards or the palm of your hand. Keep in mind that portion sizes may vary across cultures and dietary needs.
 ```
 
-This can be understood as a being part of a meal, as opposed to situations were ... a 85 grams steak? ... well ;-)
+This can be understood as a being part of a meal, as opposed to situations were ... a 85 grams steak? well... ;-)

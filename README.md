@@ -9,7 +9,7 @@
 
 ## Description
 
-Leverage a generalized approach to applying Generative AI to business challenges with SAP BTP. In this sample, you will deploy an SAP Cloud Application Programming application that interacts with Azure AI and a React Native mobile app implementing a Smart CO2 Converter App.
+Leverage a generalized approach to applying Generative AI to business challenges with SAP BTP. In this sample, you will deploy an SAP Cloud Application Programming backend that interacts with Azure AI and a React Native mobile app implementing a Smart CO2 Converter App. This samples CAP backend is based on [Consume OpenAI services (GPT) through CAP & SAP BTP, AI Core](https://github.com/SAP-samples/azure-openai-aicore-cap-api) as boilerplate code which implements parts of the [Reference architecture of an SAP BTP CAP application using GPT Models of OpenAI](https://github.com/SAP/sap-btp-reference-architectures/tree/main/hyperscalers/openai).
 
 ## Challenge
 
