@@ -93,15 +93,16 @@ For additional support, [ask a question in SAP Community](https://answers.sap.co
 
 Thanks to all collaborators to make this app real!
 
-- [Adi Pleyer](AdiPleyer)
+- [Adi Pleyer](https://github.com/AdiPleyer)
 - Armando Aguinaga
 - [Gerd Buchmüller](https://github.com/D022666)
 - Heike van Geel
-- Iyad Al Hafez
+- [Iyad Al Hafez](https://github.com/Iyad-Alhafez)
 - [James Rapp](https://github.com/jmsrpp)
-- [Julian Schambeck](julian-schambeck)
+- [Julian Schambeck](https://github.com/julian-schambeck)
 - Karen Detken
 - [Kay Schmitteckert](https://github.com/kay-schmitteckert)
+- Rainer Rodewald
 - Simon Nowack
 - [Sudheer Tammana](https://github.com/sudheer-tammana)
 - Vikas Thimmiaha
