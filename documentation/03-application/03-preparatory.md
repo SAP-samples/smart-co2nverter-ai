@@ -15,3 +15,4 @@ Make sure that all necessary entitlements are set on the Subaccount you want to 
 - SAP HANA Cloud (and create a database)
 - Destination
 - SAP Authorization and Trust Management Service
+- SAP HANA Schemas & HDI Containers
