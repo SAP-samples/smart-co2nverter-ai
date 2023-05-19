@@ -25,7 +25,8 @@
       ...
    ```
 
-2. Via the [Clound Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) login to your Cloud Foundry space to which you want to deploy the CAP API
+2. Via the [Clound Foundry CLI](https://docs.cloudfoundry.org/cf-cli/install-go-cli.html) login to your Cloud Foundry space to which you want to deploy the CAP API.
+
 3. Change to the respective directory of the CAP API sample (`src/api/`) and deploy the API through:
 
    ```console

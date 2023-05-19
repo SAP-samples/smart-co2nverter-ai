@@ -15,9 +15,9 @@ Enter your <_PARAMETERS_> to the `app.json` file in the `src/mobile-app/` direct
          "privacy": "hidden", // restricts access to the project page to only the owner and other users that have been granted access: https://docs.expo.dev/versions/latest/config/app/#privacy
          #...,
          "extra": {
-             "apiKey": "<YOUR_API_KEY_FOR_CAP>",
-             "baseUrl": "<YOUR_CAP_BASE_URL>",
-             "account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d" //account from the sample data
+             "apiKey": "<YOUR_API_KEY_FOR_CAP>", // insert the generated API_KEY which you entered in the mta.yaml from the CAP backend from the step of the CAP deployment.
+             "baseUrl": "<YOUR_CAP_BASE_URL>", // insert the base url from your deployed CAP application.
+             "account": "8fbaa8ca-6cf3-4ea4-9764-82e6b841480d" //account from the sample data. Do not change since this is the only "user" we provide within this sample.
          }
      }
 }

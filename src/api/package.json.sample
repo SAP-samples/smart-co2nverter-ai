@@ -19,7 +19,8 @@
         "@types/node": "^18.15.11",
         "@types/uuid": "^9.0.1",
         "prettier": "2.8.2",
-        "sqlite3": "^5.1.6"
+        "sqlite3": "^5.1.6",
+        "typescript": "^4.9.4"
     },
     "scripts": {
         "start": "cds run",
