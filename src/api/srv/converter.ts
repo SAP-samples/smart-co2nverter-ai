@@ -11,8 +11,6 @@ const MAX_TOKENS = 500;
 const TEMPERATURE = 0.8;
 const FREQUENCY_PENALTY = 0;
 const PRESENCE_PENALTY = 0;
-const TOP_P = 0.5;
-const BEST_OF = 1;
 const STOP_SEQUENCE: any = null;
 
 const GPT_PARAMS = {
@@ -21,11 +19,8 @@ const GPT_PARAMS = {
     temperature: TEMPERATURE,
     frequency_penalty: FREQUENCY_PENALTY,
     presence_penalty: PRESENCE_PENALTY,
-    top_p: TOP_P,
-    best_of: BEST_OF,
     stop: STOP_SEQUENCE
 };
-const READ = "READ";
 
 interface MCCHabitMapping {
     [mccId: string]: string;
@@ -50,38 +45,59 @@ export class ConverterService extends ApplicationService {
         this.on(cs.FuncGetAccountData.name, this.getAccountData);
     }
 
-    private aiProxy = async (req: Request): Promise<cs.ActionAiProxyReturn> => {
-        const { prompt } = req.data as cs.ActionAiProxyParams;
-        const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
-        const payload: any = {
-            ...GPT_PARAMS,
-            prompt: prompt
-        };
+    /**
+     * Action forwarding prompt to Azure OpenAI services through SAP AI Core provided proxy
+     *
+     * @param {Request} req
+     * @returns GPTTextResponse { text : string }
+     */
+    private aiProxy = async (req: Request): Promise<{ text: string } | undefined> => {
+        const { prompt } = req.data;
+        const response = await this.callAIProxy(prompt);
+        return { text: response["choices"][0].message.content };
+    };
 
+    /**
+     * Forwards prompt of the payload via a destination (mapped as AICoreAzureOpenAIDestination) through an SAP AI Core deployed service to Azure OpenAI services
+     *
+     * @param {string} prompt
+     * @returns raw response from Azure OpenAI services for Completions (see https://learn.microsoft.com/en-us/azure/cognitive-services/openai/reference#example-response-2)
+     */
+    private callAIProxy = async (prompt: string): Promise<any | undefined> => {
+        const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
+        const payload = {
+            ...GPT_PARAMS,
+            messages: [
+                { role: "system", content: "Assistant is a large language model trained by OpenAI" },
+                { role: "user", content: prompt }
+            ]
+        };
         // @ts-ignore
-        const response: any = await openai.send({
+        const response = await openai.send({
             // @ts-ignore
-            query: "POST /v2/completion",
+            query: "POST /v2/chat-completion",
             data: payload
         });
-        return { text: response["choices"][0]["text"] } as cs.ActionAiProxyReturn;
+        return response;
     };
 
     private callAICoreAzureOpenAIDestination = async (prompt: string) => {
         try {
             const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
-            const payload: any = {
+            const payload = {
                 ...GPT_PARAMS,
-                prompt: prompt
+                messages: [
+                    { role: "system", content: "Assistant is a large language model trained by OpenAI" },
+                    { role: "user", content: prompt }
+                ]
             };
-
             // @ts-ignore
-            const response: any = await openai.send({
+            const response = await openai.send({
                 // @ts-ignore
-                query: "POST /v2/completion",
+                query: "POST /v2/chat-completion",
                 data: payload
             });
-            return (response["choices"][0]["text"] || "").trim(); //replace(/^\s+|\s+$/g, ""); //replace leading or trailing new lines and whitespaces
+            return (response["choices"][0].message.content || "").trim(); //replace leading or trailing new lines and whitespaces
         } catch (e) {
             console.error(e);
             return "Error: Something went wrong";
