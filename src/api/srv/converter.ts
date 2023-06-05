@@ -34,7 +34,6 @@ interface MCCHabitMapping {
 export class ConverterService extends ApplicationService {
     async init(): Promise<void> {
         await super.init();
-        this.after(READ, cs.SanitizedEntity.Accounts, this.aggregateAccountTransactionsWithCO2Score);
         this.on(cs.FuncGetEquivalencies.name, this.getEquivalencies);
         this.on(cs.ActionAiProxy.name, this.aiProxy);
         this.on(cs.ActionGenerateSuggestions.name, this.generateSuggestions);
@@ -48,6 +47,7 @@ export class ConverterService extends ApplicationService {
         this.on(cs.ActionAskForGreenContract.name, this.askForGreenContract);
         this.on(cs.ActionAskForChallengeBenefits.name, this.askForChallengeBenefits);
         this.on(cs.ActionAskForHabitRecommendation.name, this.askForHabitRecommendation);
+        this.on(cs.FuncGetAccountData.name, this.getAccountData);
     }
 
     private aiProxy = async (req: Request): Promise<cs.ActionAiProxyReturn> => {
@@ -243,68 +243,79 @@ Give the user a summary of the options, recommendation and step by step guide in
         For more information follow the link to
         https://docs.connect.earth/?id=-nbsp-connect-insights-transaction-emissions
     */
-    private aggregateAccountTransactionsWithCO2Score = async (
-        accounts: cs.Accounts | Array<cs.Accounts>,
-        req: Request
-    ): Promise<any> => {
-        try {
-            // */converter/Accounts(8fbaa8ca-6cf3-4ea4-9764-82e6b841480d)?$expand=habits,transactions($expand=mcc($expand=category;$select=ID,factor))
-            if (!Array.isArray(accounts)) {
-                const account = accounts;
-                const transactions = account.transactions;
-                const offset = this.getOffsetToAddInDays();
-                if (account.transactions) {
-                    const { HabitCategoriesMCC } = this.entities;
-                    const accountHabits: Array<cs.AccountHabits> = account.habits;
-                    const habitCategoriesMCC: Array<cs.HabitCategoriesMCC> = await SELECT.from(HabitCategoriesMCC);
-                    // create mapping for MCC => HabitCategory for further O(1) access
-                    const mccHabitMapping: MCCHabitMapping = habitCategoriesMCC.reduce(
-                        (mapping: MCCHabitMapping, v: cs.HabitCategoriesMCC) =>
-                            v.mcc_ID
-                                ? {
-                                      ...mapping,
-                                      [v.mcc_ID!]: v.habitCategory_ID!
-                                  }
-                                : mapping,
-                        {}
-                    );
+    private getAccountData = async (req: Request): Promise<cs.FuncGetAccountDataReturn> => {
+        const { account: accountId } = req.data as cs.FuncGetAccountDataParams;
+        const { Accounts, HabitCategoriesMCC } = this.entities;
 
-                    for (const transaction of transactions) {
-                        transaction.date = moment(transaction.date).add(offset, "d").toDate();
-                        let habitFactor = 1.0; // default if no habit is set
-                        // check if MCC is part of any habit category
-                        try {
-                            if (transaction.mcc_ID! in mccHabitMapping) {
-                                // filter account based habits for relevant habit categories based on MCC
-                                const relevantAccountHabits: Array<cs.AccountHabits> = accountHabits.filter(
-                                    (habit: cs.AccountHabits) => habit.habit_ID === mccHabitMapping[transaction.mcc_ID!]
-                                );
-                                // check the relevant personal habits, set the factor but break if any personal habit was overriden wrt a transaction
-                                for (const habit of relevantAccountHabits) {
-                                    habitFactor = habit.habit!.factor;
-                                    if (habit.transaction_ID) {
-                                        console.log("transaction based habit found");
-                                        break;
-                                    } else {
-                                        console.log("mcc based habit found", habit);
-                                    }
-                                }
-                            }
-                        } catch (e) {
-                            console.log("Something went wrong calculating the individual habit factor", e);
+        const account: cs.Accounts = await SELECT.one
+            .from(Accounts)
+            .where({ ID: accountId })
+            .columns((account: any) => {
+                account("*");
+                // expand AccountHabits
+                account.habits((ah: any) => {
+                    ah("*");
+                    // expand Habits inside AccountHabits
+                    ah.habit((h: any) => h("*"));
+                });
+                account.challenges((c: any) => {
+                    c("*");
+                    c.challenge((c: any) => c("*"));
+                });
+                account.transactions((t: any) => {
+                    t("*");
+                    t.mcc((mcc: any) => {
+                        mcc("*");
+                        mcc.category((category: any) => category("*"));
+                    });
+                });
+            });
+
+        const transactions = account.transactions;
+        const offset = this.getOffsetToAddInDays();
+        const accountHabits: Array<cs.AccountHabits> = account.habits;
+        const habitCategoriesMCC: Array<cs.HabitCategoriesMCC> = await SELECT.from(HabitCategoriesMCC);
+        // create mapping for MCC => HabitCategory for further O(1) access
+        const mccHabitMapping: MCCHabitMapping = habitCategoriesMCC.reduce(
+            (mapping: MCCHabitMapping, v: cs.HabitCategoriesMCC) =>
+                v.mcc_ID
+                    ? {
+                          ...mapping,
+                          [v.mcc_ID!]: v.habitCategory_ID!
+                      }
+                    : mapping,
+            {}
+        );
+
+        for (const transaction of transactions) {
+            transaction.date = moment(transaction.date).add(offset, "d").toDate();
+            let habitFactor = 1.0; // default if no habit is set
+            // check if MCC is part of any habit category
+            try {
+                if (transaction.mcc_ID! in mccHabitMapping) {
+                    // filter account based habits for relevant habit categories based on MCC
+                    const relevantAccountHabits: Array<cs.AccountHabits> = accountHabits.filter(
+                        (habit: cs.AccountHabits) =>
+                            habit.habit?.habitCategory_ID === mccHabitMapping[transaction.mcc_ID!]
+                    );
+                    // check the relevant personal habits, set the factor but break if any personal habit was overriden wrt a transaction
+                    for (const habit of relevantAccountHabits) {
+                        habitFactor = habit.habit!.factor;
+                        if (habit.transaction_ID === transaction.ID) {
+                            console.log("transaction based habit found");
+                            break;
+                        } else {
+                            console.log("mcc based habit found");
                         }
-                        transaction.CO2Score! *= habitFactor;
-                        transaction.CO2Score = Math.round(transaction.CO2Score! * 100) / 100;
                     }
-                    account.transactions = transactions;
-                    accounts = account;
-                    req.reply(accounts);
                 }
+            } catch (e) {
+                console.log("Something went wrong calculating the individual habit factor", e);
             }
-        } catch (e) {
-            const error: Error = e as Error;
-            console.log(error.name, error.message);
+            transaction.CO2Score! *= habitFactor;
+            transaction.CO2Score = Math.round(transaction.CO2Score! * 100) / 100;
         }
+        return account;
     };
 
     private getOffsetToAddInDays = () => {

@@ -19,20 +19,23 @@ const ChallengesTile = () => {
     const styles = makeStyles(theme.colors);
     const navigation = useNavigation<any>();
     const { state } = useContext(AccountContext);
+    const activeChallenges: Array<ActiveChallenge> = state.challenges.filter((c) => !c.isCompleted);
     return (
         <Surface elevation={1} style={[styles.surface, { borderRadius: theme.roundness }]}>
             <Text variant="titleMedium">My challenges</Text>
             <Caption>
-                {`${"Active challenges"}` + (state.challenges.length > 0 ? ` (${state.challenges.length})` : "")}
+                {`${"Active challenges"}` + (activeChallenges.length > 0 ? ` (${activeChallenges.length})` : "")}
             </Caption>
             <View style={{ marginTop: 24 }}>
                 <BigNumberCO2 co2={calculateTotalAvoidedEmissions(state.challenges)} caption="Avoided so far" />
             </View>
             <View style={{ marginTop: 18 }}>
-                {state.challenges.length > 0 ? (
-                    state.challenges.slice(0, 4).map((activeChallenge: ActiveChallenge) => {
-                        return <ChallengeSummaryItem activeChallenge={activeChallenge} key={activeChallenge.ID} />;
-                    })
+                {activeChallenges.length > 0 ? (
+                    activeChallenges
+                        .slice(0, 4)
+                        .map((activeChallenge: ActiveChallenge) => (
+                            <ChallengeSummaryItem activeChallenge={activeChallenge} key={activeChallenge.ID} />
+                        ))
                 ) : (
                     <Text variant="bodyMedium" style={{ textAlign: "center", marginTop: 12 }}>
                         There are currently no challenges running.

@@ -11,12 +11,6 @@ import { equivalenciesQuery } from "../../../queries";
 
 const { width } = Dimensions.get("window");
 
-const getActiveSlideIndex = (xOffset: number) => {
-    if (xOffset > 500) return 2;
-    if (xOffset > 0) return 1;
-    return 0;
-};
-
 const Equivalencies = () => {
     const theme = useTheme();
     const { colors } = useTheme();
@@ -49,7 +43,9 @@ const Equivalencies = () => {
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                onMomentumScrollEnd={(event) => setActiveSlide(getActiveSlideIndex(event.nativeEvent.contentOffset.x))}
+                onMomentumScrollEnd={(event) =>
+                    setActiveSlide(event.nativeEvent.contentOffset.x / event.nativeEvent.layoutMeasurement.width)
+                }
                 decelerationRate={0}
             >
                 {equivalencies.map((equivalency: IEquivalency, index: number) => {

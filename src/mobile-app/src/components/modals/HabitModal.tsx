@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useMemo } from "react";
 import { View, StyleSheet } from "react-native";
 import { Button, Snackbar, Text, useTheme } from "react-native-paper";
 
@@ -21,6 +21,7 @@ interface IHabitModal {
     habitCategory: IHabitCategory;
     checkedHabit: string;
     setCheckedHabit: any;
+    initialHabit: string;
     hasChanges: boolean;
     setHasChanges: any;
 }
@@ -32,6 +33,7 @@ const HabitModal = ({
     habitCategory,
     checkedHabit,
     setCheckedHabit,
+    initialHabit,
     hasChanges,
     setHasChanges
 }: IHabitModal) => {
@@ -40,6 +42,11 @@ const HabitModal = ({
     const { setHabit, fetchAccountData } = useContext(AccountContext);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [error, setError] = useState<boolean>(false);
+
+    const CO2Score = useMemo(
+        () => computeTransactionCO2(transaction, habitCategory, checkedHabit, initialHabit),
+        [checkedHabit]
+    );
     return (
         <View>
             <CustomModal
@@ -66,7 +73,7 @@ const HabitModal = ({
                         <View style={{ marginTop: 32, marginBottom: 18 }}>
                             <HorizontalContainer>
                                 <Text variant="displayMedium" style={{ fontWeight: "600" }}>
-                                    {transaction.CO2Score}
+                                    {CO2Score}
                                 </Text>
                                 <Text variant="titleLarge" style={{ marginLeft: 4, paddingTop: 10 }}>
                                     {"kg CO\u2082"}
@@ -139,3 +146,18 @@ const makeStyles = (colors: any, roundness: any) =>
             marginBottom: 26
         }
     });
+
+// used to live update the CO2 score of transaction when selecting different habit
+const computeTransactionCO2 = (
+    transaction: ITransaction,
+    habitCategory: IHabitCategory,
+    checkedHabit: string,
+    initialHabit: string
+): string => {
+    let co2 = transaction.CO2Score || 0;
+    const options = habitCategory.options;
+    const currentFactor = options?.find((option) => option.ID == checkedHabit)?.factor || 1;
+    const initialFactor = options?.find((option) => option.ID == initialHabit)?.factor || 1;
+    co2 = (co2 / initialFactor) * currentFactor;
+    return co2.toFixed(2);
+};

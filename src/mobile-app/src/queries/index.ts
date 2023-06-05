@@ -12,10 +12,8 @@ export const categoriesQuery = (): Request => {
 };
 
 export const accountDataQuery = (): Request => {
-    let path = "/converter/Accounts";
-    const expand = ["challenges/challenge", "habits/habit", "transactions/mcc/category"];
-    path += buildQuery({ key: account, expand: expand });
-    // Account uuid must not be surrounded by single quotes (') to be used as key
+    let path = "/converter";
+    path += buildQuery({ func: { getAccountData: { account: account }}});
     path = path.replace("'", "").replace("'", "");
     return buildRequest(path);
 };

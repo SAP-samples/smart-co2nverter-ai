@@ -28,6 +28,7 @@ service ConverterService {
 
     // ACTIONS & FUNCTIONS
     function getEquivalencies(co2 : Integer, account : UUID)                                                              returns array of Equivalencies;
+    function getAccountData(account : UUID)                                                                               returns Accounts;
     action   aiProxy(prompt : String)                                                                                     returns GPTAnswer;
 
     entity ISuggestion {

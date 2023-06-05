@@ -1,3 +1,8 @@
+### GET Account Data
+GET http://localhost:4004/converter/getAccountData(account=8fbaa8ca-6cf3-4ea4-9764-82e6b841480d)
+content-type: application/json
+api-key: helloworld
+
 ### GET AVAILABLE CHALLENGES
 GET http://localhost:4004/converter/Challenges
 content-type: application/json

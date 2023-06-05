@@ -28,6 +28,7 @@ export const Expenses = ({ route }: { route: any }) => {
     const [transactionInFocus, setTransactionInFocus] = useState<ITransaction>({} as ITransaction);
     const [associatedHabit, setAssociatedHabit] = useState<IHabitCategory>({} as IHabitCategory);
     const [checkedHabit, setCheckedHabit] = useState<string>("");
+    const [initialHabit, setInitialHabit] = useState<string>("");
     const [hasChanges, setHasChanges] = useState<boolean>(false);
 
     const categories: Array<ICategory> = JSON.parse(JSON.stringify(getCategories()));
@@ -54,7 +55,9 @@ export const Expenses = ({ route }: { route: any }) => {
             const habit = findAssociatedHabit(transactionInFocus);
             if (habit) {
                 setAssociatedHabit(habit);
-                setCheckedHabit(getInitialHabit(transactionInFocus, habit)?.ID || "");
+                const checkedHabit = getInitialHabit(transactionInFocus, habit)?.ID || "";
+                setCheckedHabit(checkedHabit);
+                setInitialHabit(checkedHabit);
             }
         }
     }, [transactionInFocus]);
@@ -142,6 +145,7 @@ export const Expenses = ({ route }: { route: any }) => {
                 habitCategory={associatedHabit}
                 checkedHabit={checkedHabit}
                 setCheckedHabit={setCheckedHabit}
+                initialHabit={initialHabit}
                 hasChanges={hasChanges}
                 setHasChanges={setHasChanges}
             />

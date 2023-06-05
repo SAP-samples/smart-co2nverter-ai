@@ -37,6 +37,7 @@ const Challenges = () => {
     });
     const [error, setError] = useState<boolean>(false);
     const [showFeedback, setShowFeedback] = useState<boolean>(false);
+    console.log("challenges index rendered")
     return (
         <ScreenContainer>
             <ScrollView showsVerticalScrollIndicator={false} style={{ paddingVertical: 8 }}>

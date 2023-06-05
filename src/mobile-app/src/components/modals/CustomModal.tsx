@@ -3,13 +3,8 @@ import { Modal, Portal, Text } from "react-native-paper";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LinearGradient } from "expo-linear-gradient";
-import * as Speech from "expo-speech";
 
 const { height, width } = Dimensions.get("window");
-
-const speak = (textToSpeech: string) => {
-    Speech.speak(textToSpeech);
-};
 
 export const CustomModal = ({
     title,
@@ -17,14 +12,12 @@ export const CustomModal = ({
     children,
     visible,
     onDismiss,
-    textToSpeech = ""
 }: {
     title: string;
     titleDescription: string;
     children: any;
     visible: boolean;
     onDismiss: () => any;
-    textToSpeech?: string;
 }) => {
     const insets = useSafeAreaInsets();
     const localStyles = makeStyles(insets);
@@ -37,11 +30,6 @@ export const CustomModal = ({
                             <Text variant="titleMedium" style={{ color: "#fff" }}>
                                 {title}
                             </Text>
-                            {textToSpeech !== "" && (
-                                <TouchableOpacity onPress={() => speak(textToSpeech)}>
-                                    <Icon name="microphone" size={24} color={"#fff"} />
-                                </TouchableOpacity>
-                            )}
                             <TouchableOpacity onPress={onDismiss}>
                                 <Icon name="close-circle" size={24} color={"#fff"} />
                             </TouchableOpacity>

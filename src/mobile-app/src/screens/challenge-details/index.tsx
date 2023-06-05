@@ -51,10 +51,6 @@ const ChallengeDetails = ({ route }: { route: any }) => {
 
     useEffect(() => {
         refreshChallenge(challengeId, true).catch(console.log);
-        // refresh active challenges when going back to challenges overview
-        return () => {
-            fetchActiveChallenges().catch(console.log);
-        };
     }, []);
 
     const refreshChallenge = async (challengeId: string, showLoadingIndicator = false): Promise<void> => {
@@ -216,6 +212,7 @@ const ChallengeDetails = ({ route }: { route: any }) => {
                                         setError(true);
                                         setShowFeedback(true);
                                     }
+                                    fetchActiveChallenges().catch(console.log);
                                 }}
                             >
                                 Save

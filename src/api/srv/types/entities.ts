@@ -394,6 +394,17 @@ export namespace ConverterService {
 
     export type FuncGetEquivalenciesReturn = Equivalencies[];
 
+    export enum FuncGetAccountData {
+        name = "getAccountData",
+        paramAccount = "account"
+    }
+
+    export interface FuncGetAccountDataParams {
+        account: string;
+    }
+
+    export type FuncGetAccountDataReturn = Accounts;
+
     export enum ActionAiProxy {
         name = "aiProxy",
         paramPrompt = "prompt"
