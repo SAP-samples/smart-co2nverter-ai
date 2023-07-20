@@ -13,6 +13,8 @@ Leverage a generalized approach to applying Generative AI to business challenges
 
 This use case can be replicated end to end following the respected [Discovery Center Mission: Reduce your CO2 footprint using a smart Generative AI application on SAP BTP](https://discovery-center.cloud.sap/protected/index.html#/missiondetail/4264/4522/)
 
+> **Note** This repository demonstrates the utilization of Large Language Models (LLMs) like Azure OpenAI services on SAP Business Technology Platform (BTP) with the Reference Architecture, without implying environmental sustainability of LLMs.
+
 ## Challenge
 
 How might we enable banking customers to be more climate conscious while strengthening their loyalty?
