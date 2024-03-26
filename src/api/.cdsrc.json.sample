@@ -1,0 +1,17 @@
+{
+    "cds": {
+        "requires": {
+            "GENERATIVE_AI_HUB": {
+                "kind": "rest",
+                "credentials": {
+                    "destination": "GENERATIVE_AI_HUB",
+                    "requestTimeout": "300000"
+                },
+                "RESOURCE_GROUP_ID": "<AI_CORE_RESOURCE_GROUP>",
+                "DEPLOYMENTS": {
+                    "CHAT_COMPLETION_ID": "<AI_CORE_DEPLOYMENT_ID>"
+                }
+            }
+        }
+    }
+}

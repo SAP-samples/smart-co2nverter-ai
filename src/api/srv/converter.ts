@@ -5,21 +5,6 @@ import { v4 as uuidv4 } from "uuid";
 
 import { ConverterService as cs } from "./types/entities";
 
-// PARAMETERS FOR AZURE OPENAI SERVICES
-const MAX_TOKENS = 2000;
-const TEMPERATURE = 0.0;
-const FREQUENCY_PENALTY = 0;
-const PRESENCE_PENALTY = 0;
-const STOP_SEQUENCE: any = null;
-
-const GPT_PARAMS = {
-    max_tokens: MAX_TOKENS,
-    temperature: TEMPERATURE,
-    frequency_penalty: FREQUENCY_PENALTY,
-    presence_penalty: PRESENCE_PENALTY,
-    stop: STOP_SEQUENCE
-};
-
 // AI LAUNCHPAD RESOURCES
 const RESOURCE_GROUP_ID = cds.env.requires["GENERATIVE_AI_HUB"]["RESOURCE_GROUP_ID"];
 const DEPLOYMENT_ID = cds.env.requires["GENERATIVE_AI_HUB"]["DEPLOYMENTS"]["CHAT_COMPLETION_ID"];
@@ -66,7 +51,6 @@ export class ConverterService extends ApplicationService {
     private callAIProxy = async (prompt: string): Promise<any | undefined> => {
         const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
         const payload = {
-            ...GPT_PARAMS,
             messages: [
                 { role: "system", content: "Assistant is a large language model trained by OpenAI" },
                 { role: "user", content: prompt }
@@ -85,7 +69,6 @@ export class ConverterService extends ApplicationService {
         try {
             const aiCore = await cds.connect.to("GENERATIVE_AI_HUB_DESTINATION");
             const payload = {
-                ...GPT_PARAMS,
                 messages: [
                     {
                         role: "system",
@@ -94,7 +77,7 @@ export class ConverterService extends ApplicationService {
                     { role: "user", content: prompt }
                 ]
             };
-
+            console.log(payload);
             const response = await aiCore.send({
                 //@ts-ignore
                 query: `POST /inference/deployments/${DEPLOYMENT_ID}/chat/completions?api-version=2023-05-15`,
