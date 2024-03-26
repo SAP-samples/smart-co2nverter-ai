@@ -5,27 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 
 import { ConverterService as cs } from "./types/entities";
 
-// PARAMETERS FOR AZURE OPENAI SERVICES
-const ENGINE = "SCE_EMEA";
-const MAX_TOKENS = 500;
-const TEMPERATURE = 0.8;
-const FREQUENCY_PENALTY = 0;
-const PRESENCE_PENALTY = 0;
-const STOP_SEQUENCE: any = null;
-
-const GPT_PARAMS = {
-    engine: ENGINE,
-    max_tokens: MAX_TOKENS,
-    temperature: TEMPERATURE,
-    frequency_penalty: FREQUENCY_PENALTY,
-    presence_penalty: PRESENCE_PENALTY,
-    stop: STOP_SEQUENCE
-};
-
+// AI LAUNCHPAD RESOURCES
+const RESOURCE_GROUP_ID = cds.env.requires["GENERATIVE_AI_HUB"]["RESOURCE_GROUP_ID"];
+const DEPLOYMENT_ID = cds.env.requires["GENERATIVE_AI_HUB"]["DEPLOYMENTS"]["CHAT_COMPLETION_ID"];
 interface MCCHabitMapping {
     [mccId: string]: string;
 }
-
 export class ConverterService extends ApplicationService {
     async init(): Promise<void> {
         await super.init();
@@ -66,7 +51,6 @@ export class ConverterService extends ApplicationService {
     private callAIProxy = async (prompt: string): Promise<any | undefined> => {
         const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
         const payload = {
-            ...GPT_PARAMS,
             messages: [
                 { role: "system", content: "Assistant is a large language model trained by OpenAI" },
                 { role: "user", content: prompt }
@@ -81,26 +65,32 @@ export class ConverterService extends ApplicationService {
         return response;
     };
 
-    private callAICoreAzureOpenAIDestination = async (prompt: string) => {
+    private callLargeLanguageModelDestination = async (prompt: string) => {
         try {
-            const openai = await cds.connect.to("AICoreAzureOpenAIDestination");
+            const aiCore = await cds.connect.to("GENERATIVE_AI_HUB_DESTINATION");
             const payload = {
-                ...GPT_PARAMS,
                 messages: [
-                    { role: "system", content: "Assistant is a large language model trained by OpenAI" },
+                    {
+                        role: "system",
+                        content: "Answer the questions to the human generated prompt"
+                    },
                     { role: "user", content: prompt }
                 ]
             };
-            // @ts-ignore
-            const response = await openai.send({
-                // @ts-ignore
-                query: "POST /v2/chat-completion",
-                data: payload
+            console.log(payload);
+            const response = await aiCore.send({
+                //@ts-ignore
+                query: `POST /inference/deployments/${DEPLOYMENT_ID}/chat/completions?api-version=2023-05-15`,
+                data: payload,
+                headers: {
+                    "Content-Type": "application/json",
+                    "AI-Resource-Group": RESOURCE_GROUP_ID
+                }
             });
-            return (response["choices"][0].message.content || "").trim(); //replace leading or trailing new lines and whitespaces
-        } catch (e) {
-            console.error(e);
-            return "Error: Something went wrong";
+            return (response["choices"][0].message.content || "").trim();
+        } catch (error) {
+            console.error(error);
+            return "Something went wrong";
         }
     };
 
@@ -122,7 +112,7 @@ Category | CO2 consumption in kg
             Tell me which category has the highest consumption.
             Also propose three measures how I could decrease the CO2 consumption fo this category.
             No table please, just a plain text which I can listen to in spoken speech and numbers rounded.`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionGenerateCategorizedSummaryReturn;
     };
 
@@ -148,7 +138,7 @@ Your CO2 consumption...
 The trend over the last three months...
 
 Your progress...`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionGenerateHistoricalSummaryReturn;
     };
 
@@ -156,21 +146,21 @@ Your progress...`;
         const { name, contract, address, provider } = req.data as cs.ActionAskForCompositionParams;
         const prompt = `Write an email with the following purpose: ask my energy provider ${provider} about my current contract, how much of the electricity is renewable. Keep it short but polite. Address the provider in a neutral form, not by name.
         In the email, use the following placeholders: ${name} for my name, ${contract} for my contract number, ${address} for my address, no more.`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionAskForCompositionReturn;
     };
     private askForGreenContract = async (req: Request): Promise<cs.ActionAskForGreenContractReturn> => {
         const { name, contract, address, provider } = req.data as cs.ActionAskForCompositionParams;
         const prompt = `Write an email with the following purpose: ask my energy provider ${provider} about my current contract for an alternate more environmental friendly contract for electricity. Keep it short but polite. Address the provider in a neutral form, not by name.
         In the email, use the following placeholders: ${name} for my name, ${contract} for my contract number, ${address} for my address, no more.`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionAskForGreenContractReturn;
     };
 
     private askForChallengeBenefits = async (req: Request): Promise<cs.ActionAskForChallengeBenefitsReturn> => {
         const { title, description, avoidableEmissionsPerDay } = req.data as cs.ActionAskForChallengeBenefitsParams;
         const prompt = `Generate a motivation for a ${title} to reduce co2 emissions. The challenge covers the following by avoiding ${avoidableEmissionsPerDay} kg co2 per fullfilled day: ${description}. Why should I do this challenge?`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionAskForChallengeBenefitsReturn;
     };
 
@@ -187,7 +177,7 @@ Option | Habit | Percentage of CO2 consumption compared to default habit
 
         prompt += `
 Give the user a summary of the options, recommendation and step by step guide in one flowing text on how its co2 emissions could be reduced, if its current habit is ${currentHabit}`;
-        const response = await this.callAICoreAzureOpenAIDestination(prompt);
+        const response = await this.callLargeLanguageModelDestination(prompt);
         return { text: response } as cs.ActionAskForHabitRecommendationReturn;
     };
 
@@ -201,7 +191,7 @@ Give the user a summary of the options, recommendation and step by step guide in
                 0
             )} Euro with ${amountOfTransactions} transactions. Act as a REST API with Content-Type application/json.`;
 
-            const response = await this.callAICoreAzureOpenAIDestination(prompt);
+            const response = await this.callLargeLanguageModelDestination(prompt);
             return JSON.parse(response) as cs.ActionGenerateSuggestionsReturn;
         } catch (e) {
             console.error(e);

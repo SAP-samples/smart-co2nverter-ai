@@ -4,12 +4,12 @@
             "GENERATIVE_AI_HUB": {
                 "kind": "rest",
                 "credentials": {
-                    "destination": "SMART_CONVERTER_AI_CORE",
+                    "destination": "GENERATIVE_AI_HUB",
                     "requestTimeout": "300000"
                 },
-                "RESOURCE_GROUP_ID": "default",
+                "RESOURCE_GROUP_ID": "<AI_CORE_RESOURCE_GROUP>",
                 "DEPLOYMENTS": {
-                    "CHAT_COMPLETION_ID": "d6bb1fe78f97a16f"
+                    "CHAT_COMPLETION_ID": "<AI_CORE_DEPLOYMENT_ID>"
                 }
             }
         }

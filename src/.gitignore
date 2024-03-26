@@ -216,4 +216,5 @@ $RECYCLE.BIN/
 api/package.json
 api/mta.yaml
 api/.env
+api/.cdsrc.json
 mobile-app/app.json
