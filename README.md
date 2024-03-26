@@ -1,6 +1,4 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP-samples/smart-co2nverter-ai)](https://api.reuse.software/info/github.com/SAP-samples/smart-co2nverter-ai)
-> [!IMPORTANT]
-> Given the recommendation to utilize the [generative AI hub](https://www.sap.com/events/teched/news-guide/ai.html#article8) (General Availability Q4/2023) for foundational model access, we kindly refer to [btp-cap-genai-rag](https://github.com/SAP-samples/btp-cap-genai-rag) to understand the process of establishing a connection from CAP through the Generative AI Hub to Azure OpenAI
 
 # Reduce your CO2 footprint using a smart Generative AI application on SAP BTP
 
