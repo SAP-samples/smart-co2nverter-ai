@@ -41,45 +41,9 @@ To publish the React Native app on Expo using the Expo CLI, you will need to fol
 
    You can set the release channel to any string value you like. This will be used to distinguish different versions of your app.
 
-2. Run the following command in your terminal within the mobile app root (`src/mobile-app/`) to publish your app:
+2. Follow the steps on expo to [Create a Development Build](https://docs.expo.dev/develop/development-builds/introduction/).
 
-   `$ expo publish`
-
-   This will upload your app to the Expo server and make it available to users who have the Expo client app installed on their devices. You will get the following output:
-
-   ```console
-    › Expo SDK: 49.0.0
-    › Release channel: default
-    › Workflow: Managed
-
-    Building optimized bundles and generating sourcemaps...
-    Starting Metro Bundler
-    Your JavaScript transform cache is empty, rebuilding (this may take a minute).
-    Started Metro Bundler
-    Android Bundling complete 53449ms
-    💿 iOS Building Hermes bytecode for the bundle
-    💿 Android Building Hermes bytecode for the bundle
-
-    Bundle                              Size
-    ┌ index.ios.js (Hermes)          2.94 MB
-    ├ index.android.js (Hermes)      2.94 MB
-    ├ index.ios.js.map (Hermes)      8.81 MB
-    └ index.android.js.map (Hermes)  8.82 MB
-
-    💡 JavaScript bundle sizes affect startup time. Learn more.
-
-    Analyzing assets
-    Saving assets
-    ...
-
-    Uploading JavaScript bundles
-    Publish complete
-
-    📝  Manifest: https://exp.host/@<OWNER>/smart-co2nverter?release-channel=default Learn more.
-    ⚙️   Project page: https://expo.dev/@<OWNER>/smart-co2nverter?serviceType=classic&distribution=expo-go&release-channel=default Learn more.
-   ```
-
-That's it! Your React Native app is now published at Expo
+That's it! Your React Native app is now published at Expo!
 
 > **Note**
 > The app is only available for the owner and users that have been granted access by inviting them as -at least- Viewer to the owner's Expo account via: https://expo.dev/accounts/OWNER/settings/members (make sure to exchange the placeholder _OWNER_ with the owners identifier)

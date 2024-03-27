@@ -5,6 +5,7 @@ Please clone this repository [SAP-samples/smart-co2nverter-ai](https://github.co
 - `src/api/mta.yaml.sample` &rarr; `src/api/mta.yaml`
 - `src/api/package.json.sample` &rarr; `src/api/package.json`
 - `src/api/.cdsrc-private.json.sample` &rarr; `src/api/.cdsrc-private.json`
+- `src/api/.cdsrc.json.sample` &rarr; `src/api/.cdsrc.json`
 - `src/mobile-app/app.json.sample` &rarr; `src/mobile-app/app.json`
 
 Those renamed files will be refered to throughout the steps to enter personal configuration details.
@@ -16,3 +17,4 @@ Make sure that all necessary entitlements are set on the Subaccount you want to 
 - Destination
 - SAP Authorization and Trust Management Service
 - SAP HANA Schemas & HDI Containers
+- SAP AI Core (_extended_) with running GPT deployment
