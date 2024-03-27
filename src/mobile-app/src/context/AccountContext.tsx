@@ -79,7 +79,7 @@ const AccountProvider = ({ children }: any) => {
     const fetchData = async () => {
         setIsLoading(true);
         await Promise.all([fetchHabitCategories(), fetchCategories(), fetchAccountData(), fetchChallenges()]);
-        setIsLoading(false);
+        setTimeout(() => setIsLoading(false), 1000);
     };
 
     useEffect(() => {

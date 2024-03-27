@@ -17,16 +17,16 @@ Summary
   - [SAP Destination Service](./01-explore-the-mission/destination-service.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
   - [Get started with Cloud Application Programming](./01-explore-the-mission/cap.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
   - [Get started with SAP AI Core & SAP AI Launchpad](./01-explore-the-mission/ai-core-launchpad.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
+  - [Get started with Generative AI Hub in SAP AI Core](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/generative-ai-hub-in-sap-ai-core?q=generative%20ai%20hub)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
   - [Get started with React Native](./01-explore-the-mission/react-native.md)<!-- dc-card: {"label":  ["Basics"]} dc-card -->
   - [ChatGPT and Large Language Models](./01-explore-the-mission/GPT-and-LLMs.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
   - [Get started with OpenAI Services](./01-explore-the-mission/azure-openai-services.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
   - [Reference Architecture of an SAP BTP CAP application using GPT Models of OpenAI](https://github.com/SAP/sap-btp-reference-architectures/blob/main/hyperscalers/openai/README.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
 - Technical Setup
   - [Setup SAP BTP prerequisites](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/00-prerequisites/01-setup-subaccount-cf-aicore.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
-  - [Setup Docker Hub account and build & push your Docker Image](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/02-build-push-docker-images.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
-  - [Register general artifacts on SAP AI Core and inspect in SAP AI Launchpad](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/03-register-general-artifacts.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
-  - [Deploy the Inference Service on SAP AI Core as Proxy for Azure OpenAI Services](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/04-setup-deployment-inference-service.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
-  - [Test and play with deployed service](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/01-ai-core-azure-openai-proxy/05-test-deployed-service.md)<!-- dc-card: {"label":  ["Optional", "Hands-On"]} dc-card -->
+  - [Setup Generative AI using the SAP BTP reference application for GenAI and RAG](https://github.com/SAP-samples/btp-cap-genai-rag/blob/main/docs/tutorial/2-setup/4-generativeAIhub.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
+  - [Deploy a Foundation Model on Generative AI Hub](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/create-deployment-for-generative-ai-model-in-sap-ai-core?q=generative%20ai%20hub)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
+  - [Test and play with deployed service](https://help.sap.com/docs/sap-ai-core/sap-ai-core-service-guide/consume-generative-ai-models-using-sap-ai-core?q=generative%20ai%20hub)<!-- dc-card: {"label":  ["Optional", "Hands-On"]} dc-card -->
   - [Expo Go Client & Expo Account](./02-technical-setup/07-expo.md)<!-- dc-card: {"label":  ["Optional", "Hands-On"]} dc-card -->
   - [Setup Business Application Studio](https://github.com/SAP-samples/successfactors-extension-calculate-employee-seniority/blob/mission/03-ConfigureSAPBusinessApplicationStudio/README.md)<!-- dc-card: {"label":  ["Prerequisites", "Hands-On"]} dc-card -->
 - Application Deployment
@@ -36,7 +36,7 @@ Summary
   - [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
   - [Deploy CAP API to Cloud Foundry](./03-application/05-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
   - [Attach SAP AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
-  - [Run the Mobile App](./03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
+  - [Run the Mobile App (React Native)](./03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
   - [Publishing the Mobile App](./03-application/08-publish-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Optional"]} dc-card -->
 - AI Insights
   - [Synthetic Data through Generative AI](./04-data-setup/AI-data-setup-overview.md)<!-- dc-card: {"label":  ["Basics", "AI"]} dc-card -->
