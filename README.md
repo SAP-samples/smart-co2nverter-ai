@@ -73,7 +73,6 @@ You can find the detailed pre-requisites for running each part of this use case 
 - [Application Architecture](./documentation/03-application/01-application-architecture.md)<!-- dc-card: {"label":  ["Basics", "Important"]} dc-card -->
 - [Data Model and provided Data](./documentation/03-application/02-data-model.md)<!-- dc-card: {"label":  ["Basics", "Important"]} dc-card -->
 - [Preparatory Steps](./documentation/03-application/03-preparatory.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
-- [Prepare CAP Deployment](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/01-prepare-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Deploy CAP API to Cloud Foundry](./documentation/03-application/05-cap-deployment.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
 - [Attach SAP AI Core to CAP API](https://github.com/SAP-samples/azure-openai-aicore-cap-api/blob/main/documentation/02-cap-api/03-attach-aicore.md)<!-- dc-card: {"label":  ["Hands-On", "AI"]} dc-card -->
 - [Run the Mobile App (React Native)](./documentation/03-application/07-run-mobile-app.md)<!-- dc-card: {"label":  ["Hands-On", "Important"]} dc-card -->
