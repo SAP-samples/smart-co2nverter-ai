@@ -23,7 +23,7 @@
         "typescript": "^4.9.4"
     },
     "scripts": {
-        "start": "cds run",
+        "start": "cds-serve",
         "watch": "cds-ts watch --profile hybrid",
         "build:cf": "npm run build:cds && npm run build:ts && npm run cleanup:ts",
         "build:ts": "tsc",
